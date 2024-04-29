@@ -54,5 +54,10 @@ class Questioncreator extends Authenticatable
         return $this->role === 'questioncreator';
     }
 
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
 
 }

@@ -11,7 +11,7 @@ class UserMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::guard('user')->check()) {
+        if (!Auth::guard('web')->check()) {
             return redirect('/');
         }
 

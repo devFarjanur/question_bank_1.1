@@ -41,14 +41,19 @@ return [
             'provider' => 'users',
         ],
 
-        'user' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
+        ],
+
+        'questioncreator' => [
+            'driver' => 'session',
+            'provider' => 'questioncreators',
+        ],
+
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
         ],
     ],
 
@@ -78,6 +83,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+
+        'questioncreators' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\QuestionCreator::class,
         ],
     ],
 

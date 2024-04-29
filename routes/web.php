@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\QuestionCreatorController;
 
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\QuestionCreatorMiddleware;
+use App\Http\Middleware\UserMiddleware;
 
 
 use Illuminate\Support\Facades\Route;
@@ -25,9 +28,9 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware('user')->name('dashboard');
+})->middleware([UserMiddleware::class])->name('dashboard');
 
-Route::middleware('user')->group(function () {
+Route::middleware([AdminMiddleware::class])->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -55,5 +58,24 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 });  // End Admin group middleware
 
 
+
+
+Route::middleware([QuestionCreatorMiddleware::class])->group(function () {
+
+
+
+   
+});  // End Admin group middleware
+
+
+
+// admin login
 Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
 
+// question creator login and register
+Route::get('/question-creator/login', [QuestionCreatorController::class, 'QuestionCreatorLogin'])->name('questioncreator.login');
+Route::get('/question-creator/register', [QuestionCreatorController::class, 'QuestionCreatorRegister'])->name('questioncreator.register');
+
+// course teacher login and register
+// Route::get('/course-teacher/login', [Questioncreator::class, 'CourseTeacherLogin'])->name('.login');
+// Route::get('/course-teacher/register', [Questioncreator::class, 'CourseTeacherRegister'])->name('questioncreator.register');
