@@ -51,6 +51,8 @@ class AuthenticatedSessionController extends Controller
     
         if (Auth::guard('admin')->attempt($credentials)) {
             return redirect()->route('admin.course');
+        } elseif (Auth::guard('questioncreator')->attempt($credentials)) {
+            return redirect()->route('questioncreator.course');
         } elseif (Auth::attempt($credentials)) {
             return redirect()->route('dashboard');
         } else {

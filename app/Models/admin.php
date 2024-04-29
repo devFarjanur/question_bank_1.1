@@ -1,6 +1,5 @@
 <?php
 
-// Admin.php
 
 namespace App\Models;
 
@@ -16,11 +15,23 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
-        // Add other fillable fields here
+        'role',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+
+        /**
+     * Check if the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
 }
