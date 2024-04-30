@@ -22,46 +22,27 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    // public function store(LoginRequest $request): RedirectResponse
-    // {
-    //     $request->authenticate();
-    
-    //     $request->session()->regenerate();
-    
-    //     $user = $request->user();
-    
-    //     if ($user instanceof Admin) {
-    //         // Redirect admin users to the admin dashboard
-    //         return redirect()->route('admin.course');
-    //     } elseif ($user instanceof User) {
-    //         // Redirect regular users to their dashboard
-    //         return redirect()->route('dashboard');
-    //     } else {
-    //         // Handle other types of users or scenarios
-    //         return redirect()->route('login');
-    //     }
-    // }
+
     
     public function store(Request $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
     
         if (Auth::guard('admin')->attempt($credentials)) {
+            dd("Admin logged in"); // Add this line for debugging
             return redirect()->route('admin.course');
         } elseif (Auth::guard('questioncreator')->attempt($credentials)) {
-            return redirect()->route('questioncreator.course');
-        } elseif (Auth::attempt($credentials)) {
+            dd("Question Creator logged in"); // Add this line for debugging
+            return redirect()->route('questioncreator.dashboard');
+        } elseif (Auth::guard('web')->attempt($credentials)) {
+            dd("User logged in"); // Add this line for debugging
             return redirect()->route('dashboard');
         } else {
-            throw ValidationException::withMessages([
-                'email' => 'These credentials do not match our records.',
-            ]);
+            return back()->withErrors(['email' => 'Invalid login credentials.']);
         }
     }
-
+    
+    
 
 
 

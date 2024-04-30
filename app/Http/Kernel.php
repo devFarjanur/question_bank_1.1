@@ -68,13 +68,10 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
         // Other middleware...
-
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        'user' => \App\Http\Middleware\UserMiddleware::class,
         'questioncreator' => \App\Http\Middleware\QuestionCreatorMiddleware::class,
-        'course_teacher' => \App\Http\Middleware\CourseTeacherMiddleware::class,
-        'student' => \App\Http\Middleware\StudentMiddleware::class,
+        'user' => \App\Http\Middleware\UserMiddleware::class,
     ];
-
+    
 
 }

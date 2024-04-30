@@ -11,7 +11,7 @@ class QuestionCreatorMiddleware
     public function handle($request, Closure $next)
     {
         if (!Auth::guard('questioncreator')->check()) {
-            return redirect('/');
+            return redirect('/question-creator/login');
         }
 
         return $next($request);
