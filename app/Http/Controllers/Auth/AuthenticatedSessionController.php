@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 use App\Models\Admin;
 use Illuminate\Http\Request;
@@ -22,27 +23,52 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login');
     }
 
+    public function CreateAdminForm()
+    {
+        return view('auth.admin_login');
+    }
 
     
-    public function store(Request $request): RedirectResponse
+
+    public function QuestionCreatorLogin()
+    {
+        return view('auth.questioncreator_login');
+    }
+
+    public function store(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
     
-        if (Auth::guard('admin')->attempt($credentials)) {
-            dd("Admin logged in"); // Add this line for debugging
-            return redirect()->route('admin.course');
-        } elseif (Auth::guard('questioncreator')->attempt($credentials)) {
-            dd("Question Creator logged in"); // Add this line for debugging
-            return redirect()->route('questioncreator.dashboard');
-        } elseif (Auth::guard('web')->attempt($credentials)) {
-            dd("User logged in"); // Add this line for debugging
-            return redirect()->route('dashboard');
-        } else {
-            return back()->withErrors(['email' => 'Invalid login credentials.']);
+        if ($request->is('admin/login')) {
+            // Attempt admin authentication
+            if (Auth::guard('admin')->attempt($credentials)) {
+                // Authentication successful for admin
+                return redirect()->intended('/admin/course');
+            } else {
+                // Authentication failed for admin
+                Log::error('Admin login failed for email: ' . $credentials['email']);
+                return back()->withInput()->withErrors([
+                    'email' => 'These credentials do not match our records.',
+                ]);
+            }
+        } else if ($request->is('login')) {
+            // Attempt user authentication
+            if (Auth::attempt($credentials)) {
+                // Authentication successful for user
+                return redirect()->intended('/dashboard');
+            } else {
+                // Authentication failed for user
+                return back()->withInput()->withErrors([
+                    'email' => 'These credentials do not match our records.',
+                ]);
+            }
         }
+    
+        // Default case
+        return back()->withInput()->withErrors([
+            'email' => 'Invalid login attempt.',
+        ]);
     }
-    
-    
 
 
 

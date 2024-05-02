@@ -44,6 +44,9 @@ class User extends Authenticatable
     ];
 
 
+    protected $guard = 'user';
+
+
             /**
      * Check if the user is an user.
      *

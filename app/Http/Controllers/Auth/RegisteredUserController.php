@@ -23,6 +23,11 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function QuestionCreatorRegister(): View
+    {
+        return view('auth.questionCreator_register');
+    }
+
     /**
      * Handle an incoming registration request.
      *
