@@ -43,22 +43,22 @@
 	<div class="main-wrapper">
 
 		<!-- partial:partials/_sidebar.html -->
-		@include('admin.body.sidebar')
+		@include('courseteacher.body.sidebar')
 		<!-- partial -->
 	
 		<div class="page-wrapper">
 
 
-    @include('admin.body.header')
+    @include('courseteacher.body.header')
 					
 			<!-- partial:partials/_navbar.html -->
 			
 			<!-- partial -->
 
-			@yield('admin')
+			@yield('courseteacher')
 
 			<!-- partial:partials/_footer.html -->
-      @include('admin.body.footer')
+      @include('courseteacher.body.footer')
 			<!-- partial -->
 		
 		</div>

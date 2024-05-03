@@ -1,15 +1,15 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('courseteacher.courseteacher_dashboard')
+@section('courseteacher')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <div class="page-content">
 
-        
+      
         <div class="row profile-body">
           <!-- left wrapper start -->
           <div class="col-md-4 col-xl-4 left-wrapper">
-            <div class="card  rounded" style="height: 370px;">
+            <div class="card  rounded" style="height: 400px;">
               <div class="card-body">
               <img class="wd-70 rounded-circle" src="{{ (!empty ($profileData->photo)) ?
               url('upload/admin_images/' . $profileData->photo) : url('upload/no_image.jpg')  
@@ -44,45 +44,60 @@
 
 
           <div class="col-md-8 grid-margin stretch-card">
-            <div class="card" style="height: 370px;">
+            <div class="card" style="height: 570px;">
               <div class="card-body">
 
-								<h6 class="card-title">Admin Change Password</h6>
+								<h6 class="card-title">Course Teacher Change Password</h6>
 
-								<form method="POST" action="{{ route('admin.update.password') }}" class="forms-sample" enctype="multipart/form-data">
-                  @csrf
+								<form method="POST" action="{{ route('course.teacher.profile.store') }}" class="forms-sample" enctype="multipart/form-data">
+                @csrf
 
+
+									<div class="mb-3">
+										<label for="exampleInputUsername1" class="form-label">Name</label>
+										<input type="text" name="name" class="form-control" id="name" autocomplete="off">
+									</div>
+									<div class="mb-3">
+										<label for="email" class="form-label">Email address</label>
+										<input type="email" name="email" class="form-control" id="email">
+									</div>
+									<div class="mb-3">
+										<label for="phone" class="form-label">Phone</label>
+										<input type="text" name="phone" class="form-control" id="phone" autocomplete="off" >
+									</div>
                   <div class="mb-3">
-                      <label class="form-label">Old Password</label>
-                      <input type="password" name="old_password" class="form-control @error('old_password') is-invalid @enderror" id="old_password" autocomplete="off">
-                      @error('old_password')
-                          <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                  </div>
-
+										<label for="photo" class="form-label">Photo</label>
+										<input name="photo" type="file" class="form-control" id="image" autocomplete="off" >
+                    
+									</div>
                   <div class="mb-3">
-                      <label class="form-label">New Password</label>
-                      <input type="password" name="new_password" class="form-control @error('new_password') is-invalid @enderror" id="new_password" autocomplete="off">
-                      @error('new_password')
-                          <span class="text-danger">{{ $message }}</span>
-                      @enderror
-                  </div>
-
-                  <div class="mb-3">
-                      <label class="form-label">Confirm New Password</label>
-                      <input type="password" name="new_password_confirmation" class="form-control" id="new_password_confirmation" autocomplete="off">
-                  </div>
-
-                  <button type="submit" class="btn btn-primary me-2">Save Changes</button>
-               </form>
-
+                  <img id="showImage" class="wd-70 rounded-circle" src="{{ (!empty ($profileData->photo)) ?
+                    url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg')  
+                    }}" alt="profile">
+									</div>
+              
+									<button type="submit" class="btn btn-primary me-2">Save Changes</button>
+								</form>
 
               </div>
             </div>
 
-          
         </div>
 
 			</div>
+
+
+      <script type="text/javascript">
+        $(document).ready(function(){
+          $('#image').change(function(e){
+            var reader = new FileReader();
+            reader.onload = function(e){
+              $('#showImage').attr('src',e.target.result);
+            }
+            reader.readAsDataURL(e.target.files['0']);
+          });
+        });
+      </script>
+
 
 @endsection

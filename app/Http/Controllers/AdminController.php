@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Course;
+use App\Models\Questioncreator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -140,6 +141,29 @@ class AdminController extends Controller
     
         return redirect()->route('admin.course')->with($notification);
     }
+
+
+    public function AdminCourseTeacher()
+    {
+        // Fetch pending question creator requests along with their associated courses
+        $pendingRequests = Questioncreator::with('course')->where('approved', false)->get();
+    
+        return view('admin.courseteacher.course_teacher', compact('pendingRequests'));
+    }
+
+
+
+    public function AdminApproveCourseTeacher($courseteacherId)
+    {
+        $courseteacher = Questioncreator::find($courseteacherId);
+        if ($courseteacher) {
+            $courseteacher->approved = true;
+            $courseteacher->save();
+            return redirect()->route('admin.course.teacher')->with('success', 'Course Teacher approved successfully.');
+        }
+        return redirect()->back()->with('error', 'Question Creator not found.');
+    }
+
 
 
 

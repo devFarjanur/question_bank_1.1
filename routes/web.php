@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CourseTeacherController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Questioncreator;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -77,6 +79,8 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/course', [AdminController::class, 'AdminCourse'])->name('admin.course');
         Route::get('/create-course', [AdminController::class, 'AdminCourseCreate'])->name('admin.course.create');
         Route::post('/course-store', [AdminController::class, 'AdminCourseStore'])->name('admin.course.store');
+        Route::get('/course-teacher', [AdminController::class, 'AdminCourseTeacher'])->name('admin.course.teacher');
+        Route::put('/course-teacher/{id}/approve', [AdminController::class, 'AdminApproveCourseTeacher'])->name('admin.approve.course.teacher');
     });
 });
 
@@ -86,14 +90,26 @@ Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);
 
 
 Route::middleware('auth:questioncreator')->group(function () {
-    Route::prefix('questioncreator')->group(function () {
+    Route::prefix('course-teacher')->group(function () {
 
+
+        Route::get('/logout', [CourseTeacherController::class, 'CourseTeacherLogout'])->name('course.teacher.logout');
+        Route::get('/profile', [CourseTeacherController::class, 'CourseTeacherProfile'])->name('course.teacher.profile');
+        Route::post('/profile/store', [CourseTeacherController::class, 'CourseTeacherProfileStore'])->name('course.teacher.profile.store');
+        Route::get('/change/password', [CourseTeacherController::class, 'CourseTeacherChangePassword'])->name('course.teacher.change.password');
+        Route::post('/update/password', [CourseTeacherController::class, 'CourseTeacherUpdatePassword'])->name('course.teacher.update.password');
+
+
+        Route::get('/course', [CourseTeacherController::class, 'CourseTeacherCourse'])->name('course.teacher.course');
     });
 });
 
 
-Route::get('question-creator/login', [AuthenticatedSessionController::class, 'QuestionCreatorLogin'])->name('questioncreator.login');
-Route::post('question-creator/login', [AuthenticatedSessionController::class, 'store']);
+Route::get('course-teacher/login', [AuthenticatedSessionController::class, 'QuestionCreatorLogin'])->name('questioncreator.login');
+Route::post('course-teacher/login', [AuthenticatedSessionController::class, 'store']);
 
 
-Route::get('question-creator/register', [RegisteredUserController::class, 'QuestionCreatorRegister'])->name('questioncreator.register');
+Route::get('course-teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegister'])->name('questioncreator.register');
+Route::post('course-teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegisterStore']);
+
+

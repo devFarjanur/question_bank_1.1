@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,43 +11,26 @@ class Questioncreator extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
+        'course_id', // Add 'course_id' to fillable attributes
+        // Add other fields if needed
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
 
+    protected $guard = 'questioncreator';
 
-            /**
-     * Check if the user is an user.
-     *
-     * @return bool
-     */
     public function isQuestioncreator(): bool
     {
         return $this->role === 'questioncreator';
@@ -58,6 +40,4 @@ class Questioncreator extends Authenticatable
     {
         return $this->belongsTo(Course::class);
     }
-
-
 }

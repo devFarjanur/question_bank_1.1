@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Questioncreator;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -25,7 +27,8 @@ class RegisteredUserController extends Controller
 
     public function QuestionCreatorRegister(): View
     {
-        return view('auth.questionCreator_register');
+        $courses = Course::all();
+        return view('auth.questionCreator_register', compact('courses'));
     }
 
     /**
@@ -53,4 +56,48 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+
+
+    /**
+     * Handle an incoming registration request for question creator.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
+
+    public function QuestionCreatorRegisterStore(Request $request): RedirectResponse
+    {
+        // Validate form data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:questioncreators',
+            'password' => 'required|string|min:8|confirmed',
+            'course_id' => 'required|exists:courses,id',
+        ]);
+
+
+
+        // Create the question creator
+        $questioncreator = new Questioncreator();
+        $questioncreator->name = $validatedData['name'];
+        $questioncreator->email = $validatedData['email'];
+        $questioncreator->password = bcrypt($validatedData['password']);
+        $questioncreator->course_id = $validatedData['course_id'];
+        $questioncreator->save();
+
+
+
+        $notification = array(
+            'message' => 'Question Creator registered successfully.',
+            'alert-type' => 'success'
+        );
+    
+        return redirect()->route('questioncreator.login')->with($notification);
+    
+    }
+    
+
+
+
 }

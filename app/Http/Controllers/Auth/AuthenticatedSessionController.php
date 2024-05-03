@@ -51,6 +51,18 @@ class AuthenticatedSessionController extends Controller
                     'email' => 'These credentials do not match our records.',
                 ]);
             }
+        } else if ($request->is('course-teacher/login')) {
+
+            if (Auth::guard('questioncreator')->attempt($credentials)) {
+
+                return redirect()->intended('/course-teacher/course');
+            } else {
+
+                Log::error('Course Teacher login failed for email: ' . $credentials['email']);
+                return back()->withInput()->withErrors([
+                    'email' => 'These credentials do not match our records.',
+                ]);
+            }
         } else if ($request->is('login')) {
             // Attempt user authentication
             if (Auth::attempt($credentials)) {
