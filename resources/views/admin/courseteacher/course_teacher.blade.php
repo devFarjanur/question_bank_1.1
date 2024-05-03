@@ -46,7 +46,11 @@
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-primary">Approve</button>
                                             </form>
-                                            <a href="#" class="btn btn-danger">Reject</a>
+                                            <form method="" action="#">
+                                                @csrf
+                                                @method('')
+                                                <button type="submit" class="btn btn-danger">Reject</button>
+                                            </form>
                                         </td>
 
                                     </tr>
