@@ -40,17 +40,20 @@
                                         <td>{{ $request->email }}</td>
                                         <td>{{ $request->course->name }}</td> <!-- Assuming this is how you access the course name -->
                                         <td>{{ $request->role }}</td> <!-- Assuming this is how you access the role -->
+                                        
                                         <td>
-                                            <form method="POST" action="{{ route('admin.approve.course.teacher', $request->id) }}">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="btn btn-primary">Approve</button>
-                                            </form>
-                                            <form method="" action="#">
-                                                @csrf
-                                                @method('')
-                                                <button type="submit" class="btn btn-danger">Reject</button>
-                                            </form>
+                                            <div class="d-grid gap-2 d-md-flex justify-content-center">
+                                                <form method="POST" action="{{ route('admin.approve.course.teacher', $request->id) }}">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-primary me-md-2">Approve</button>
+                                                </form>
+                                                <form method="" action="#">
+                                                    @csrf
+                                                    @method('')
+                                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                                </form>
+                                            </div>
                                         </td>
 
                                     </tr>

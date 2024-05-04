@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Course;
+use App\Models\QuestionCategory;
 use App\Models\Questioncreator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -159,10 +160,56 @@ class AdminController extends Controller
         if ($courseteacher) {
             $courseteacher->approved = true;
             $courseteacher->save();
-            return redirect()->route('admin.course.teacher')->with('success', 'Course Teacher approved successfully.');
         }
-        return redirect()->back()->with('error', 'Question Creator not found.');
+
+
+        // Redirect back with a success message
+        $notification = array(
+            'message' => 'Course Teacher approved successfully.',
+            'alert-type' => 'success'
+        );
+            
+        return redirect()->route('admin.course.teacher')->with($notification);
+
+
     }
+
+
+    public function AdminQuestionCategory()
+    {
+        $categories = QuestionCategory::all();
+        return view('admin.admin_questioncategory.admin_questioncategory', compact('categories'));
+
+    }
+
+
+
+    public function AdminQuestionCategoryCreate()
+    {
+        return view('admin.admin_questioncategory.admin_create_questioncategory');
+    }
+    
+
+
+    public function AdminQuestionCategoryStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            'questionCategory' => 'required|string|max:255', // Update the field name
+        ]);
+    
+        $questionCategory = new QuestionCategory();
+        $questionCategory->name = $request->questionCategory; // Update the field name
+        $questionCategory->save();
+
+        $notification = array(
+            'message' => 'Question category created successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.question.category')->with($notification);
+
+    }
+    
 
 
 

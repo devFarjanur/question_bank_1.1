@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Admin;
+use App\Models\BLOOMS;
 use App\Models\Course;
+use App\Models\MCQ;
+use App\Models\QuestionCategory;
+use App\Models\QuestionChapter;
 use App\Models\Questioncreator;
 
 use Illuminate\Http\Request;
@@ -114,6 +118,163 @@ class CourseTeacherController extends Controller
 
 
         return view('courseteacher.course.courseteacher_course', compact('assignedCourse'));
+    }
+
+
+
+    public function CourseTeacherQuestionCategory()
+    {
+        $categories = QuestionCategory::all();
+        return view('courseteacher.question.courseteacher_questioncategory', compact('categories'));
+
+    }
+
+
+
+    public function CourseTeacherQuestionChapter($categoryId){
+
+        $category = QuestionCategory::findOrFail($categoryId);
+    
+    // Fetch only the question chapters associated with the current course teacher's course
+        $questionchapters = QuestionChapter::where('questionCategory_id', $categoryId)
+        ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+        ->with('course')
+        ->get();
+    
+        return view('courseteacher.question.courseteacher_questionchapter', compact('questionchapters', 'categoryId', 'category'));
+    }
+
+
+
+    public function CourseTeacherQuestionChapterAdd($id)
+    {
+        $category = QuestionCategory::findOrFail($id);
+        return view('courseteacher.question.courseteacher_add_questionchapter', ['category' => $category]);
+    }
+    
+
+
+    public function CourseTeacherQuestionChapterStore(Request $request, $id)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'questionchapter' => 'required|string|max:255',
+        ]);
+    
+        // Retrieve the authenticated user
+        $userId = Auth::id();
+        $user = Questioncreator::findOrFail($userId);
+    
+        // Retrieve the course ID associated with the user
+        $courseId = $user->course_id;
+    
+        // Fetch the category based on the provided ID
+        $category = QuestionCategory::findOrFail($id);
+    
+        // Create a new QuestionSet instance
+        $questionchapter = new QuestionChapter();
+        $questionchapter->name = $validatedData['questionchapter'];
+        $questionchapter->course_id = $courseId;
+        $questionchapter->questionCategory_id = $category->id;
+    
+        // Save the question set to the database
+        $questionchapter->save();
+    
+        // Redirect back with a success message
+        $notification = [
+            'message' => 'Question Chapter Added Successfully',
+            'alert-type' => 'success'
+        ];
+    
+        // Redirect to the appropriate route with the necessary parameters
+        return redirect()->route('course.teacher.question.chapter', ['id' => $category->id])->with($notification);
+    }
+
+
+    public function CourseTeacherMCQ($id){
+        $questionchapter = QuestionChapter::findOrFail($id);
+        $mcq = MCQ::where('questionchapter_id', $id)
+        ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+        ->with('course')
+        ->get();
+        return view('courseteacher.question.courseteacher_mcq', compact('questionchapter', 'mcq'));
+    }
+
+    
+
+
+    public function CourseTeacherMcqAdd($id){
+        $questionchapter = QuestionChapter::findOrFail($id);
+        $mcq = MCQ::where('questionchapter_id', $id)->get();
+        return view('courseteacher.question.courseteacher_add_mcq', compact('questionchapter', 'mcq'));
+    }
+
+
+    public function CourseTeacherMcqStore(Request $request, $id)
+    {
+        // Validate the incoming request
+        $validatedData = $request->validate([
+            'question.*' => 'required',
+            'optionA.*' => 'required',
+            'optionB.*' => 'required',
+            'optionC.*' => 'required',
+            'optionD.*' => 'required',
+            'correct_option.*' => 'required|in:a,b,c,d',
+        ]);
+    
+        // Find the question set by its ID
+        $questionchapter = QuestionChapter::findOrFail($id)
+        ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+        ->with('course')
+        ->get();
+        $course = Course::findOrFail($id);
+    
+        // Loop through the questions and insert into the database
+        foreach ($validatedData['mcq'] as $key => $questionText) {
+            $mcq = new MCQ();
+            $mcq->course_id = $course->id;
+            $mcq->questionchapter_id = $questionchapter->id; // Assign the question set ID
+            $mcq->question_text = $questionText;
+            $mcq->option_a = $validatedData['optionA'][$key];
+            $mcq->option_b = $validatedData['optionB'][$key];
+            $mcq->option_c = $validatedData['optionC'][$key];
+            $mcq->option_d = $validatedData['optionD'][$key];
+            $mcq->correct_option = $validatedData['correct_option'][$key];
+            $mcq->save();
+        }
+    
+        // Redirect back with success message
+
+        $notification = array(
+            'message' => 'MCQ Question Added Successfully',
+            'alter-type' => 'success'
+        );
+
+
+        return redirect()->back()->with($notification);
+
+    }
+
+
+    public function CourseTeacherBlooms($id)
+    {
+
+
+        $questionchapter = QuestionChapter::findOrFail($id);
+        $blooms = BLOOMS::where('questionchapter_id', $id)->get();
+        return view('courseteacher.question.courseteacher_blooms', compact('questionchapter', 'blooms'));
+
+
+    }
+
+
+    public function CourseTeacherBloomsAdd($id){
+        $questionchapter = QuestionChapter::findOrFail($id);
+        $blooms = BLOOMS::where('questionchapter_id', $id)
+        ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+        ->with('course')
+        ->get();
+        return view('courseteacher.question.courseteacher_add_blooms', compact('questionchapter', 'blooms'));
     }
 
 

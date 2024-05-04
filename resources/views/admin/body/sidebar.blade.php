@@ -1,3 +1,5 @@
+
+
 <nav class="sidebar">
       <div class="sidebar-header">
         <a href="{{ route('admin.course') }}" class="sidebar-brand">
@@ -15,6 +17,13 @@
               <span class="link-title">Course</span>
             </a>
         </li>
+
+        <li class="nav-item">
+            <a href="{{ route('admin.question.category') }}" class="nav-link">
+              <i class="link-icon" data-feather="copy"></i>
+              <span class="link-title">Question</span>
+            </a>
+          </li>
 
           <li class="nav-item">
             <a href="{{ route('admin.course.teacher') }}" class="nav-link" >

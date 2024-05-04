@@ -81,6 +81,18 @@ Route::middleware('auth:admin')->group(function () {
         Route::post('/course-store', [AdminController::class, 'AdminCourseStore'])->name('admin.course.store');
         Route::get('/course-teacher', [AdminController::class, 'AdminCourseTeacher'])->name('admin.course.teacher');
         Route::put('/course-teacher/{id}/approve', [AdminController::class, 'AdminApproveCourseTeacher'])->name('admin.approve.course.teacher');
+
+
+        Route::get('/admin/questioncategory', [AdminController::class, 'AdminQuestionCategory'])->name('admin.question.category');
+        Route::get('/admin/questioncategory/create', [AdminController::class, 'AdminQuestionCategoryCreate'])->name('admin.question.category.create');
+        Route::post('/admin/questioncategory/store', [AdminController::class, 'AdminQuestionCategoryStore'])->name('admin.question.category.store');
+
+
+        
+    
+
+
+
     });
 });
 
@@ -101,6 +113,16 @@ Route::middleware('auth:questioncreator')->group(function () {
 
 
         Route::get('/course', [CourseTeacherController::class, 'CourseTeacherCourse'])->name('course.teacher.course');
+        Route::get('/question', [CourseTeacherController::class, 'CourseTeacherQuestion'])->name('course.teacher.question');
+
+        Route::get('/question-category', [CourseTeacherController::class, 'CourseTeacherQuestionCategory'])->name('course.teacher.question.category');
+
+
+        Route::get('/question-chapter/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapter'])->name('course.teacher.question.chapter');
+        Route::get('/question-chapter/add/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapterAdd'])->name('course.teacher.question.add.chapter');
+        Route::post('/question-chapter/store/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapterStore'])->name('course.teacher.question.chapter.store');
+
+
     });
 });
 

@@ -16,6 +16,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('course.teacher.question.category') }}">
+            <i class="link-icon" data-feather="help-circle"></i>
+            <span class="link-title">Question</span>
+          </a>
+        </li>
+
 
         </ul>
       </div>
