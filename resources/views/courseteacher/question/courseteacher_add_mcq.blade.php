@@ -11,13 +11,17 @@
         </ol>
     </nav>
 
+
+
+
+
     <div class="row">
         <div class="col-12 stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Add Question</h4>
 
-                    <form method="POST" action="{{ route('courseadmin.mcq.question.store', $id) }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('course.teacher.mcq.store', $id) }}" enctype="multipart/form-data">
                         @csrf 
 
                         <div id="show_item">

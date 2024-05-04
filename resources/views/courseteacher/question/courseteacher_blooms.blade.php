@@ -14,7 +14,7 @@
 
     <div class=" mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
 
-        <a href="#" class="btn btn-primary">Add BLOOMS Question</a>
+        <a href="{{ route('course.teacher.blooms.add') }}" class="btn btn-primary">Add BLOOMS Question</a>
 
     </div>
 
@@ -29,7 +29,7 @@
 
                     
                     <div class="card-body pt-5 px-5">
-                        <h5 class="card-title text-primary text-center" style="font-size: 22px;">{{ $questionchapter->name }}</h5>
+                        <h5 class="card-title text-primary text-center" style="font-size: 22px;">Blooms Question Chapter</h5>
                     </div>
 
 

@@ -205,9 +205,10 @@ class CourseTeacherController extends Controller
 
     public function CourseTeacherMcqAdd($id){
         $questionchapter = QuestionChapter::findOrFail($id);
-        $mcq = MCQ::where('questionchapter_id', $id)->get();
-        return view('courseteacher.question.courseteacher_add_mcq', compact('questionchapter', 'mcq'));
+        // Pass the $id variable to the view
+        return view('courseteacher.question.courseteacher_add_mcq', compact('questionchapter', 'id'));
     }
+    
 
 
     public function CourseTeacherMcqStore(Request $request, $id)
@@ -224,13 +225,13 @@ class CourseTeacherController extends Controller
     
         // Find the question set by its ID
         $questionchapter = QuestionChapter::findOrFail($id)
-        ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
-        ->with('course')
-        ->get();
+            ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+            ->with('course')
+            ->firstOrFail();
         $course = Course::findOrFail($id);
     
         // Loop through the questions and insert into the database
-        foreach ($validatedData['mcq'] as $key => $questionText) {
+        foreach ($validatedData['question'] as $key => $questionText) {
             $mcq = new MCQ();
             $mcq->course_id = $course->id;
             $mcq->questionchapter_id = $questionchapter->id; // Assign the question set ID
@@ -244,37 +245,36 @@ class CourseTeacherController extends Controller
         }
     
         // Redirect back with success message
-
-        $notification = array(
+        $notification = [
             'message' => 'MCQ Question Added Successfully',
-            'alter-type' => 'success'
-        );
-
-
+            'alert-type' => 'success'
+        ];
+    
         return redirect()->back()->with($notification);
-
     }
+    
+    
 
 
     public function CourseTeacherBlooms($id)
     {
 
 
-        $questionchapter = QuestionChapter::findOrFail($id);
-        $blooms = BLOOMS::where('questionchapter_id', $id)->get();
-        return view('courseteacher.question.courseteacher_blooms', compact('questionchapter', 'blooms'));
+        // $questionchapter = QuestionChapter::findOrFail($id);
+        // $blooms = BLOOMS::where('questionchapter_id', $id)->get();
+        return view('courseteacher.question.courseteacher_blooms');
 
 
     }
 
 
     public function CourseTeacherBloomsAdd($id){
-        $questionchapter = QuestionChapter::findOrFail($id);
-        $blooms = BLOOMS::where('questionchapter_id', $id)
-        ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
-        ->with('course')
-        ->get();
-        return view('courseteacher.question.courseteacher_add_blooms', compact('questionchapter', 'blooms'));
+        // $questionchapter = QuestionChapter::findOrFail($id);
+        // $blooms = BLOOMS::where('questionchapter_id', $id)
+        // ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+        // ->with('course')
+        // ->get();
+        return view('courseteacher.question.courseteacher_add_blooms');
     }
 
 
