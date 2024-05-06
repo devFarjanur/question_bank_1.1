@@ -22,7 +22,7 @@ class MCQ extends Model
         return $this->belongsTo(Course::class);
     }
     
-    public function questionSet()
+    public function questionchapter()
     {
         return $this->belongsTo(QuestionChapter::class);
     }

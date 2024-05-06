@@ -32,6 +32,17 @@
                         <h5 class="card-title text-primary text-center" style="font-size: 22px;">{{ $questionchapter->name }}</h5>
                     </div>
 
+                    @foreach($mcqs as $mcq)
+                    <div class="pt-5 px-5">
+                        <h4>{{ $mcq->question_text }}</h4>
+                        <p class="pt-2 px-4" style="font-size: 16px;">Option A: {{ $mcq->option_a }}</p>
+                        <p class="pt-2 px-4" style="font-size: 16px;">Option B: {{ $mcq->option_b }}</p>
+                        <p class="pt-2 px-4" style="font-size: 16px;">Option C: {{ $mcq->option_c }}</p>
+                        <p class="pt-2 px-4" style="font-size: 16px;">Option D: {{ $mcq->option_d }}</p>
+                        <p class="pt-2 px-2" class="pt-2" style="font-size: 16px;"><strong class="font-weight-bold">Correct Option:</strong> {{ $mcq->correct_option }}</p>
+                    </div>
+                    @endforeach
+
 
 
 

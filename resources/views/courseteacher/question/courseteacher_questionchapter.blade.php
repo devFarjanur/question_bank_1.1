@@ -20,7 +20,9 @@
     <div class="row row-cols-2 row-cols-md-4">
         @foreach($questionchapters as $questionchapter)
         <div class="col mb-3">
-        <a href="{{ $questionchapter->questioncategory_id === 1 ? route('course.teacher.mcq', ['id' => $category->id]) : route('course.teacher.blooms', ['id' => $category->id]) }}" class="card h-100 text-decoration-none">
+        <a href="{{ $questionchapter->questioncategory_id === 1 ? route('course.teacher.mcq', ['chapterId' => $questionchapter->id]) : route('course.teacher.blooms', ['chapterId' => $questionchapter->id]) }}" class="card h-100 text-decoration-none">
+
+
                 <div class="card-body d-flex flex-column justify-content-between">
                     <div class="text-center align-self-center mt-3"> <!-- Center the content horizontally and vertically -->
                         <h5 class="card-title" style="font-size: 22px;">{{ $questionchapter->name }}</h5>

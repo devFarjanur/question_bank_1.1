@@ -7,5 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class BLOOMS extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'question_description',
+        'question_text',
+        'bloom_taxonomy',
+        'question_mark',
+    ];
+
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+    
+    public function questionchapter()
+    {
+        return $this->belongsTo(QuestionChapter::class);
+    }
+    
 }

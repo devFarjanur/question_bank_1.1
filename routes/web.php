@@ -123,13 +123,13 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::post('/question-chapter/store/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapterStore'])->name('course.teacher.question.chapter.store');
 
 
-        Route::get('/mcq-question/{id}', [CourseTeacherController::class, 'CourseTeacherMcq'])->name('course.teacher.mcq');
+        Route::get('/mcq-question/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcq'])->name('course.teacher.mcq');
         Route::get('/mcq-question/add/{id}', [CourseTeacherController::class, 'CourseTeacherMcqAdd'])->name('course.teacher.mcq.add');
         Route::post('/mcq-question/store/{id}', [CourseTeacherController::class, 'CourseTeacherMcqStore'])->name('course.teacher.mcq.store');
 
-        Route::get('/blooms-question/{id}', [CourseTeacherController::class, 'CourseTeacherBlooms'])->name('course.teacher.blooms');
+        Route::get('/blooms-question/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBlooms'])->name('course.teacher.blooms');
         Route::get('/blooms-question/add/{id}', [CourseTeacherController::class, 'CourseTeacherBloomsAdd'])->name('course.teacher.blooms.add');
-        Route::post('/blooms-question/store/{id}', [CourseTeacherController::class, 'CourseTeacherBloomsnStore'])->name('course.teacher.blooms.store');
+        Route::post('/blooms-question/store/{id}', [CourseTeacherController::class, 'CourseTeacherBloomsStore'])->name('course.teacher.blooms.store');
 
 
 
