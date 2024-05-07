@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('b_l_o_o_m_s', function (Blueprint $table) {
+        Schema::create('exams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
             $table->foreignId('questionchapter_id')->constrained('question_chapters')->onDelete('cascade');
-            $table->string('question_description');
-            $table->string('question_text');
-            $table->string('bloom_taxonomy');
-            $table->string('question_mark');
-            // Add other fields as needed
+            $table->string('exam_name');
             $table->timestamps();
         });
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('b_l_o_o_m_s');
+        Schema::dropIfExists('exams');
     }
 };

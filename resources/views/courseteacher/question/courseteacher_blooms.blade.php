@@ -20,12 +20,20 @@
                 <div class="card pb-5">
                     <div class="card-body pt-5 px-5">
                         <h5 class="card-title text-primary text-center" style="font-size: 22px;">{{ $questionchapter->name }}</h5>
-                        <p class="text-center">{{ $blooms->first()->question_description }}</p>
-                        @foreach($blooms as $taxonomy => $questions)
-                            <h4 class='mt-3'>{{ $taxonomy }}</h4>
-                            @foreach($questions as $key => $question)
+                        @php $prevQuestionDescription = null; @endphp
+                        @foreach($questions as $taxonomy => $taxonomyQuestions)
+                            @foreach($taxonomyQuestions as $key => $question)
+                                @if($question->question_description !== $prevQuestionDescription)
+                                    <h3 class='mt-5 mb-4'>{{ $question->question_description }}</h3>
+                                    @php $prevQuestionDescription = $question->question_description; @endphp
+                                @endif
+                                @if($loop->first || $question->question_description !== $taxonomyQuestions[$key-1]->question_description)
+                                    <h4 class='mt-3'>{{ $taxonomy }}</h4>
+                                @endif
                                 <div class='mt-1'>
-                                    <p class="pt-2 px-4" style="font-size: 16px;">{{ chr(97 + $key) }}) {{ $question->question_text }} [{{ $question->question_mark }}]</p>
+                                    <p class="pt-2 px-4" style="font-size: 16px;">
+                                        {{ chr(97 + $key) }}) {{ $question->question_text }} [{{ $question->question_mark }}]
+                                    </p>
                                 </div>
                             @endforeach
                         @endforeach

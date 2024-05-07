@@ -24,6 +24,14 @@
         </li>
 
 
+        <li class="nav-item">
+          <a href="{{ route('course.teacher.exam') }}" class="nav-link">
+            <i class="link-icon" data-feather="clipboard"></i>
+            <span class="link-title">Exam</span>
+          </a>
+        </li>
+
+
         </ul>
       </div>
     </nav>

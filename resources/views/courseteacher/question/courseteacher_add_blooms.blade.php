@@ -1,6 +1,9 @@
 @extends('courseteacher.courseteacher_dashboard')
 
 @section('courseteacher')
+
+
+
     <div class="page-content">
         <nav class="page-breadcrumb">
             <ol class="breadcrumb">
