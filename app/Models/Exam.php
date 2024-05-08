@@ -21,4 +21,9 @@ class Exam extends Model
     {
         return $this->belongsTo(QuestionChapter::class);
     }
+
+    public function questionCategory()
+    {
+        return $this->belongsTo(QuestionCategory::class);
+    }
 }

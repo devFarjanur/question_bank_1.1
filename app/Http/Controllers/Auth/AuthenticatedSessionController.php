@@ -28,11 +28,15 @@ class AuthenticatedSessionController extends Controller
         return view('auth.admin_login');
     }
 
-    
-
     public function QuestionCreatorLogin()
     {
         return view('auth.questioncreator_login');
+    }
+
+
+    public function StudentLogin()
+    {
+        return view('auth.student_login');
     }
 
     public function store(LoginRequest $request): RedirectResponse
@@ -63,6 +67,18 @@ class AuthenticatedSessionController extends Controller
                     'email' => 'These credentials do not match our records.',
                 ]);
             }
+        } else if ($request->is('student/login')) {
+
+            if (Auth::guard('student')->attempt($credentials)) {
+
+                return redirect()->intended('/student/course');
+            } else {
+
+                Log::error('Student login failed for email: ' . $credentials['email']);
+                return back()->withInput()->withErrors([
+                    'email' => 'These credentials do not match our records.',
+                ]);
+            } 
         } else if ($request->is('login')) {
             // Attempt user authentication
             if (Auth::attempt($credentials)) {

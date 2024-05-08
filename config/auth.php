@@ -48,6 +48,10 @@ return [
             'driver' => 'session',
             'provider' => 'questioncreators',
         ],
+        'student' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
     ],
 
     /*
@@ -79,6 +83,10 @@ return [
         'questioncreators' => [
             'driver' => 'eloquent',
             'model' => App\Models\Questioncreator::class,
+        ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
         ],
 
         // 'users' => [
@@ -121,6 +129,12 @@ return [
         ],
         'questioncreators' => [
             'provider' => 'questioncreators',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'students' => [
+            'provider' => 'students',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

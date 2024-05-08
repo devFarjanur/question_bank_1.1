@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Models\Questioncreator;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
@@ -71,6 +72,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth:admin')->group(function () {
     Route::prefix('admin')->group(function () {
+
         Route::get('/logout', [AdminController::class, 'AdminLogout'])->name('admin.logout');
         Route::get('/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
         Route::post('/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
@@ -79,8 +81,14 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/course', [AdminController::class, 'AdminCourse'])->name('admin.course');
         Route::get('/create-course', [AdminController::class, 'AdminCourseCreate'])->name('admin.course.create');
         Route::post('/course-store', [AdminController::class, 'AdminCourseStore'])->name('admin.course.store');
+
+
         Route::get('/course-teacher', [AdminController::class, 'AdminCourseTeacher'])->name('admin.course.teacher');
         Route::put('/course-teacher/{id}/approve', [AdminController::class, 'AdminApproveCourseTeacher'])->name('admin.approve.course.teacher');
+
+
+        Route::get('/course-student', [AdminController::class, 'AdminCourseStudent'])->name('admin.course.student');
+        Route::put('/course-student/{id}/approve', [AdminController::class, 'AdminApproveCourseStudent'])->name('admin.approve.course.student');
 
 
         Route::get('/admin/questioncategory', [AdminController::class, 'AdminQuestionCategory'])->name('admin.question.category');
@@ -158,3 +166,35 @@ Route::get('course-teacher/register', [RegisteredUserController::class, 'Questio
 Route::post('course-teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegisterStore']);
 
 
+Route::middleware('auth:student')->group(function () {
+    Route::prefix('student')->group(function () {
+
+        Route::get('/logout', [StudentController::class, 'StudentLogout'])->name('student.logout');
+        Route::get('/profile', [StudentController::class, 'StudentProfile'])->name('student.profile');
+        Route::post('/profile/store', [StudentController::class, 'StudentProfileStore'])->name('student.profile.store');
+        Route::get('/change/password', [StudentController::class, 'StudentChangePassword'])->name('student.change.password');
+        Route::post('/update/password', [StudentController::class, 'StudentUpdatePassword'])->name('student.update.password');
+
+
+        Route::get('/course', [StudentController::class, 'StudentCourse'])->name('student.course');
+        Route::get('/exam', [StudentController::class, 'StudentExam'])->name('student.exam');
+
+
+        Route::get('/submit-mcq-response/{exam_id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
+
+        Route::get('/submit-blooms-response/{exam_id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
+
+
+
+
+    });
+});
+
+
+Route::get('student/login', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
+Route::post('student/login', [AuthenticatedSessionController::class, 'store']);
+
+
+
+Route::get('student/register', [RegisteredUserController::class, 'StudentRegister'])->name('student.register');
+Route::post('student/register', [RegisteredUserController::class, 'StudentRegisterStore']);

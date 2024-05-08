@@ -31,6 +31,13 @@
               <span class="link-title">Course Teacher</span>
             </a>
           </li>
+          
+          <li class="nav-item">
+            <a href="{{ route('admin.course.student') }}" class="nav-link" >
+              <i class="link-icon" data-feather="user"></i>
+              <span class="link-title">Course Student</span>
+            </a>
+          </li>
 
 
           <li class="nav-item">

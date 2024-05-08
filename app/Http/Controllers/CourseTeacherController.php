@@ -319,31 +319,56 @@ class CourseTeacherController extends Controller
 
     public function CourseTeacherExam()
     {
-        return view('courseteacher.exam.courseteacher_exam');
+        // Retrieve the course ID associated with the authenticated user
+        $courseId = auth()->user()->course_id;
+    
+        // Retrieve exams and question chapters associated with the course
+        $exams = Exam::with('questionChapter')
+                     ->where('course_id', $courseId)
+                     ->get();
+    
+        return view('courseteacher.exam.courseteacher_exam', compact('exams'));
     }
+    
     
 
 
     public function CourseTeacherCreateExam()
     {
-        $courseId = auth()->user()->id; // Assuming you have authentication and the course teacher ID is stored in the 'id' field of the authenticated user
-        
-        // Fetch question categories
-        $questioncategories = QuestionCategory::all();
-        
-        // Fetch question chapters associated with the current course teacher
-        $questionChapters = QuestionChapter::where('course_id', $courseId)->get();
-        
-        // Assuming you have predefined category IDs for MCQ and Blooms
-        $mcqCategoryId = QuestionCategory::where('name', 'MCQ')->value('id');
-        $bloomsCategoryId = QuestionCategory::where('name', 'Blooms')->value('id');
+        // Retrieve the course ID associated with the authenticated user
+        $courseId = auth()->user()->course_id;
     
-        // Filter question chapters based on category
-        $mcqQuestionChapters = $questionChapters->where('questioncategory_id', $mcqCategoryId);
-        $bloomsQuestionChapters = $questionChapters->where('questioncategory_id', $bloomsCategoryId);
-        
-        return view('courseteacher.exam.courseteacher_create_exam', compact('questioncategories', 'mcqQuestionChapters', 'bloomsQuestionChapters', 'mcqCategoryId', 'bloomsCategoryId'));
+        $questioncategories = QuestionCategory::all();
+        $mcqCategoryId = QuestionCategory::where('name', 'MCQ')->value('id');
+        $bloomsCategoryId = QuestionCategory::where('name', 'BLOOMS')->value('id');
+    
+        // Fetch only the question chapters associated with the current course teacher
+        $mcqQuestionChapters = QuestionChapter::where('questioncategory_id', $mcqCategoryId)
+                                              ->where('course_id', $courseId)
+                                              ->get();
+        $bloomsQuestionChapters = QuestionChapter::where('questioncategory_id', $bloomsCategoryId)
+                                                 ->where('course_id', $courseId)
+                                                 ->get();
+    
+        // Initialize questionChapterId variable to null
+        $questionChapterId = null;
+    
+        return view('courseteacher.exam.courseteacher_create_exam', compact('questioncategories', 'mcqQuestionChapters', 'bloomsQuestionChapters', 'mcqCategoryId', 'bloomsCategoryId', 'courseId', 'questionChapterId'));
     }
+    
+    
+
+
+    // public function CourseTeacherQuestionChapter($categoryId){
+    //     $category = QuestionCategory::findOrFail($categoryId);
+    //     // Fetch only the question chapters associated with the current course teacher's course
+    //     $questionchapters = QuestionChapter::where('questionCategory_id', $categoryId)
+    //         ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
+    //         ->with('course')
+    //         ->get();
+    //     return view('courseteacher.question.courseteacher_questionchapter', compact('questionchapters', 'categoryId', 'category'));
+    // }
+    
     
     
     
@@ -351,39 +376,31 @@ class CourseTeacherController extends Controller
     {
         // Get the course ID from the request
         $courseId = $request->input('course_id');
-    
-        // Find the question chapters for the given course
-        $questionChapters = QuestionChapter::where('course_id', $courseId)->get();
-    
+        // Get the question chapter ID from the request
+        $questionChapterId = $request->input('questionchapter_id');
+
         // Validate the form data
         $validatedData = $request->validate([
             'exam_name' => 'required|string|max:255',
-            // Add other validation rules as needed (e.g., for question descriptions, marks)
         ]);
-    
-        // Assuming there can be multiple question chapters for a course,
-        // we'll need to decide which chapter this exam belongs to.
-        // For simplicity, let's assume it's the first chapter found.
-        $questionChapterId = $questionChapters->isEmpty() ? null : $questionChapters->first()->id;
-    
+
         // Create a new exam instance
         $exam = new Exam();
-        $exam->course_id = $courseId; // Assign the course ID from the question chapter
-        $exam->questionchapter_id = $questionChapterId;
+        $exam->course_id = $courseId;
+        $exam->questionchapter_id = $questionChapterId; // Ensure this value is not null
         $exam->exam_name = $validatedData['exam_name'];
-    
+
         // Save the exam to the database
         $exam->save();
-    
+
         // Optional: Redirect back with success message
         $notification = [
             'message' => 'Exam created successfully',
             'alert-type' => 'success'
         ];
-    
+
         return redirect()->route('course.teacher.exam')->with($notification);
     }
-    
 
 
 

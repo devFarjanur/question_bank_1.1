@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Course;
 use App\Models\QuestionCategory;
 use App\Models\Questioncreator;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -144,14 +145,26 @@ class AdminController extends Controller
     }
 
 
+    // public function AdminCourseTeacher()
+    // {
+    //     // Fetch pending course teacher requests along with their associated courses
+    //     $pendingTeacherRequests = Questioncreator::with('course')
+    //                                             ->where('approved', false)
+    //                                             ->where('role', 'teacher') // Filter only course teacher requests
+    //                                             ->get();
+    
+    //     return view('admin.courseteacher.course_teacher', compact('pendingTeacherRequests'));
+    // }
+
+
     public function AdminCourseTeacher()
     {
-        // Fetch pending question creator requests along with their associated courses
-        $pendingRequests = Questioncreator::with('course')->where('approved', false)->get();
-    
+        // Fetch pending course teacher requests where approved is false
+        $pendingRequests = QuestionCreator::where('role', 'questioncreator')->where('approved', false)->get();
+        
         return view('admin.courseteacher.course_teacher', compact('pendingRequests'));
     }
-
+    
 
 
     public function AdminApproveCourseTeacher($courseteacherId)
@@ -170,6 +183,49 @@ class AdminController extends Controller
         );
             
         return redirect()->route('admin.course.teacher')->with($notification);
+
+
+    }
+
+    public function AdminCourseStudent()
+    {
+        // Fetch pending student requests where role is 'student' and approved is false
+        $pendingStudentRequests = Student::where('role', 'student')->where('approved', false)->get();
+        
+        return view('admin.student.student', compact('pendingStudentRequests'));
+    }
+    
+    
+
+    // public function AdminCourseStudent()
+    // {
+    //     // Fetch pending student requests along with their associated courses
+    //     $pendingStudentRequests = Questioncreator::with('course')
+    //                                              ->where('approved', false)
+    //                                              ->where('role', 'student') // Filter only student requests
+    //                                              ->get();
+    
+    //     return view('admin.student.student', compact('pendingStudentRequests'));
+    // }
+    
+
+
+    public function AdminApproveCourseStudent($coursestudentId)
+    {
+        $coursestudent = Student::find($coursestudentId);
+        if ($coursestudent) {
+            $coursestudent->approved = true;
+            $coursestudent->save();
+        }
+
+
+        // Redirect back with a success message
+        $notification = array(
+            'message' => 'Course Student approved successfully.',
+            'alert-type' => 'success'
+        );
+            
+        return redirect()->route('admin.course.student')->with($notification);
 
 
     }

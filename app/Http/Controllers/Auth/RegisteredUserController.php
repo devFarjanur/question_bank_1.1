@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Questioncreator;
+use App\Models\Student;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -29,6 +30,13 @@ class RegisteredUserController extends Controller
     {
         $courses = Course::all();
         return view('auth.questionCreator_register', compact('courses'));
+    }
+
+
+    public function StudentRegister(): View
+    {
+        $courses = Course::all();
+        return view('auth.student_register', compact('courses'));
     }
 
     /**
@@ -96,6 +104,45 @@ class RegisteredUserController extends Controller
         return redirect()->route('questioncreator.login')->with($notification);
     
     }
+
+
+        /**
+     * Handle an incoming registration request for question creator.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
+
+     public function StudentRegisterStore(Request $request): RedirectResponse
+     {
+         // Validate form data
+         $validatedData = $request->validate([
+             'name' => 'required|string|max:255',
+             'email' => 'required|string|email|max:255|unique:students',
+             'password' => 'required|string|min:8|confirmed',
+             'course_id' => 'required|exists:courses,id',
+         ]);
+ 
+ 
+ 
+         // Create the question creator
+         $student = new Student();
+         $student->name = $validatedData['name'];
+         $student->email = $validatedData['email'];
+         $student->password = bcrypt($validatedData['password']);
+         $student->course_id = $validatedData['course_id'];
+         $student->save();
+ 
+ 
+ 
+         $notification = array(
+             'message' => 'Student registered successfully.',
+             'alert-type' => 'success'
+         );
+     
+         return redirect()->route('student.login')->with($notification);
+     
+     }
     
 
 

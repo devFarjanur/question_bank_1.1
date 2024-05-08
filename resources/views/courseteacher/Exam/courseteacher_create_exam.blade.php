@@ -15,13 +15,20 @@
         <div class="card-body">
           <h4 class="card-title">Create Exam</h4>
           <form method="POST" action="{{ route('course.teacher.exam.store') }}">
-          @csrf
-          <div class="form-group mb-3">
+            @csrf
+            <!-- Include a hidden input field for course_id -->
+            <input type="hidden" name="course_id" value="{{ $courseId }}">
+            <!-- Hidden input field to store the selected question chapter ID -->
+            <input type="hidden" id="questionchapter_id" name="questionchapter_id" value="{{ $questionChapterId }}">
+
+
+
+            <div class="form-group mb-3">
               <label for="exam_name" class="form-label">Exam Name:</label>
               <input type="text" class="form-control" id="exam_name" name="exam_name" required>
-          </div>
+            </div>
 
-          <div class="form-group mb-3">
+            <div class="form-group mb-3">
               <label for="question_category" class="form-label">Select Question Category:</label>
               <select class="form-control" id="question_category" name="questioncategory_id" required>
                   <option value="" selected disabled>-- Select Question Category --</option>
@@ -29,18 +36,17 @@
                       <option value="{{ $questioncategory->id }}">{{ $questioncategory->name }}</option>
                   @endforeach
               </select>
-          </div>
+            </div>
 
-          <div class="form-group mb-3">
+            <div class="form-group mb-3">
               <label for="question_chapter" class="form-label">Select Question Chapter:</label>
-              <select class="form-control" id="question_chapter" name="questionchapter_id" required>
+              <select class="form-control" id="question_chapter" required>
                   <option value="" selected disabled>-- Select Question Chapter --</option>
               </select>
-          </div>
+            </div>
 
-          <button type="submit" class="btn btn-primary mt-3">Create Exam</button>
-      </form>
-
+            <button type="submit" class="btn btn-primary mt-3">Create Exam</button>
+          </form>
         </div>
       </div>
     </div>
@@ -74,7 +80,14 @@
         });
       }
     });
+
+    // Add event listener to update the hidden input with selected question chapter ID
+    questionChapterSelect.addEventListener('change', function () {
+      const selectedChapterId = questionChapterSelect.value;
+      document.getElementById('questionchapter_id').value = selectedChapterId;
+    });
   });
 </script>
+
 
 @endsection
