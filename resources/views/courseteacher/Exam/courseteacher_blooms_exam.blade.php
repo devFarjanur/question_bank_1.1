@@ -1,7 +1,5 @@
-@extends('student.student_dashboard')
-@section('student')
-
-
+@extends('courseteacher.courseteacher_dashboard')
+@section('courseteacher')
 
 <div class="page-content">
     <nav class="page-breadcrumb">
@@ -48,7 +46,4 @@
 
 
 </div>
-
-
-
 @endsection

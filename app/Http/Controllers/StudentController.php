@@ -128,16 +128,15 @@ class StudentController extends Controller
 
     public function StudentExam()
     {
-        // Retrieve the course ID associated with the authenticated user
         $courseId = auth()->user()->course_id;
     
-        // Retrieve exams and question chapters associated with the course, along with question categories
-        $exams = Exam::where(['questionchapters'])
+        // Retrieve exams with their associated question chapters and question categories
+        $exams = Exam::with('questionChapter', 'questionCategory')
                      ->where('course_id', $courseId)
                      ->get();
     
-        // Pass the $exams variable to the view
-        return view('student.exam.student_exam', compact('exams'));
+        // Pass the exams data to the view
+        return view('courseteacher.exam.courseteacher_exam', compact('exams'));
     }
 
     // public function CourseTeacherQuestionChapter($categoryId){
@@ -151,23 +150,21 @@ class StudentController extends Controller
     // }
 
 
-    public function StudentMcqExam($examId)
+    public function StudentMCQExam($chapterId)
     {
-        // Retrieve the exam with the given ID
-        $exam = Exam::findOrFail($examId);
-
-        // Assuming you have a view named 'student_mcq_exam' for submitting MCQ responses
-        return view('student.exam.student_mcq_exam', compact('exam'));
+        $questionchapter = QuestionChapter::findOrFail($chapterId);
+        $mcqs = MCQ::where('questionchapter_id', $chapterId)->get();
+        return view('student.exam.student_mcq_exam', compact('questionchapter', 'mcqs'));
     }
 
-    public function StudentBloomsExam($examId)
-    {
-        // Retrieve the exam with the given ID
-        $exam = Exam::findOrFail($examId);
 
-        // Assuming you have a view named 'student_blooms_exam' for submitting Blooms responses
-        return view('student.exam.student_blooms_exam', compact('exam'));
+    public function StudentBloomsExam($chapterId)
+    {
+        $questionchapter = QuestionChapter::findOrFail($chapterId);
+        $questions = BLOOMS::where('questionchapter_id', $chapterId)->get()->groupBy('bloom_taxonomy');
+        return view('student.exam.student_blooms_exam', compact('questionchapter', 'questions'));
     }
+
 
 
 

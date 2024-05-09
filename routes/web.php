@@ -142,15 +142,13 @@ Route::middleware('auth:questioncreator')->group(function () {
 
         // Route to show the exam creation form
 
-        Route::get('/exam', [CourseTeacherController::class, 'CourseTeacherExam'])
-        ->name('course.teacher.exam');
-        Route::get('/exam/create', [CourseTeacherController::class, 'CourseTeacherCreateExam'])
-        ->name('course.teacher.exam.create');
-        Route::post('/exam/store', [CourseTeacherController::class, 'CourseTeacherStoreExam'])
-        ->name('course.teacher.exam.store');
+        Route::get('/exam', [CourseTeacherController::class, 'CourseTeacherExam'])->name('course.teacher.exam');
+        Route::get('/exam/create', [CourseTeacherController::class, 'CourseTeacherCreateExam'])->name('course.teacher.exam.create');
+        Route::post('/exam/store', [CourseTeacherController::class, 'CourseTeacherStoreExam'])->name('course.teacher.exam.store');
 
 
-
+        Route::get('/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
+        Route::get('/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
 
 
 
