@@ -136,7 +136,7 @@ class StudentController extends Controller
                      ->get();
     
         // Pass the exams data to the view
-        return view('courseteacher.exam.courseteacher_exam', compact('exams'));
+        return view('student.exam.student_exam', compact('exams'));
     }
 
     // public function CourseTeacherQuestionChapter($categoryId){
@@ -150,7 +150,7 @@ class StudentController extends Controller
     // }
 
 
-    public function StudentMCQExam($chapterId)
+    public function StudentMcqExam($chapterId)
     {
         $questionchapter = QuestionChapter::findOrFail($chapterId);
         $mcqs = MCQ::where('questionchapter_id', $chapterId)->get();

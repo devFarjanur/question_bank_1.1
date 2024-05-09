@@ -11,7 +11,7 @@
     <div class="row row-cols-2 row-cols-md-4">
         @foreach($exams as $exam)
             <div class="col mb-3">
-            <a href="{{ $exam->questioncategory_id === 1 ? route('course.teacher.mcq.exam', ['chapterId' => $exam->questionchapter->id]) : route('course.teacher.blooms.exam', ['chapterId' => $exam->questionchapter->id]) }}" class="card h-100 text-decoration-none">
+            <a href="{{ $exam->questioncategory_id === 1 ? route('student.mcq.exam', ['chapterId' => $exam->questionchapter->id]) : route('student.blooms.exam', ['chapterId' => $exam->questionchapter->id]) }}" class="card h-100 text-decoration-none">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div class="text-center align-self-center mt-3">
                             <h5 class="card-title" style="font-size: 22px;">{{ $exam->exam_name }}</h5>

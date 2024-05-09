@@ -147,8 +147,8 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::post('/exam/store', [CourseTeacherController::class, 'CourseTeacherStoreExam'])->name('course.teacher.exam.store');
 
 
-        Route::get('/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
-        Route::get('/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
+        Route::get('/exam/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
+        Route::get('/exam/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
 
 
 
@@ -178,9 +178,9 @@ Route::middleware('auth:student')->group(function () {
         Route::get('/exam', [StudentController::class, 'StudentExam'])->name('student.exam');
 
 
-        Route::get('/submit-mcq-response/{exam_id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
+        Route::get('/exam/submit-mcq/{chapterId}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
 
-        Route::get('/submit-blooms-response/{exam_id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
+        Route::get('/exam/submit-blooms/{chapterId}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
 
 
 
