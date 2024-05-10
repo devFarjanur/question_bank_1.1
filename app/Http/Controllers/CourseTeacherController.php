@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\BLOOMS;
+use App\Models\Bloomsresponse;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Models\MCQ;
@@ -12,6 +13,7 @@ use App\Models\QuestionCategory;
 use App\Models\QuestionChapter;
 use App\Models\Questioncreator;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -313,7 +315,7 @@ class CourseTeacherController extends Controller
     
         return redirect()->route('course.teacher.blooms', ['chapterId' => $id])->with($notification);
     }
-
+    
 
 
     public function CourseTeacherExam()
@@ -440,6 +442,76 @@ class CourseTeacherController extends Controller
     
     
     
+
+
+        // public function CourseTeacherStudentMark(Request $request)
+    // {
+    //     // Retrieve the course ID associated with the authenticated user
+    //     $courseId = auth()->user()->course_id;
+        
+    //     // Fetch question category ID from the request
+    //     $questionCategoryId = $request->input('questioncategory_id');
+    
+    //     // Fetch exams based on the selected question category
+    //     $exams = Exam::where('questioncategory_id', $questionCategoryId)
+    //                  ->where('course_id', $courseId)
+    //                  ->get();
+        
+    //     // Initialize students array
+    //     $students = [];
+    
+    //     // If an exam is selected, fetch students who have taken the selected exam
+    //     if ($request->has('exam_id')) {
+    //         $examId = $request->input('exam_id');
+    //         $students = Exam::findOrFail($examId)->students;
+    //     }
+    
+    //     $questioncategories = QuestionCategory::all();
+    
+    //     // Fetch MCQ and Blooms category IDs
+    //     $mcqCategoryId = QuestionCategory::where('name', 'MCQ')->value('id');
+    //     $bloomsCategoryId = QuestionCategory::where('name', 'BLOOMS')->value('id');
+    
+    //     // Fetch MCQ exams based on the question category and course ID
+    //     $mcqExams = Exam::where('questioncategory_id', $mcqCategoryId)
+    //                     ->where('course_id', $courseId)
+    //                     ->get();
+    
+    //     // Fetch Blooms exams based on the question category and course ID
+    //     $bloomsExams = Exam::where('questioncategory_id', $bloomsCategoryId)
+    //                        ->where('course_id', $courseId)
+    //                        ->get();
+    
+    //     return view('courseteacher.mark.courseteacher_select_student', compact('questioncategories', 'exams', 'students', 'mcqCategoryId', 'bloomsCategoryId', 'mcqExams', 'bloomsExams'));
+    // }
+    
+
+
+
+    public function CourseTeacherStudentMark()
+    {
+        $courseId = auth()->user()->course_id;
+        $questioncategories = QuestionCategory::all();
+        $exams = Exam::all();
+        $students = Student::all();
+    
+        return view('courseteacher.mark.courseteacher_select_student', compact('questioncategories', 'exams', 'students'));
+    }
+
+
+
+
+
+    public function CourseTeacherStudentMarkBlooms()
+    {
+        $bloomsresponce = Bloomsresponse::all();
+    
+        return view('courseteacher.mark.courseteacher_select_student', compact('bloomsresponce'));
+    }
+    
+    
+
+
 
 
 }

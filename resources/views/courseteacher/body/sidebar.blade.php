@@ -32,6 +32,16 @@
         </li>
 
 
+        
+        <li class="nav-item">
+            <a href="{{ route('course.teacher.student.mark') }}" class="nav-link">
+                <i class="link-icon" data-feather="bookmark"></i>
+                <span class="link-title">Student Mark</span>
+            </a>
+        </li>
+
+
+
 
 
         </ul>

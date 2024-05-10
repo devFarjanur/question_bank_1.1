@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('b_l_o_o_m_s', function (Blueprint $table) {
+        Schema::create('mcqresponse', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('questioncategory_id')->constrained('question_categories')->onDelete('cascade');
             $table->foreignId('questionchapter_id')->constrained('question_chapters')->onDelete('cascade');
-            $table->string('question_description')->nullable();
-            $table->string('question_text');
-            $table->string('bloom_taxonomy');
-            $table->string('question_mark');
-            // Add other fields as needed
+            $table->foreignId('m_c_q_id')->constrained('m_c_q_s')->onDelete('cascade');
+            $table->foreignId('exam_id')->constrained('exams')->onDelete('cascade');
+            $table->string('response_option');
+            $table->string('marks');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('b_l_o_o_m_s');
+        Schema::dropIfExists('mcqresponse');
     }
 };

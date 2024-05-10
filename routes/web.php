@@ -151,6 +151,10 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::get('/exam/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
 
 
+        Route::get('/mark', [CourseTeacherController::class, 'CourseTeacherStudentMark'])->name('course.teacher.student.mark');
+        Route::get('/mark/blooms', [CourseTeacherController::class, 'CourseTeacherStudentMarkBlooms'])->name('course.teacher.student.mark.blooms');
+
+
 
     });
 });
@@ -178,9 +182,17 @@ Route::middleware('auth:student')->group(function () {
         Route::get('/exam', [StudentController::class, 'StudentExam'])->name('student.exam');
 
 
-        Route::get('/exam/submit-mcq/{chapterId}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
+        Route::get('/exam/mcq/{id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
+        Route::post('/exam/mcq-submit', [StudentController::class, 'StudentMcqExamSubmit'])->name('student.mcq.exam.submit');
+        Route::get('/exam/mcq/score/{id}', [StudentController::class, 'StudentExamScore'])->name('student.exam.score');
 
-        Route::get('/exam/submit-blooms/{chapterId}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
+
+
+        Route::get('/exam/blooms/{id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
+        Route::post('/exam/blooms-submit/{id}', [StudentController::class, 'StudentBloomsExamSubmit'])->name('student.blooms.exam.submit');
+
+
+
 
 
 
