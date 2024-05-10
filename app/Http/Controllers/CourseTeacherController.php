@@ -504,9 +504,9 @@ class CourseTeacherController extends Controller
 
     public function CourseTeacherStudentMarkBlooms()
     {
-        $bloomsresponce = Bloomsresponse::all();
+        $bloomsresponces = Bloomsresponse::all();
     
-        return view('courseteacher.mark.courseteacher_select_student', compact('bloomsresponce'));
+        return view('courseteacher.mark.courseteacher_select_student', compact('bloomsresponces'));
     }
     
     
