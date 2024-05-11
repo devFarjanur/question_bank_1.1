@@ -25,7 +25,7 @@
 
 
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('student.exam.result') }}" class="nav-link">
             <i class="link-icon" data-feather="clipboard"></i>
             <span class="link-title">Result</span>
           </a>

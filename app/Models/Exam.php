@@ -28,5 +28,11 @@ class Exam extends Model
     {
         return $this->belongsTo(QuestionCategory::class, 'questioncategory_id');
     }
+
+
+
+
+
+
     
 }

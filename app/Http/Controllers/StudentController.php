@@ -158,17 +158,19 @@ class StudentController extends Controller
 
 
 
-    public function StudentMcqExam($chapterId)
+    public function StudentMcqExam($id)
     {
         $courseId = auth()->user()->course_id;
     
-        $questionchapter = QuestionChapter::findOrFail($chapterId);
+        $exam = Exam::findOrFail($id);
+
+        $questionchapter = QuestionChapter::findOrFail($id);
 
 
 
     
         // Retrieve the MCQs with specific question chapter and category IDs
-        $mcqs = MCQ::where('questionchapter_id', $chapterId)
+        $mcqs = MCQ::where('questionchapter_id', $id)
                     ->whereHas('questionChapter', function ($query) use ($questionchapter) {
                         $query->where('questioncategory_id', $questionchapter->questioncategory_id);
                     })
@@ -179,8 +181,47 @@ class StudentController extends Controller
         // Pass the question category ID to the view
         $questionCategoryId = $questionchapter->questioncategory_id;
     
-        return view('student.exam.student_mcq_exam', compact('courseId', 'questionchapter', 'mcqs', 'questionCategoryId'));
+        return view('student.exam.student_mcq_exam', compact('exam','courseId', 'questionchapter', 'mcqs', 'questionCategoryId'));
     }
+
+
+    public function StudentMcqExamSubmit(Request $request, $id)
+    {
+        $student = auth()->user();
+        // Get the course ID, question chapter ID, and question category ID from the request
+        $courseId = $request->input('course_id');
+        $questionChapterId = $request->input('questionchapter_id');
+        $questionCategoryId = $request->input('questioncategory_id');
+    
+        // Validate the form data
+        $validatedData = $request->validate([
+            'option.*' => 'required|string', // Validation for options selected
+        ]);
+    
+        $exam = Exam::findOrFail($id);
+    
+        // Loop through the responses and store them
+        foreach ($validatedData['option'] as $mcqId => $responseOption) {
+            $response = new Mcqresponse();
+            $response->student_id = $student->id;
+            $response->exam_id = $exam->id;
+            $response->course_id = $courseId;
+            $response->questioncategory_id = $questionCategoryId;
+            $response->questionchapter_id = $questionChapterId;
+            $response->m_c_q_id = $mcqId;
+            $response->response_option = $responseOption;
+            $response->save();
+        }
+    
+        $notification = [
+            'message' => 'MCQ Exam submitted successfully!',
+            'alert-type' => 'success',
+        ];
+    
+        return redirect()->route('student.exam')->with($notification);
+
+    }
+    
     
     
 
@@ -254,8 +295,37 @@ class StudentController extends Controller
     
         return redirect()->route('student.exam')->with($notification);
     }
-    
 
+
+    public function StudentExamResult()
+    {
+        // Get the current student's Blooms responses
+        $bloomsResponses = Bloomsresponse::where('student_id', auth()->user()->id)->get();
+    
+        // Initialize array to store Blooms exam scores
+        $bloomsScores = [];
+    
+        // Loop through Blooms responses to calculate total exam scores
+        foreach ($bloomsResponses as $response) {
+            // Extract necessary information from the response
+            $examName = $response->exam->exam_name;
+            $questionChapterName = $response->exam->questionchapter->name;
+            $questionCategoryName = $response->exam->questioncategory->name;
+            $marks = $response->marks;
+    
+            // Check if the exam exists in the array
+            if (!isset($bloomsScores[$examName][$questionChapterName][$questionCategoryName])) {
+                $bloomsScores[$examName][$questionChapterName][$questionCategoryName] = 0;
+            }
+    
+            // Add marks to the corresponding exam, question chapter, and category
+            $bloomsScores[$examName][$questionChapterName][$questionCategoryName] += $marks;
+        }
+    
+        // Pass the Blooms exam scores to the student exam result view
+        return view('student.result.student_exam_result', compact('bloomsScores'));
+    }
+    
 
 
 }

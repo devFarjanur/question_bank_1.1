@@ -25,9 +25,9 @@ use App\Http\Controllers\Auth\RegisteredUserController; // Import the Registered
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+// Route::get('/', function () {
+//     return view('student.login');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -150,9 +150,20 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::get('/exam/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
         Route::get('/exam/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
 
+        Route::get('/exam/exam-category', [CourseTeacherController::class, 'CourseTeacherExamCategory'])->name('course.teacher.exam.category');
+        Route::get('/exam/student-exam/{id}', [CourseTeacherController::class, 'CourseTeacherStudentExamList'])->name('course.teacher.student.exam.list');
 
-        Route::get('/mark', [CourseTeacherController::class, 'CourseTeacherStudentMark'])->name('course.teacher.student.mark');
-        Route::get('/mark/blooms', [CourseTeacherController::class, 'CourseTeacherStudentMarkBlooms'])->name('course.teacher.student.mark.blooms');
+
+        Route::get('/exam/mcq/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherMcqResponce'])->name('course.teacher.mcq.response');
+        Route::get('/exam/blooms/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherBloomsResponce'])->name('course.teacher.blooms.response');
+
+        Route::put('exam/blooms/update-marks/{response_id}', [CourseTeacherController::class, 'CourseTeacherBloomsMarkUpdate'])->name('course.teacher.blooms.mark.update');
+
+
+
+        // Route::get('/mark', [CourseTeacherController::class, 'CourseTeacherStudentMark'])->name('course.teacher.student.mark');
+        // Route::get('/mark/blooms', [CourseTeacherController::class, 'CourseTeacherStudentMarkBlooms'])->name('course.teacher.student.mark.blooms');
+
 
 
 
@@ -183,14 +194,14 @@ Route::middleware('auth:student')->group(function () {
 
 
         Route::get('/exam/mcq/{id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
-        Route::post('/exam/mcq-submit', [StudentController::class, 'StudentMcqExamSubmit'])->name('student.mcq.exam.submit');
-        Route::get('/exam/mcq/score/{id}', [StudentController::class, 'StudentExamScore'])->name('student.exam.score');
+        Route::post('/exam/mcq-submit/{id}', [StudentController::class, 'StudentMcqExamSubmit'])->name('student.mcq.exam.submit');
 
 
 
         Route::get('/exam/blooms/{id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
         Route::post('/exam/blooms-submit/{id}', [StudentController::class, 'StudentBloomsExamSubmit'])->name('student.blooms.exam.submit');
 
+        Route::get('/exam/result', [StudentController::class, 'StudentExamResult'])->name('student.exam.result');
 
 
 
@@ -201,8 +212,8 @@ Route::middleware('auth:student')->group(function () {
 });
 
 
-Route::get('student/login', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
-Route::post('student/login', [AuthenticatedSessionController::class, 'store']);
+Route::get('/', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
+Route::post('/', [AuthenticatedSessionController::class, 'store']);
 
 
 

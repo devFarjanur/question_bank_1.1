@@ -67,7 +67,7 @@ class AuthenticatedSessionController extends Controller
                     'email' => 'These credentials do not match our records.',
                 ]);
             }
-        } else if ($request->is('student/login')) {
+        } else if ($request->is('/')) {
 
             if (Auth::guard('student')->attempt($credentials)) {
 

@@ -9,6 +9,7 @@ use App\Models\Bloomsresponse;
 use App\Models\Course;
 use App\Models\Exam;
 use App\Models\MCQ;
+use App\Models\Mcqresponse;
 use App\Models\QuestionCategory;
 use App\Models\QuestionChapter;
 use App\Models\Questioncreator;
@@ -358,10 +359,12 @@ class CourseTeacherController extends Controller
     
         return view('courseteacher.exam.courseteacher_create_exam', compact('questioncategories', 'mcqQuestionChapters', 'bloomsQuestionChapters', 'mcqCategoryId', 'bloomsCategoryId', 'courseId', 'questionChapterId'));
     }
+
+
     
     
     
-    
+
 
 
     // public function CourseTeacherQuestionChapter($categoryId){
@@ -430,6 +433,88 @@ class CourseTeacherController extends Controller
 
 
 
+    public function CourseTeacherExamCategory()
+    {
+
+        $exams = Exam::with('questionCategory')->get();
+    
+        return view('courseteacher.mark.courseteacher_student_exam_category', compact('exams'));
+    }
+
+
+    
+    
+    public function CourseTeacherStudentExamList($id)
+    {
+        $exam = Exam::with('questionCategory')->findOrFail($id);
+    
+        // Retrieve students associated with MCQ responses for the exam
+        $mcqResponses = Mcqresponse::where('exam_id', $id)->pluck('student_id')->unique();
+        $mcqStudents = Student::whereIn('id', $mcqResponses)->get();
+    
+        // Retrieve students associated with Blooms responses for the exam
+        $bloomsResponses = Bloomsresponse::where('exam_id', $id)->pluck('student_id')->unique();
+        $bloomsStudents = Student::whereIn('id', $bloomsResponses)->get();
+    
+        // Merge students from both types of responses
+        $students = $mcqStudents->merge($bloomsStudents);
+    
+        return view('courseteacher.mark.courseteacher_exam_student_list', compact('exam', 'students'));
+    }
+    
+
+    public function CourseTeacherMcqResponce($student_id, $exam_id)
+    {
+        $responses = Mcqresponse::where('student_id', $student_id)
+            ->where('exam_id', $exam_id)
+            ->get();
+
+        // Pass $responses to the MCQ response view
+        return view('courseteacher.mark.courseteacher_mcq_responce', compact('responses'));
+    }
+
+    
+    public function CourseTeacherBloomsResponce($student_id, $exam_id)
+    {
+        // Retrieve the responses along with the bloomsQuestion relationship
+        $responses = Bloomsresponse::where('student_id', $student_id)
+            ->where('exam_id', $exam_id)
+            ->with('bloomsQuestion')
+            ->get();
+    
+        // Assuming $questionchapter is retrieved based on the $exam_id
+        $questionchapter = Exam::findOrFail($exam_id)->questionChapter;
+    
+        // Pass $responses and $questionchapter to the view
+        return view('courseteacher.mark.courseteacher_blooms_responce', compact('responses', 'questionchapter'));
+    }
+    
+
+    
+
+
+    public function CourseTeacherBloomsMarkUpdate(Request $request, $response_id)
+    {
+        // Validate the incoming request
+        $request->validate([
+            'marks' => 'required|string', // Example validation rule for marks
+        ]);
+
+        // Find the blooms response by ID
+        $response = Bloomsresponse::findOrFail($response_id);
+
+        // Update the marks
+        $response->update([
+            'marks' => $request->marks,
+        ]);
+
+        // Redirect back with success message
+        return back()->with('success', 'Marks updated successfully');
+    }
+
+
+
+
     // public function CourseTeacherQuestionChapter($categoryId){
     //     $category = QuestionCategory::findOrFail($categoryId);
     //     // Fetch only the question chapters associated with the current course teacher's course
@@ -488,26 +573,26 @@ class CourseTeacherController extends Controller
 
 
 
-    public function CourseTeacherStudentMark()
-    {
-        $courseId = auth()->user()->course_id;
-        $questioncategories = QuestionCategory::all();
-        $exams = Exam::all();
-        $students = Student::all();
+    // public function CourseTeacherStudentMark()
+    // {
+    //     $courseId = auth()->user()->course_id;
+    //     $questioncategories = QuestionCategory::all();
+    //     $exams = Exam::all();
+    //     $students = Student::all();
     
-        return view('courseteacher.mark.courseteacher_select_student', compact('questioncategories', 'exams', 'students'));
-    }
+    //     return view('courseteacher.mark.courseteacher_select_student', compact('questioncategories', 'exams', 'students'));
+    // }
 
 
 
 
 
-    public function CourseTeacherStudentMarkBlooms()
-    {
-        $bloomsresponces = Bloomsresponse::all();
+    // public function CourseTeacherStudentMarkBlooms()
+    // {
+    //     $bloomsresponces = Bloomsresponse::all();
     
-        return view('courseteacher.mark.courseteacher_select_student', compact('bloomsresponces'));
-    }
+    //     return view('courseteacher.mark.courseteacher_select_student', compact('bloomsresponces'));
+    // }
     
     
 

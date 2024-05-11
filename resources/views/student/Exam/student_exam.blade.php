@@ -16,12 +16,12 @@
                         <div class="text-center align-self-center mt-3">
                             <h5 class="card-title" style="font-size: 22px;">{{ $exam->exam_name }}</h5>
                             @if ($exam->questionChapter)
-                                <h5 class="card-title" style="font-size: 16px;">Chapter: {{ $exam->questionChapter->name }}</h5>
+                                <h5 class="card-title" style="font-size: 16px;">{{ $exam->questionChapter->name }}</h5>
                             @else
                                 <h5 class="card-title" style="font-size: 18px;">No Chapter Assigned</h5>
                             @endif
                             @if ($exam->questionCategory)
-                                <h5 class="card-title" style="font-size: 16px;">Question Category: {{ $exam->questionCategory->name }}</h5>
+                                <h5 class="card-title" style="font-size: 16px;">{{ $exam->questionCategory->name }}</h5>
                             @else
                                 <h5 class="card-title" style="font-size: 18px;">No Question Category Assigned</h5>
                             @endif

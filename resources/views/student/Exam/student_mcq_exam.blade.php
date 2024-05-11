@@ -19,15 +19,14 @@
             </div>
         </div>
 
-        <form method="POST" action="#" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('student.mcq.exam.submit', $exam->id) }}" enctype="multipart/form-data">
             @csrf
 
         <!-- Include hidden input fields for necessary data -->
         <input type="hidden" name="course_id" value="{{ $courseId }}">
         <input type="hidden" name="questioncategory_id" value="{{ $questionCategoryId }}">
         <input type="hidden" name="questionchapter_id" value="{{ $questionchapter->id }}">
-        <input type="hidden" name="exam_id" value="{{ $examId }}">
-        <input type="hidden" name="m_c_q_id" value="{{ $mcq->id }}">
+
 
 
 

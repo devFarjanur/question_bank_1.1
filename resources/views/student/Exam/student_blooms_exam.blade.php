@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="answer mt-1 pt-2 px-4">
                                         <input type="hidden" name="bloom_ids[]" value="{{ $question->id }}">
-                                        <textarea class="form-control" name="response_answers[]" rows="4" cols="50" placeholder="Question Answer"></textarea>
+                                        <textarea class="form-control" name="response_answers[]" rows="10" cols="50" placeholder="Question Answer"></textarea>
                                     </div>
                                 @endforeach
                             @endforeach
