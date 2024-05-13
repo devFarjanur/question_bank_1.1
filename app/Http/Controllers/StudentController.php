@@ -33,7 +33,7 @@ class StudentController extends Controller
         Auth::guard('student')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/student/login');
+        return redirect('/');
     }
 
 
@@ -44,7 +44,7 @@ class StudentController extends Controller
             $profileData = Student::find($id);
             return view('student.student_profile_view', compact('profileData'));
         } else {
-            return redirect('/student/login');
+            return redirect('/');
         }
     }
 
@@ -81,7 +81,7 @@ class StudentController extends Controller
             $profileData = Student::find($id);
             return view('student.student_change_password', compact('profileData'));
         } else {
-            return redirect('/student/login');
+            return redirect('/');
         }
     }
 
