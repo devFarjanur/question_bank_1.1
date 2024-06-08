@@ -32,7 +32,7 @@ class CourseTeacherController extends Controller
         Auth::guard('questioncreator')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/course-teacher/login');
+        return redirect('/teacher/login');
     }
 
 
@@ -43,7 +43,7 @@ class CourseTeacherController extends Controller
             $profileData = Questioncreator::find($id);
             return view('courseteacher.courseteacher_profile_view', compact('profileData'));
         } else {
-            return redirect('/course-teacher/login');
+            return redirect('/teacher/login');
         }
     }
 
@@ -80,7 +80,7 @@ class CourseTeacherController extends Controller
             $profileData = Questioncreator::find($id);
             return view('courseteacher.courseteacher_change_password', compact('profileData'));
         } else {
-            return redirect('/course-teacher/login');
+            return redirect('/teacher/login');
         }
     }
 
@@ -248,19 +248,6 @@ class CourseTeacherController extends Controller
     
 
 
-    // public function CourseTeacherBlooms($chapterId)
-    // {
-
-
-    //     $questionchapter = QuestionChapter::findOrFail($chapterId);
-    //     $blooms = BLOOMS::where('questionchapter_id', $chapterId)->get();
-    //     return view('courseteacher.question.courseteacher_blooms', compact('questionchapter', 'blooms'));
-
-
-    // }
-
-
-
     public function CourseTeacherBlooms($chapterId)
     {
         $questionchapter = QuestionChapter::findOrFail($chapterId);
@@ -273,10 +260,6 @@ class CourseTeacherController extends Controller
 
     public function CourseTeacherBloomsAdd($id){
         $questionchapter = QuestionChapter::findOrFail($id);
-        // $blooms = BLOOMS::where('questionchapter_id', $id)
-        // ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
-        // ->with('course')
-        // ->get();
         return view('courseteacher.question.courseteacher_add_blooms', compact('questionchapter', 'id'));
     }
 
@@ -360,24 +343,6 @@ class CourseTeacherController extends Controller
         return view('courseteacher.exam.courseteacher_create_exam', compact('questioncategories', 'mcqQuestionChapters', 'bloomsQuestionChapters', 'mcqCategoryId', 'bloomsCategoryId', 'courseId', 'questionChapterId'));
     }
 
-
-    
-    
-    
-
-
-
-    // public function CourseTeacherQuestionChapter($categoryId){
-    //     $category = QuestionCategory::findOrFail($categoryId);
-    //     // Fetch only the question chapters associated with the current course teacher's course
-    //     $questionchapters = QuestionChapter::where('questionCategory_id', $categoryId)
-    //         ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
-    //         ->with('course')
-    //         ->get();
-    //     return view('courseteacher.question.courseteacher_questionchapter', compact('questionchapters', 'categoryId', 'category'));
-    // }
-    
-    
 
 
 
@@ -511,89 +476,6 @@ class CourseTeacherController extends Controller
         // Redirect back with success message
         return back()->with('success', 'Marks updated successfully');
     }
-
-
-
-
-    // public function CourseTeacherQuestionChapter($categoryId){
-    //     $category = QuestionCategory::findOrFail($categoryId);
-    //     // Fetch only the question chapters associated with the current course teacher's course
-    //     $questionchapters = QuestionChapter::where('questionCategory_id', $categoryId)
-    //         ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
-    //         ->with('course')
-    //         ->get();
-    //     return view('courseteacher.question.courseteacher_questionchapter', compact('questionchapters', 'categoryId', 'category'));
-    // }
-    
-    
-    
-
-
-        // public function CourseTeacherStudentMark(Request $request)
-    // {
-    //     // Retrieve the course ID associated with the authenticated user
-    //     $courseId = auth()->user()->course_id;
-        
-    //     // Fetch question category ID from the request
-    //     $questionCategoryId = $request->input('questioncategory_id');
-    
-    //     // Fetch exams based on the selected question category
-    //     $exams = Exam::where('questioncategory_id', $questionCategoryId)
-    //                  ->where('course_id', $courseId)
-    //                  ->get();
-        
-    //     // Initialize students array
-    //     $students = [];
-    
-    //     // If an exam is selected, fetch students who have taken the selected exam
-    //     if ($request->has('exam_id')) {
-    //         $examId = $request->input('exam_id');
-    //         $students = Exam::findOrFail($examId)->students;
-    //     }
-    
-    //     $questioncategories = QuestionCategory::all();
-    
-    //     // Fetch MCQ and Blooms category IDs
-    //     $mcqCategoryId = QuestionCategory::where('name', 'MCQ')->value('id');
-    //     $bloomsCategoryId = QuestionCategory::where('name', 'BLOOMS')->value('id');
-    
-    //     // Fetch MCQ exams based on the question category and course ID
-    //     $mcqExams = Exam::where('questioncategory_id', $mcqCategoryId)
-    //                     ->where('course_id', $courseId)
-    //                     ->get();
-    
-    //     // Fetch Blooms exams based on the question category and course ID
-    //     $bloomsExams = Exam::where('questioncategory_id', $bloomsCategoryId)
-    //                        ->where('course_id', $courseId)
-    //                        ->get();
-    
-    //     return view('courseteacher.mark.courseteacher_select_student', compact('questioncategories', 'exams', 'students', 'mcqCategoryId', 'bloomsCategoryId', 'mcqExams', 'bloomsExams'));
-    // }
-    
-
-
-
-    // public function CourseTeacherStudentMark()
-    // {
-    //     $courseId = auth()->user()->course_id;
-    //     $questioncategories = QuestionCategory::all();
-    //     $exams = Exam::all();
-    //     $students = Student::all();
-    
-    //     return view('courseteacher.mark.courseteacher_select_student', compact('questioncategories', 'exams', 'students'));
-    // }
-
-
-
-
-
-    // public function CourseTeacherStudentMarkBlooms()
-    // {
-    //     $bloomsresponces = Bloomsresponse::all();
-    
-    //     return view('courseteacher.mark.courseteacher_select_student', compact('bloomsresponces'));
-    // }
-    
     
 
 

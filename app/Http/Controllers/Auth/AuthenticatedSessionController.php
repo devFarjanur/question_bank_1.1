@@ -47,7 +47,7 @@ class AuthenticatedSessionController extends Controller
             // Attempt admin authentication
             if (Auth::guard('admin')->attempt($credentials)) {
                 // Authentication successful for admin
-                return redirect()->intended('/admin/course');
+                return redirect()->intended('/admin/dashboard');
             } else {
                 // Authentication failed for admin
                 Log::error('Admin login failed for email: ' . $credentials['email']);
@@ -55,11 +55,11 @@ class AuthenticatedSessionController extends Controller
                     'email' => 'These credentials do not match our records.',
                 ]);
             }
-        } else if ($request->is('course-teacher/login')) {
+        } else if ($request->is('teacher/login')) {
 
             if (Auth::guard('questioncreator')->attempt($credentials)) {
 
-                return redirect()->intended('/course-teacher/course');
+                return redirect()->intended('/teacher/course');
             } else {
 
                 Log::error('Course Teacher login failed for email: ' . $credentials['email']);

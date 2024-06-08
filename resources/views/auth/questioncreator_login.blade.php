@@ -63,7 +63,7 @@
     <div class="container">
         <div class="form-container">
             <!-- Heading -->
-            <h4 class="text-2xl font-bold">Course Teacher Login</h4>
+            <h4 class="text-2xl font-bold">Teacher Login</h4>
 
             <!-- Session Status -->
             <!-- Add Session Status section here if needed -->

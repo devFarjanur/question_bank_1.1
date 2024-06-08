@@ -3,315 +3,194 @@
 @section('admin')
 
 <div class="page-content">
+  <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div>
+      <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
+    </div>
+    <div class="d-flex align-items-center flex-wrap text-nowrap">
+      <div class="input-group flatpickr wd-200 me-2 mb-2 mb-md-0" id="dashboardDate">
+        <span class="input-group-text input-group-addon bg-transparent border-primary" data-toggle>
+          <i data-feather="calendar" class="text-primary"></i>
+        </span>
+        <input type="text" class="form-control bg-transparent border-primary" placeholder="Select date" data-input>
+      </div>
+      <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
+        <i class="btn-icon-prepend" data-feather="printer"></i>
+        Print
+      </button>
+      <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
+        <i class="btn-icon-prepend" data-feather="download-cloud"></i>
+        Download Report
+      </button>
+    </div>
+  </div>
 
-        <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
-          <div>
-            <h4 class="mb-3 mb-md-0">Welcome to Dashboard</h4>
-          </div>
-          <div class="d-flex align-items-center flex-wrap text-nowrap">
-            <div class="input-group flatpickr wd-200 me-2 mb-2 mb-md-0" id="dashboardDate">
-              <span class="input-group-text input-group-addon bg-transparent border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
-              <input type="text" class="form-control bg-transparent border-primary" placeholder="Select date" data-input>
-            </div>
-            <button type="button" class="btn btn-outline-primary btn-icon-text me-2 mb-2 mb-md-0">
-              <i class="btn-icon-prepend" data-feather="printer"></i>
-              Print
-            </button>
-            <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
-              <i class="btn-icon-prepend" data-feather="download-cloud"></i>
-              Download Report
-            </button>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 col-xl-12 stretch-card">
-            <div class="row flex-grow-1">
-              <div class="col-md-3 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Total Students</h6>
-                      <!-- <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> -->
-                    </div>
-                    <div class="row">
-                      <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">{{ $totalStudents }}</h3>
-                        <!-- <div class="d-flex align-items-baseline">
-                          <p class="text-success">
-                            <span>+3.3%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                          </p>
-                        </div> -->
-                      </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="customersChart" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
-                    </div>
-                  </div>
-                </div>
+  <div class="row mt-3">
+    <div class="col-12 col-xl-12 stretch-card">
+      <div class="row flex-grow-1">
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Total Courses</h6>
               </div>
-              <div class="col-md-3 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Total Instructors</h6>
-                      <!-- <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> -->
-                    </div>
-                    <div class="row">
-                      <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">{{ $totalInstructors }}</h3>
-                        <!-- <div class="d-flex align-items-baseline">
-                          <p class="text-danger">
-                            <span>-2.8%</span>
-                            <i data-feather="arrow-down" class="icon-sm mb-1"></i>
-                          </p>
-                        </div> -->
-                      </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Total Course</h6>
-                      <!-- <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> -->
-                    </div>
-                    <div class="row">
-                      <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">{{ $totalCourses }}</h3>
-                        <!-- <div class="d-flex align-items-baseline">
-                          <p class="text-danger">
-                            <span>-2.8%</span>
-                            <i data-feather="arrow-down" class="icon-sm mb-1"></i>
-                          </p>
-                        </div> -->
-                      </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="ordersChart" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-3 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-baseline">
-                      <h6 class="card-title mb-0">Fee Collection</h6>
-                      <!-- <div class="dropdown mb-2">
-                        <a type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                          <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                        </div>
-                      </div> -->
-                    </div>
-                    <div class="row">
-                      <div class="col-6 col-md-12 col-xl-5">
-                        <h3 class="mb-2">25,000$</h3>
-                        <!-- <div class="d-flex align-items-baseline">
-                          <p class="text-success">
-                            <span>+2.8%</span>
-                            <i data-feather="arrow-up" class="icon-sm mb-1"></i>
-                          </p>
-                        </div> -->
-                      </div>
-                      <!-- <div class="col-6 col-md-12 col-xl-7">
-                        <div id="growthChart" class="mt-md-3 mt-xl-0"></div>
-                      </div> -->
-                    </div>
-                  </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ $totalCourse }}</h3>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
-         <!-- row -->
-
-        <!-- <div class="row">
-          <div class="col-12 col-xl-12 grid-margin stretch-card">
-            <div class="card overflow-hidden">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-4 mb-md-3">
-                  <h6 class="card-title mb-0">Revenue</h6>
-                  <div class="dropdown">
-                    <a type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Total Teachers</h6>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ $totalTeacher }}</h3>
                 </div>
-                <div class="row align-items-start">
-                  <div class="col-md-7">
-                    <p class="text-muted tx-13 mb-3 mb-md-0">Revenue is the income that a business has from its normal business activities, usually from the sale of goods and services to customers.</p>
-                  </div>
-                  <div class="col-md-5 d-flex justify-content-md-end">
-                    <div class="btn-group mb-3 mb-md-0" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-outline-primary">Today</button>
-                      <button type="button" class="btn btn-outline-primary d-none d-md-block">Week</button>
-                      <button type="button" class="btn btn-primary">Month</button>
-                      <button type="button" class="btn btn-outline-primary">Year</button>
-                    </div>
-                  </div>
-                </div>
-                <div id="revenueChart" ></div>
               </div>
             </div>
           </div>
-        </div>  -->
-        <!-- row -->   
-
-        <div class="row">
-          <div class="col-12 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Income/Expense Report</h6>
-                  <div class="dropdown mb-2">
-                    <a type="button" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Total Students</h6>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2">{{ $totalStudent }}</h3>
                 </div>
-                <p class="text-muted">Sales are activities related to selling or the number of goods or services sold in a given time period.</p>
-                <div id="monthlySalesChart"></div>
-              </div> 
+              </div>
             </div>
           </div>
+        </div>
+        <div class="col-md-3 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-baseline">
+                <h6 class="card-title mb-0">Fee Collection</h6>
+              </div>
+              <div class="row">
+                <div class="col-6 col-md-12 col-xl-5">
+                  <h3 class="mb-2"></h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="row">
-       
-          <div class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-2">Instructor List</h6>
-                </div>
-                @foreach($instructors as $instructor)
-                <div class="d-flex flex-column">
-                  <a href="javascript:;" class="d-flex align-items-center border-bottom py-3">
-                    <div class="me-3">
-                      <img src="{{ asset('upload/admin_images/' . $instructor->photo) }}" class="rounded-circle wd-35" alt="user">
-                    </div>
-                    <div class="w-100">
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-body">{{ $instructor->name }}</h6>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+
+  <div class="d-flex justify-content-between align-items-center flex-wrap grid-margin">
+    <div>
+      <h4 class="mb-3 mb-md-0">Question Category</h4>
+    </div>
+    <div class=" mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
+      <a href="{{ route('admin.question.category.create') }}" class="btn btn-primary">Create Question Category</a>
+    </div>
+  </div>
+
+  <div class="row row-cols-2 row-cols-md-4">
+    @foreach($categories as $category)
+    <div class="col mb-3">
+      <a href="#" class="card h-100 text-decoration-none">
+      <div class="card-body d-flex flex-column justify-content-between">
+        <div class="text-center align-self-center mt-3"> <!-- Center the content horizontally and vertically -->
+        <h5 class="card-title" style="font-size: 22px;">{{ $category->name }}</h5>
+        </div>
+        <div>
+        <!-- You can optionally place content or buttons here -->
+        </div>
+      </div>
+      </a>
+    </div>
+  @endforeach
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h6 class="card-title mb-0">Teachers List</h6>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="pt-0">#</th>
+                  <th class="pt-0">Teacher Name</th>
+                  <th class="pt-0">Email</th>
+                  <th class="pt-0">Phone</th>
+                  <th class="pt-0">Assigned Course</th>
+                  <th class="pt-0">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($teachers as $teacher)
+                  <tr>
+                    <td>{{ $teacher->id }}</td>
+                    <td>{{ $teacher->name }}</td>
+                    <td>{{ $teacher->email }}</td>
+                    <td>{{ $teacher->phone }}</td>
+                    <td>{{ $teacher->course->name }}</td>
+                    <td>{{ $teacher->status }}</td>
+                  </tr>
                 @endforeach
-              </div>
-            </div>
-           
+              </tbody>
+            </table>
           </div>
-          <div class="col-lg-7 col-xl-8 stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-baseline mb-2">
-                  <h6 class="card-title mb-0">Student List</h6>
-                  <div class="dropdown mb-2">
-                    <a type="button" id="dropdownMenuButton7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table table-hover mb-0">
-                    <thead>
-                      <tr>
-                        <th class="pt-0">#</th>
-                        <th class="pt-0">Student Name</th>
-                        <th class="pt-0">Start Date</th>
-                        <th class="pt-0">Due Date</th>
-                        <th class="pt-0">Status</th>
-                        <th class="pt-0">Assign</th>
-                      </tr>
-                    </thead>
-                    @foreach($users as $user)
-                    <tbody>
-                      <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>01/01/2022</td>
-                        <td>26/04/2022</td>
-                        <td><span class="badge bg-danger">Released</span></td>
-                        <td>Leonardo Payne</td>
-                      </tr>
-                    </tbody>
-                    @endforeach
-                  </table>
-                </div>
-              </div> 
-            </div>
-          </div>
-        </div> <!-- row -->
+        </div>
+      </div>
+    </div>
+  </div>
 
-	</div>
+  <div class="row mt-5">
+    <div class="col-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h6 class="card-title mb-0">Student List</h6>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="pt-0">#</th>
+                  <th class="pt-0">Student Name</th>
+                  <th class="pt-0">Email</th>
+                  <th class="pt-0">Phone</th>
+                  <th class="pt-0">Registered Course</th>
+                  <th class="pt-0">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($students as $student)
+                  <tr>
+                    <td>{{ $student->id }}</td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->email }}</td>
+                    <td>{{ $student->phone }}</td>
+                    <td>{{ $student->course->name }}</td>
+                    <td>{{ $student->status }}</td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 @endsection

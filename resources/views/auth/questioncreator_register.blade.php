@@ -59,7 +59,7 @@
     <div class="container">
         <div class="form-container">
             <!-- Heading -->
-            <h4 class="text-center text-2xl font-bold mt-4 mb-4">Course Teacher Register</h4>
+            <h4 class="text-center text-2xl font-bold mt-4 mb-4">Teacher Register</h4>
 
             <form method="POST" action="{{ route('questioncreator.register') }}">
                 @csrf

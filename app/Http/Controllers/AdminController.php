@@ -104,6 +104,26 @@ class AdminController extends Controller
         return back()->with($notification);
     }
 
+
+    public function AdminDashboard(){
+
+        $totalCourse = Course::count();
+        $totalTeacher = Questioncreator::count();
+        $totalStudent = Student::count();
+
+        $teachers = Questioncreator::all();
+        $students = Student::all();
+
+
+        $categories = QuestionCategory::all();
+
+
+        return view('admin.index', compact('totalCourse', 'totalTeacher', 'totalStudent', 'teachers', 'students', 'categories'));
+
+    }
+
+
+
     public function AdminCourse(){
         $courses = Course::all();
         return view('admin.course.admin_course', compact('courses'));
@@ -145,17 +165,6 @@ class AdminController extends Controller
     }
 
 
-    // public function AdminCourseTeacher()
-    // {
-    //     // Fetch pending course teacher requests along with their associated courses
-    //     $pendingTeacherRequests = Questioncreator::with('course')
-    //                                             ->where('approved', false)
-    //                                             ->where('role', 'teacher') // Filter only course teacher requests
-    //                                             ->get();
-    
-    //     return view('admin.courseteacher.course_teacher', compact('pendingTeacherRequests'));
-    // }
-
 
     public function AdminCourseTeacher()
     {
@@ -195,20 +204,6 @@ class AdminController extends Controller
         return view('admin.student.student', compact('pendingStudentRequests'));
     }
     
-    
-
-    // public function AdminCourseStudent()
-    // {
-    //     // Fetch pending student requests along with their associated courses
-    //     $pendingStudentRequests = Questioncreator::with('course')
-    //                                              ->where('approved', false)
-    //                                              ->where('role', 'student') // Filter only student requests
-    //                                              ->get();
-    
-    //     return view('admin.student.student', compact('pendingStudentRequests'));
-    // }
-    
-
 
     public function AdminApproveCourseStudent($coursestudentId)
     {
@@ -262,7 +257,7 @@ class AdminController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('admin.question.category')->with($notification);
+        return redirect()->route('admin.dashboard')->with($notification);
 
     }
     

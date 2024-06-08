@@ -70,6 +70,9 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+
+
+
 Route::middleware('auth:admin')->group(function () {
     Route::prefix('admin')->group(function () {
 
@@ -78,17 +81,21 @@ Route::middleware('auth:admin')->group(function () {
         Route::post('/profile/store', [AdminController::class, 'AdminProfileStore'])->name('admin.profile.store');
         Route::get('/change/password', [AdminController::class, 'AdminChangePassword'])->name('admin.change.password');
         Route::post('/update/password', [AdminController::class, 'AdminUpdatePassword'])->name('admin.update.password');
+
+
+        Route::get('/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
+
         Route::get('/course', [AdminController::class, 'AdminCourse'])->name('admin.course');
         Route::get('/create-course', [AdminController::class, 'AdminCourseCreate'])->name('admin.course.create');
         Route::post('/course-store', [AdminController::class, 'AdminCourseStore'])->name('admin.course.store');
 
 
-        Route::get('/course-teacher', [AdminController::class, 'AdminCourseTeacher'])->name('admin.course.teacher');
-        Route::put('/course-teacher/{id}/approve', [AdminController::class, 'AdminApproveCourseTeacher'])->name('admin.approve.course.teacher');
+        Route::get('/teacher', [AdminController::class, 'AdminCourseTeacher'])->name('admin.course.teacher');
+        Route::put('/teacher/{id}/approve', [AdminController::class, 'AdminApproveCourseTeacher'])->name('admin.approve.course.teacher');
 
 
-        Route::get('/course-student', [AdminController::class, 'AdminCourseStudent'])->name('admin.course.student');
-        Route::put('/course-student/{id}/approve', [AdminController::class, 'AdminApproveCourseStudent'])->name('admin.approve.course.student');
+        Route::get('/student', [AdminController::class, 'AdminCourseStudent'])->name('admin.course.student');
+        Route::put('/student/{id}/approve', [AdminController::class, 'AdminApproveCourseStudent'])->name('admin.approve.course.student');
 
 
         Route::get('/admin/questioncategory', [AdminController::class, 'AdminQuestionCategory'])->name('admin.question.category');
@@ -109,8 +116,12 @@ Route::get('admin/login', [AuthenticatedSessionController::class, 'CreateAdminFo
 Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);  
 
 
+
+
+
+
 Route::middleware('auth:questioncreator')->group(function () {
-    Route::prefix('course-teacher')->group(function () {
+    Route::prefix('teacher')->group(function () {
 
 
         Route::get('/logout', [CourseTeacherController::class, 'CourseTeacherLogout'])->name('course.teacher.logout');
@@ -171,12 +182,15 @@ Route::middleware('auth:questioncreator')->group(function () {
 });
 
 
-Route::get('course-teacher/login', [AuthenticatedSessionController::class, 'QuestionCreatorLogin'])->name('questioncreator.login');
-Route::post('course-teacher/login', [AuthenticatedSessionController::class, 'store']);
+Route::get('teacher/login', [AuthenticatedSessionController::class, 'QuestionCreatorLogin'])->name('questioncreator.login');
+Route::post('teacher/login', [AuthenticatedSessionController::class, 'store']);
 
 
-Route::get('course-teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegister'])->name('questioncreator.register');
-Route::post('course-teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegisterStore']);
+Route::get('teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegister'])->name('questioncreator.register');
+Route::post('teacher/register', [RegisteredUserController::class, 'QuestionCreatorRegisterStore']);
+
+
+
 
 
 Route::middleware('auth:student')->group(function () {
@@ -217,5 +231,5 @@ Route::post('/', [AuthenticatedSessionController::class, 'store']);
 
 
 
-Route::get('student/register', [RegisteredUserController::class, 'StudentRegister'])->name('student.register');
-Route::post('student/register', [RegisteredUserController::class, 'StudentRegisterStore']);
+Route::get('/register', [RegisteredUserController::class, 'StudentRegister'])->name('student.register');
+Route::post('/register', [RegisteredUserController::class, 'StudentRegisterStore']);
