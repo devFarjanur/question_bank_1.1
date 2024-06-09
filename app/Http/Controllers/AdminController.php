@@ -176,9 +176,9 @@ class AdminController extends Controller
     
 
 
-    public function AdminApproveCourseTeacher($courseteacherId)
+    public function AdminApproveCourseTeacher($id)
     {
-        $courseteacher = Questioncreator::find($courseteacherId);
+        $courseteacher = Questioncreator::find($id);
         if ($courseteacher) {
             $courseteacher->approved = true;
             $courseteacher->save();
@@ -205,9 +205,9 @@ class AdminController extends Controller
     }
     
 
-    public function AdminApproveCourseStudent($coursestudentId)
+    public function AdminApproveCourseStudent($id)
     {
-        $coursestudent = Student::find($coursestudentId);
+        $coursestudent = Student::find($id);
         if ($coursestudent) {
             $coursestudent->approved = true;
             $coursestudent->save();

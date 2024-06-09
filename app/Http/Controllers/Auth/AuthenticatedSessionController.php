@@ -42,6 +42,7 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
+        $credentials['approved'] = true;
     
         if ($request->is('admin/login')) {
             // Attempt admin authentication

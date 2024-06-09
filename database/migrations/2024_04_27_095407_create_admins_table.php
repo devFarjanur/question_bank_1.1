@@ -23,6 +23,7 @@ class CreateAdminsTable extends Migration
             $table->string('phone')->nullable();
             $table->text('address')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->boolean('approved')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

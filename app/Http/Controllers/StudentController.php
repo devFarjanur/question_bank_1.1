@@ -133,20 +133,6 @@ class StudentController extends Controller
     {
         $courseId = auth()->user()->course_id;
 
-
-        // $hasAttempted = $user->examResults()->where('exam_id', $exam->id)->exists();
-    
-        // if ($hasAttempted) {
-        //     // Retrieve the exam result for the logged-in user and the specific exam
-        //     $examResult = $user->examResults()->where('exam_id', $exam->id)->where('user_id', $user->id)->first();
-        
-        //     // If exam result exists, pass the score to the redirection message
-        //     if ($examResult) {
-        //         return redirect()->route('dashboard')->with('message', 'You have already attempted this exam. Your score: ' . $examResult->score)->with('alert-type', 'error');
-        //     }
-        // }
-        
-    
         // Retrieve exams with their associated question chapters and question categories
         $exams = Exam::with('questionChapter', 'questionCategory')
                      ->where('course_id', $courseId)
@@ -165,9 +151,6 @@ class StudentController extends Controller
         $exam = Exam::findOrFail($id);
 
         $questionchapter = QuestionChapter::findOrFail($id);
-
-
-
     
         // Retrieve the MCQs with specific question chapter and category IDs
         $mcqs = MCQ::where('questionchapter_id', $id)
