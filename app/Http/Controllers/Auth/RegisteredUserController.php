@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -80,16 +80,16 @@ class RegisteredUserController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:questioncreators',
+            'phone' => 'required|string|max:15',
             'password' => 'required|string|min:8|confirmed',
             'course_id' => 'required|exists:courses,id',
         ]);
-
-
 
         // Create the question creator
         $questioncreator = new Questioncreator();
         $questioncreator->name = $validatedData['name'];
         $questioncreator->email = $validatedData['email'];
+        $questioncreator->phone = $validatedData['phone'];
         $questioncreator->password = bcrypt($validatedData['password']);
         $questioncreator->course_id = $validatedData['course_id'];
         $questioncreator->save();
@@ -100,50 +100,52 @@ class RegisteredUserController extends Controller
             'message' => 'Question Creator registered successfully.',
             'alert-type' => 'success'
         );
-    
+
         return redirect()->route('questioncreator.login')->with($notification);
-    
+
     }
 
 
-        /**
+    /**
      * Handle an incoming registration request for question creator.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
 
 
-     public function StudentRegisterStore(Request $request): RedirectResponse
-     {
-         // Validate form data
-         $validatedData = $request->validate([
-             'name' => 'required|string|max:255',
-             'email' => 'required|string|email|max:255|unique:students',
-             'password' => 'required|string|min:8|confirmed',
-             'course_id' => 'required|exists:courses,id',
-         ]);
- 
- 
- 
-         // Create the question creator
-         $student = new Student();
-         $student->name = $validatedData['name'];
-         $student->email = $validatedData['email'];
-         $student->password = bcrypt($validatedData['password']);
-         $student->course_id = $validatedData['course_id'];
-         $student->save();
- 
- 
- 
-         $notification = array(
-             'message' => 'Student registered successfully.',
-             'alert-type' => 'success'
-         );
-     
-         return redirect()->route('student.login')->with($notification);
-     
-     }
-    
+    public function StudentRegisterStore(Request $request): RedirectResponse
+    {
+        // Validate form data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:students',
+            'phone' => 'required|string|max:15',
+            'password' => 'required|string|min:8|confirmed',
+            'course_id' => 'required|exists:courses,id',
+        ]);
+
+
+
+        // Create the question creator
+        $student = new Student();
+        $student->name = $validatedData['name'];
+        $student->email = $validatedData['email'];
+        $student->phone = $validatedData['phone'];
+        $student->password = bcrypt($validatedData['password']);
+        $student->course_id = $validatedData['course_id'];
+        $student->save();
+
+
+
+        $notification = array(
+            'message' => 'Student registered successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('student.login')->with($notification);
+
+    }
+
 
 
 
