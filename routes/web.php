@@ -97,6 +97,7 @@ Route::middleware('auth:admin')->group(function () {
 
         Route::get('/student', [AdminController::class, 'AdminCourseStudent'])->name('admin.course.student');
         Route::put('/student/{id}/approve', [AdminController::class, 'AdminApproveCourseStudent'])->name('admin.approve.course.student');
+        Route::delete('/student/{id}/reject', [AdminController::class, 'rejectCourseStudent'])->name('admin.reject.course.student');
 
 
         Route::get('/admin/questioncategory', [AdminController::class, 'AdminQuestionCategory'])->name('admin.question.category');

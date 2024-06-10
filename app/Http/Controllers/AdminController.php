@@ -206,12 +206,12 @@ class AdminController extends Controller
     {
         $request = Questioncreator::find($id);
         $request->status = 'rejected';
-        $request->save();
-        
+        $request->delete();
+
 
         // Redirect back with a success message
         $notification = array(
-            'message' => 'Course Teacher approved successfully.',
+            'message' => 'Teacher rejected successfully.',
             'alert-type' => 'success'
         );
 
@@ -240,7 +240,7 @@ class AdminController extends Controller
 
         // Redirect back with a success message
         $notification = array(
-            'message' => 'Course Student approved successfully.',
+            'message' => 'Student approved successfully.',
             'alert-type' => 'success'
         );
 
@@ -248,6 +248,24 @@ class AdminController extends Controller
 
 
     }
+
+
+    public function rejectCourseStudent($id)
+    {
+        $request = Student::find($id);
+        $request->status = 'rejected';
+        $request->delete();
+
+
+        // Redirect back with a success message
+        $notification = array(
+            'message' => 'Student rejected successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.course.teacher')->with($notification);
+    }
+
 
 
     public function AdminQuestionCategory()
