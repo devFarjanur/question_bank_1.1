@@ -46,11 +46,11 @@ class AdminController extends Controller
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
-        
+
         if ($request->file('photo')) {
             $file = $request->file('photo');
-            @unlink(public_path('upload/admin_images/'.$data->photo));
-            $filename = date('YmdHi').$file->getClientOriginalName();
+            @unlink(public_path('upload/admin_images/' . $data->photo));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('upload/admin_images'), $filename);
             $data->photo = $filename;
         }
@@ -105,14 +105,15 @@ class AdminController extends Controller
     }
 
 
-    public function AdminDashboard(){
+    public function AdminDashboard()
+    {
 
         $totalCourse = Course::count();
-        $totalTeacher = Questioncreator::count();
-        $totalStudent = Student::count();
+        $totalTeacher = Questioncreator::where('role', 'questioncreator')->where('approved', true)->count();
+        $totalStudent = Student::where('role', 'student')->where('approved', true)->count();
 
-        $teachers = Questioncreator::all();
-        $students = Student::all();
+        $teachers = Questioncreator::where('role', 'questioncreator')->where('approved', true)->get();
+        $students = Student::where('role', 'student')->where('approved', true)->get();
 
 
         $categories = QuestionCategory::all();
@@ -124,13 +125,15 @@ class AdminController extends Controller
 
 
 
-    public function AdminCourse(){
+    public function AdminCourse()
+    {
         $courses = Course::all();
         return view('admin.course.admin_course', compact('courses'));
     }
 
 
-    public function AdminCourseCreate(){
+    public function AdminCourseCreate()
+    {
         return view('admin.course.admin_create_course');
     }
 
@@ -138,29 +141,29 @@ class AdminController extends Controller
     public function AdminCourseStore(Request $request)
     {
         // Debugging to check form data
-    
+
         // Validate the incoming request data
         $request->validate([
             'coursename' => 'required|string|max:255',
             'coursedescription' => 'required|string',
             // Add more validation rules if needed
         ]);
-    
+
         // Create a new Course instance
         $course = new Course();
         $course->name = $request->input('coursename'); // Adjusted field name
         $course->description = $request->input('coursedescription'); // Adjusted field name
-        
+
         // Debugging to check Course model instance
         // Save the course to the database
         $course->save();
-    
+
         // Redirect back with a success message
         $notification = array(
             'message' => 'Course Added Successfully',
             'alert-type' => 'success'
         );
-    
+
         return redirect()->route('admin.course')->with($notification);
     }
 
@@ -170,10 +173,10 @@ class AdminController extends Controller
     {
         // Fetch pending course teacher requests where approved is false
         $pendingRequests = QuestionCreator::where('role', 'questioncreator')->where('approved', false)->get();
-        
+
         return view('admin.courseteacher.course_teacher', compact('pendingRequests'));
     }
-    
+
 
 
     public function AdminApproveCourseTeacher($id)
@@ -190,20 +193,41 @@ class AdminController extends Controller
             'message' => 'Course Teacher approved successfully.',
             'alert-type' => 'success'
         );
-            
+
         return redirect()->route('admin.course.teacher')->with($notification);
 
 
     }
 
+
+
+
+    public function rejectCourseTeacher($id)
+    {
+        $request = Questioncreator::find($id);
+        $request->status = 'rejected';
+        $request->save();
+        
+
+        // Redirect back with a success message
+        $notification = array(
+            'message' => 'Course Teacher approved successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.course.teacher')->with($notification);
+    }
+
+
+
     public function AdminCourseStudent()
     {
         // Fetch pending student requests where role is 'student' and approved is false
         $pendingStudentRequests = Student::where('role', 'student')->where('approved', false)->get();
-        
+
         return view('admin.student.student', compact('pendingStudentRequests'));
     }
-    
+
 
     public function AdminApproveCourseStudent($id)
     {
@@ -219,7 +243,7 @@ class AdminController extends Controller
             'message' => 'Course Student approved successfully.',
             'alert-type' => 'success'
         );
-            
+
         return redirect()->route('admin.course.student')->with($notification);
 
 
@@ -239,7 +263,7 @@ class AdminController extends Controller
     {
         return view('admin.admin_questioncategory.admin_create_questioncategory');
     }
-    
+
 
 
     public function AdminQuestionCategoryStore(Request $request)
@@ -247,7 +271,7 @@ class AdminController extends Controller
         $validatedData = $request->validate([
             'questionCategory' => 'required|string|max:255', // Update the field name
         ]);
-    
+
         $questionCategory = new QuestionCategory();
         $questionCategory->name = $request->questionCategory; // Update the field name
         $questionCategory->save();
@@ -260,7 +284,7 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with($notification);
 
     }
-    
+
 
 
 

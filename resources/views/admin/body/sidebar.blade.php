@@ -10,7 +10,7 @@
 
       <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
-          <i class="link-icon" data-feather="book"></i>
+          <i class="link-icon" data-feather="box"></i>
           <span class="link-title">Dashboard</span>
         </a>
       </li>

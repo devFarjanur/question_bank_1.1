@@ -112,17 +112,20 @@ class CourseTeacherController extends Controller
         return back()->with($notification);
     }
 
-    public function CourseTeacherCourse(){
-
-
+    public function CourseTeacherCourse()
+    {
         $courseteacher = Auth::user();
-    
+        
         // Retrieve the assigned course for the user
         $assignedCourse = $courseteacher->course;
-
-
-        return view('courseteacher.course.courseteacher_course', compact('assignedCourse'));
+    
+        // Retrieve students assigned to the same course
+        $students = \App\Models\Student::where('course_id', $assignedCourse->id)->where('role', 'student')->where('approved', true)->get();
+        $totalStudents = \App\Models\Student::where('course_id', $assignedCourse->id)->where('role', 'student')->where('approved', true)->count();
+    
+        return view('courseteacher.course.courseteacher_course', compact('assignedCourse', 'students', 'totalStudents'));
     }
+    
 
 
 
