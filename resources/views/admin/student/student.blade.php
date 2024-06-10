@@ -48,9 +48,9 @@
                                                     @method('PUT')
                                                     <button type="submit" class="btn btn-primary me-md-2">Approve</button>
                                                 </form>
-                                                <form method="" action="#">
+                                                <form method="post" action="{{ route('admin.reject.course.student', $request->id) }}">
                                                     @csrf
-                                                    @method('')
+                                                    @method('delete')
                                                     <button type="submit" class="btn btn-danger">Reject</button>
                                                 </form>
                                             </div>
