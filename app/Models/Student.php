@@ -40,4 +40,11 @@ class Student extends Authenticatable
     {
         return $this->belongsTo(Course::class);
     }
+
+
+    public function mcqResponses()
+    {
+        return $this->hasMany(Mcqresponse::class);
+    }
+
 }

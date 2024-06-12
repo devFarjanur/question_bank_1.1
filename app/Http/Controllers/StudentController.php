@@ -186,7 +186,21 @@ class StudentController extends Controller
 
     public function StudentMcqExam($id)
     {
-        $courseId = auth()->user()->course_id;
+        $student = auth()->user();
+
+        // Check if the student has already submitted the exam
+        if ($student->mcqResponses()->where('exam_id', $id)->exists()) {
+            $notification = [
+                'message' => 'You have already submitted this exam.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->route('student.exam')->with($notification);
+        }
+
+        // Continue with loading the exam page if the student has not submitted it
+
+        $courseId = $student->course_id;
 
         $exam = Exam::findOrFail($id);
 
@@ -199,8 +213,6 @@ class StudentController extends Controller
             })
             ->get();
 
-
-
         // Pass the question category ID to the view
         $questionCategoryId = $questionchapter->questioncategory_id;
 
@@ -208,9 +220,22 @@ class StudentController extends Controller
     }
 
 
+
     public function StudentMcqExamSubmit(Request $request, $id)
     {
+
         $student = auth()->user();
+
+        // Check if the student has already submitted the exam
+        if ($student->mcqResponses()->where('exam_id', $id)->exists()) {
+            $notification = [
+                'message' => 'You have already submitted this exam.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->route('student.exam')->with($notification);
+        }
+
         // Get the course ID, question chapter ID, and question category ID from the request
         $courseId = $request->input('course_id');
         $questionChapterId = $request->input('questionchapter_id');
@@ -242,7 +267,6 @@ class StudentController extends Controller
         ];
 
         return redirect()->route('student.exam')->with($notification);
-
     }
 
 
