@@ -8,6 +8,7 @@ use App\Models\BLOOMS;
 use App\Models\Bloomsresponse;
 use App\Models\Course;
 use App\Models\Exam;
+use App\Models\Lesson;
 use App\Models\MCQ;
 use App\Models\Mcqresponse;
 use App\Models\QuestionCategory;
@@ -55,11 +56,11 @@ class StudentController extends Controller
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
-        
+
         if ($request->file('photo')) {
             $file = $request->file('photo');
-            @unlink(public_path('upload/admin_images/'.$data->photo));
-            $filename = date('YmdHi').$file->getClientOriginalName();
+            @unlink(public_path('upload/admin_images/' . $data->photo));
+            $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('upload/admin_images'), $filename);
             $data->photo = $filename;
         }
@@ -114,16 +115,55 @@ class StudentController extends Controller
     }
 
 
-    public function StudentCourse(){
+    // public function StudentCourse()
+    // {
 
 
-        $coursestudent = Auth::user();
-    
-        // Retrieve the assigned course for the user
-        $assignedCourse = $coursestudent->course;
+    //     $coursestudent = Auth::user();
+
+    //     // Retrieve the assigned course for the user
+    //     $assignedCourse = $coursestudent->course;
 
 
-        return view('student.course.student_course', compact('assignedCourse'));
+    //     return view('student.course.student_course', compact('assignedCourse'));
+    // }
+
+
+    public function CourseStudentLesson()
+    {
+        $student = Auth::user();
+        $assignedCourse = $student->course;
+
+        if (!$assignedCourse) {
+            return redirect()->back()->with('error', 'No course assigned.');
+        }
+
+        $lessons = $assignedCourse->lessons;
+        return view('student.lesson.student_lesson', compact('lessons', 'assignedCourse'));
+    }
+
+    public function showLesson(Lesson $lesson)
+    {
+        if ($lesson->video_url) {
+            $lesson->video_url = $this->convertToEmbedUrl($lesson->video_url);
+        }
+        return view('courseteacher.lesson.student_lessonshow', compact('lesson'));
+    }
+
+    private function convertToEmbedUrl($url)
+    {
+        if (strpos($url, 'youtu.be') !== false) {
+            // Extract video ID from youtu.be URL
+            $urlParts = parse_url($url);
+            $videoId = ltrim($urlParts['path'], '/');
+            return 'https://www.youtube.com/embed/' . $videoId;
+        } elseif (strpos($url, 'youtube.com/watch') !== false) {
+            // Extract video ID from youtube.com URL
+            $queryString = parse_url($url, PHP_URL_QUERY);
+            parse_str($queryString, $queryParams);
+            return 'https://www.youtube.com/embed/' . $queryParams['v'];
+        }
+        return $url; // Return original URL if it's not a YouTube URL
     }
 
 
@@ -135,9 +175,9 @@ class StudentController extends Controller
 
         // Retrieve exams with their associated question chapters and question categories
         $exams = Exam::with('questionChapter', 'questionCategory')
-                     ->where('course_id', $courseId)
-                     ->get();
-    
+            ->where('course_id', $courseId)
+            ->get();
+
         // Pass the exams data to the view
         return view('student.exam.student_exam', compact('exams'));
     }
@@ -147,24 +187,24 @@ class StudentController extends Controller
     public function StudentMcqExam($id)
     {
         $courseId = auth()->user()->course_id;
-    
+
         $exam = Exam::findOrFail($id);
 
         $questionchapter = QuestionChapter::findOrFail($id);
-    
+
         // Retrieve the MCQs with specific question chapter and category IDs
         $mcqs = MCQ::where('questionchapter_id', $id)
-                    ->whereHas('questionChapter', function ($query) use ($questionchapter) {
-                        $query->where('questioncategory_id', $questionchapter->questioncategory_id);
-                    })
-                    ->get();
+            ->whereHas('questionChapter', function ($query) use ($questionchapter) {
+                $query->where('questioncategory_id', $questionchapter->questioncategory_id);
+            })
+            ->get();
 
-        
-                    
+
+
         // Pass the question category ID to the view
         $questionCategoryId = $questionchapter->questioncategory_id;
-    
-        return view('student.exam.student_mcq_exam', compact('exam','courseId', 'questionchapter', 'mcqs', 'questionCategoryId'));
+
+        return view('student.exam.student_mcq_exam', compact('exam', 'courseId', 'questionchapter', 'mcqs', 'questionCategoryId'));
     }
 
 
@@ -175,14 +215,14 @@ class StudentController extends Controller
         $courseId = $request->input('course_id');
         $questionChapterId = $request->input('questionchapter_id');
         $questionCategoryId = $request->input('questioncategory_id');
-    
+
         // Validate the form data
         $validatedData = $request->validate([
             'option.*' => 'required|string', // Validation for options selected
         ]);
-    
+
         $exam = Exam::findOrFail($id);
-    
+
         // Loop through the responses and store them
         foreach ($validatedData['option'] as $mcqId => $responseOption) {
             $response = new Mcqresponse();
@@ -195,40 +235,40 @@ class StudentController extends Controller
             $response->response_option = $responseOption;
             $response->save();
         }
-    
+
         $notification = [
             'message' => 'MCQ Exam submitted successfully!',
             'alert-type' => 'success',
         ];
-    
+
         return redirect()->route('student.exam')->with($notification);
 
     }
-    
-    
-    
+
+
+
 
     public function StudentBloomsExam($id)
     {
         $courseId = auth()->user()->course_id;
 
 
- 
+
         $exam = Exam::findOrFail($id);
 
         $questionchapter = QuestionChapter::findOrFail($id);
-    
+
         $questions = BLOOMS::where('questionchapter_id', $id)
-                    ->whereHas('questionChapter', function ($query) use ($questionchapter) {
-                        $query->where('questioncategory_id', $questionchapter->questioncategory_id);
-                    })
-                    ->get()->groupBy('bloom_taxonomy');
-    
+            ->whereHas('questionChapter', function ($query) use ($questionchapter) {
+                $query->where('questioncategory_id', $questionchapter->questioncategory_id);
+            })
+            ->get()->groupBy('bloom_taxonomy');
+
         $questionCategoryId = $questionchapter->questioncategory_id;
-    
+
         return view('student.exam.student_blooms_exam', compact('courseId', 'exam', 'questionCategoryId', 'questionchapter', 'questions'));
     }
-    
+
     public function StudentBloomsExamSubmit(Request $request, $id)
     {
 
@@ -249,11 +289,11 @@ class StudentController extends Controller
             'marks' => 'nullable|array', // marks is an array
             'marks.*' => 'nullable|string', // each mark is a string
         ]);
-    
+
 
         $exam = Exam::findOrFail($id);
 
-        
+
         // Loop through the responses and store them
         foreach ($validatedData['bloom_ids'] as $key => $bloomId) {
             $response = new Bloomsresponse();
@@ -270,12 +310,12 @@ class StudentController extends Controller
             }
             $response->save();
         }
-    
+
         $notification = [
             'message' => 'Blooms Answers Submitted Successfully',
             'alert-type' => 'success',
         ];
-    
+
         return redirect()->route('student.exam')->with($notification);
     }
 
@@ -284,10 +324,10 @@ class StudentController extends Controller
     {
         // Get the current student's Blooms responses
         $bloomsResponses = Bloomsresponse::where('student_id', auth()->user()->id)->get();
-    
+
         // Initialize array to store Blooms exam scores
         $bloomsScores = [];
-    
+
         // Loop through Blooms responses to calculate total exam scores
         foreach ($bloomsResponses as $response) {
             // Extract necessary information from the response
@@ -295,20 +335,20 @@ class StudentController extends Controller
             $questionChapterName = $response->exam->questionchapter->name;
             $questionCategoryName = $response->exam->questioncategory->name;
             $marks = $response->marks;
-    
+
             // Check if the exam exists in the array
             if (!isset($bloomsScores[$examName][$questionChapterName][$questionCategoryName])) {
                 $bloomsScores[$examName][$questionChapterName][$questionCategoryName] = 0;
             }
-    
+
             // Add marks to the corresponding exam, question chapter, and category
             $bloomsScores[$examName][$questionChapterName][$questionCategoryName] += $marks;
         }
-    
+
         // Pass the Blooms exam scores to the student exam result view
         return view('student.result.student_exam_result', compact('bloomsScores'));
     }
-    
+
 
 
 }

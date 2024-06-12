@@ -60,7 +60,7 @@ class AuthenticatedSessionController extends Controller
 
             if (Auth::guard('questioncreator')->attempt($credentials)) {
 
-                return redirect()->intended('/teacher/course');
+                return redirect()->intended('/teacher/dashboard');
             } else {
 
                 Log::error('Course Teacher login failed for email: ' . $credentials['email']);

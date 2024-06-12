@@ -12,7 +12,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('student.course') }}">
               <i class="link-icon" data-feather="book"></i>
-              <span class="link-title">Course</span>
+              <span class="link-title">Course Content</span>
             </a>
         </li>
 

@@ -12,9 +12,9 @@
     </nav>
 
 
-<div class="row row-cols-2 row-cols-md-4">
+    <div class="row">
     @if($assignedCourse)
-    <div class="col mb-3">
+    <div class="col-12 mb-3">
       <a href="#" class="card h-100 text-decoration-none">
         <div class="card-body d-flex flex-column justify-content-between">
           <div class="text-center align-self-center mt-3"> <!-- Center the content horizontally and vertically -->
@@ -26,16 +26,9 @@
         </div>
       </a>
     </div>
-    @else
-        <p>No course assigned.</p>
-    @endif
-</div>
-
-
-
+    @endif <!-- Add this line to close the if condition -->
+  </div> <!-- This closing div is already present, no need to change -->
 
 </div>
-
-
 
 @endsection

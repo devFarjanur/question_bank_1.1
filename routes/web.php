@@ -133,7 +133,16 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::post('/update/password', [CourseTeacherController::class, 'CourseTeacherUpdatePassword'])->name('course.teacher.update.password');
 
 
-        Route::get('/course', [CourseTeacherController::class, 'CourseTeacherCourse'])->name('course.teacher.course');
+        Route::get('/dashboard', [CourseTeacherController::class, 'CourseTeacherCourse'])->name('course.teacher.course');
+
+        
+        Route::get('/lesson', [CourseTeacherController::class, 'CourseTeacherLesson'])->name('course.teacher.lesson');
+        Route::get('/lesson/create/{course}', [CourseTeacherController::class, 'createLesson'])->name('course.teacher.lesson.create');
+        Route::post('/lesson/store/{course}', [CourseTeacherController::class, 'storeLesson'])->name('course.teacher.lesson.store');
+        Route::get('/lesson/show/{lesson}', [CourseTeacherController::class, 'showLesson'])->name('course.teacher.lesson.show');
+
+
+
         Route::get('/question', [CourseTeacherController::class, 'CourseTeacherQuestion'])->name('course.teacher.question');
 
         Route::get('/question-category', [CourseTeacherController::class, 'CourseTeacherQuestionCategory'])->name('course.teacher.question.category');
@@ -205,7 +214,13 @@ Route::middleware('auth:student')->group(function () {
         Route::post('/update/password', [StudentController::class, 'StudentUpdatePassword'])->name('student.update.password');
 
 
-        Route::get('/course', [StudentController::class, 'StudentCourse'])->name('student.course');
+        // Route::get('/course', [StudentController::class, 'StudentCourse'])->name('student.course');
+
+
+        Route::get('/course', [StudentController::class, 'CourseStudentLesson'])->name('student.course');
+        Route::get('/lesson/show/{lesson}', [StudentController::class, 'studentshowLesson'])->name('course.student.lesson.show');
+
+
         Route::get('/exam', [StudentController::class, 'StudentExam'])->name('student.exam');
 
 
