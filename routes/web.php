@@ -169,17 +169,17 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::post('/exam/store', [CourseTeacherController::class, 'CourseTeacherStoreExam'])->name('course.teacher.exam.store');
 
 
-        Route::get('/exam/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
-        Route::get('/exam/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
+        Route::get('/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
+        Route::get('/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
 
-        Route::get('/exam/exam-category', [CourseTeacherController::class, 'CourseTeacherExamCategory'])->name('course.teacher.exam.category');
-        Route::get('/exam/student-exam/{id}', [CourseTeacherController::class, 'CourseTeacherStudentExamList'])->name('course.teacher.student.exam.list');
+        Route::get('/exam-category', [CourseTeacherController::class, 'CourseTeacherExamCategory'])->name('course.teacher.exam.category');
+        Route::get('/student-exam/{id}', [CourseTeacherController::class, 'CourseTeacherStudentExamList'])->name('course.teacher.student.exam.list');
 
 
-        Route::get('/exam/mcq/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherMcqResponce'])->name('course.teacher.mcq.response');
-        Route::get('/exam/blooms/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherBloomsResponce'])->name('course.teacher.blooms.response');
+        Route::get('/mcq/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherMcqResponce'])->name('course.teacher.mcq.response');
+        Route::get('/blooms/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherBloomsResponce'])->name('course.teacher.blooms.response');
 
-        Route::put('exam/blooms/update-marks/{response_id}', [CourseTeacherController::class, 'CourseTeacherBloomsMarkUpdate'])->name('course.teacher.blooms.mark.update');
+        Route::put('/blooms/update-marks/{response_id}', [CourseTeacherController::class, 'CourseTeacherBloomsMarkUpdate'])->name('course.teacher.blooms.mark.update');
 
 
 
@@ -218,21 +218,23 @@ Route::middleware('auth:student')->group(function () {
 
 
         Route::get('/course', [StudentController::class, 'CourseStudentLesson'])->name('student.course');
-        Route::get('/lesson/show/{lesson}', [StudentController::class, 'studentshowLesson'])->name('course.student.lesson.show');
+        Route::get('/lesson/show/{lesson}', [StudentController::class, 'studentshowLesson'])->name('course.student.lesson');
+        Route::post('/lesson/{lesson}/complete', [StudentController::class, 'markAsComplete'])->name('lesson.complete');
+
 
 
         Route::get('/exam', [StudentController::class, 'StudentExam'])->name('student.exam');
 
 
-        Route::get('/exam/mcq/{id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
-        Route::post('/exam/mcq-submit/{id}', [StudentController::class, 'StudentMcqExamSubmit'])->name('student.mcq.exam.submit');
+        Route::get('/mcq/{id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
+        Route::post('/mcq-submit/{id}', [StudentController::class, 'StudentMcqExamSubmit'])->name('student.mcq.exam.submit');
 
 
 
-        Route::get('/exam/blooms/{id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
-        Route::post('/exam/blooms-submit/{id}', [StudentController::class, 'StudentBloomsExamSubmit'])->name('student.blooms.exam.submit');
+        Route::get('/blooms/{id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
+        Route::post('/blooms-submit/{id}', [StudentController::class, 'StudentBloomsExamSubmit'])->name('student.blooms.exam.submit');
 
-        Route::get('/exam/result', [StudentController::class, 'StudentExamResult'])->name('student.exam.result');
+        Route::get('/result', [StudentController::class, 'StudentExamResult'])->name('student.exam.result');
 
 
 

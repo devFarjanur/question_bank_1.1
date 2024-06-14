@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="mt-3 mb-3">{{ $lesson->title }}</h2>
-                        <a href="{{ route('course.student.lesson') }}" class="btn btn-primary">Back to Lessons</a>
+                        <a href="{{ route('course.student.lesson', $lesson) }}" class="btn btn-primary">Back to Lessons</a>
                     </div>
                     @if($lesson->video_url)
                         <div class="embed-responsive" style="height: 500px;">
@@ -27,7 +27,7 @@
                         <h4 class="mt-5 mb-3">{{ $lesson->content }}</h4>
                     </div>
                     <div class="mt-4">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#markCompletedModal">Mark as Completed</button>
+                        <button class="btn btn-success" id="markCompletedButton" data-bs-toggle="modal" data-bs-target="#markCompletedModal">Mark as Completed</button>
                     </div>
                 </div>
             </div>
@@ -56,10 +56,36 @@
 
 <script>
     function confirmCompletion() {
-        // Your logic to mark the lesson as completed
-        alert('Lesson marked as completed!');
-        var modal = bootstrap.Modal.getInstance(document.getElementById('markCompletedModal'));
-        modal.hide();
+        const lessonId = {{ $lesson->id }};
+        const url = "{{ route('lesson.complete', ':lessonId') }}".replace(':lessonId', lessonId);
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ lesson_id: lessonId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                var modal = bootstrap.Modal.getInstance(document.getElementById('markCompletedModal'));
+                modal.hide();
+                // Change the button text to "Lesson Completed"
+                document.getElementById('markCompletedButton').textContent = 'Lesson Completed';
+                document.getElementById('markCompletedButton').classList.remove('btn-success');
+                document.getElementById('markCompletedButton').classList.add('btn-secondary');
+                document.getElementById('markCompletedButton').disabled = true;
+            } else {
+                alert('An error occurred. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again.');
+        });
     }
 </script>
 

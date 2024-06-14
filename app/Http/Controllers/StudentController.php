@@ -75,7 +75,7 @@ class StudentController extends Controller
         return redirect()->back()->with($notification);
     }
 
-    public function CourseTeacherChangePassword()
+    public function StudentChangePassword()
     {
         if (Auth::check()) {
             $id = Auth::user()->id;
@@ -142,12 +142,12 @@ class StudentController extends Controller
         return view('student.lesson.student_lesson', compact('lessons', 'assignedCourse'));
     }
 
-    public function showLesson(Lesson $lesson)
+    public function studentshowLesson(Lesson $lesson)
     {
         if ($lesson->video_url) {
             $lesson->video_url = $this->convertToEmbedUrl($lesson->video_url);
         }
-        return view('courseteacher.lesson.student_lessonshow', compact('lesson'));
+        return view('student.lesson.student_lessonshow', compact('lesson'));
     }
 
     private function convertToEmbedUrl($url)
@@ -165,6 +165,19 @@ class StudentController extends Controller
         }
         return $url; // Return original URL if it's not a YouTube URL
     }
+
+
+
+    public function markAsComplete(Request $request, Lesson $lesson)
+    {
+        $student = auth()->user();
+
+        // Attach the lesson to the student with completion timestamp
+        $student->lessons()->syncWithoutDetaching([$lesson->id => ['completed_at' => now()]]);
+
+        return response()->json(['success' => true, 'message' => 'Lesson marked as completed!']);
+    }
+
 
 
 
@@ -275,6 +288,18 @@ class StudentController extends Controller
     public function StudentBloomsExam($id)
     {
         $courseId = auth()->user()->course_id;
+
+        $student = auth()->user();
+
+        // Check if the student has already submitted the exam
+        if ($student->bloomResponses()->where('exam_id', $id)->exists()) {
+            $notification = [
+                'message' => 'You have already submitted this exam.',
+                'alert-type' => 'error',
+            ];
+
+            return redirect()->route('student.exam')->with($notification);
+        }
 
 
 

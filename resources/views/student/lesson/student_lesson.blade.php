@@ -35,7 +35,7 @@
             @foreach($lessons as $lesson)
                 <div class="col">
                     <div class="card h-100 shadow-sm">
-                        <a href="{{ route('course.student.lesson.show', $lesson) }}" class="text-decoration-none">
+                        <a href="{{ route('course.student.lesson', $lesson) }}" class="text-decoration-none">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div class="mt-3">
                                     <h4 class="card-title text-center">{{ $lesson->title }}</h4>
