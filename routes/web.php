@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CourseTeacherController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Questioncreator;
 use Illuminate\Support\Facades\Route;
@@ -29,9 +30,25 @@ use App\Http\Controllers\Auth\RegisteredUserController; // Import the Registered
 //     return view('student.login');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/home', [LandingPageController::class, 'home'])->name('home');
+
+Route::get('/course', function () {
+    return view('main.course');
+})->name('course');
+
+Route::get('/about', function () {
+    return view('main.about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('main.contact');
+})->name('contact');
+
+
+
+
+
 
 Route::middleware('guest')->group(function () { // Group routes that should only be accessible to guests
     Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
