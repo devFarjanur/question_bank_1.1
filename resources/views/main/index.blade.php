@@ -4,11 +4,15 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Courses | Education</title>
+    <title>Skill Training</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="backend/assets/img1/favicon.ico">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{ asset('backend/assets/css1/bootstrap.min.css') }}">
@@ -53,9 +57,10 @@
                         <div class="row align-items-center">
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
-                                <div class="logo">
-                                    <a href="{{ route('home') }}"><img
-                                            src=" {{ asset('backend/assets/img1/logo/logo.png') }} " alt=""></a>
+                                <div class="">
+                                    <h1 class="text-white">LOGO</h1>
+                                    <!-- <a href="{{ route('home') }}"><img
+                                            src=" {{ asset('backend/assets/img1/logo/logo.png') }} " alt=""></a> -->
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10">
@@ -100,8 +105,8 @@
                             <div class="col-xl-6 col-lg-7 col-md-12">
                                 <div class="hero__caption">
                                     <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
-                                    <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses,
-                                        certificates, and degrees online from world-class universities and companies</p>
+                                    <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses and exams
+                                    </p>
                                     <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join
                                         for Free</a>
                                 </div>
@@ -227,61 +232,20 @@
                         <img src="backend/assets/img1/gallery/about.png" alt="">
 
                         <div class="video-icon">
-                            <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i
-                                    class="fas fa-play"></i></a>
+                            <a class="popup-video btn-icon"
+                                href="https://youtu.be/0FFLFcB9xfQ"
+                                target="_blank">
+                                <i class="fas fa-play"></i>
+                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- top subjects End -->
-        <!--? About Area-3 Start -->
-        <section class="about-area3 mt-5">
-            <div class="support-wrapper align-items-center">
-                <div class="right-content3">
-                    <!-- img -->
-                    <div class="right-img">
-                        <img src="backend/assets/img1/gallery/about3.png" alt="">
-                    </div>
-                </div>
-                <div class="left-content3">
-                    <!-- section tittle -->
-                    <div class="section-tittle section-tittle2 mb-20">
-                        <div class="front-text">
-                            <h2 class="">Learner outcomes on courses you will take</h2>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="backend/assets/img1/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="backend/assets/img1/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Join millions of people from around the world
-                                learning together.</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="backend/assets/img1/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Join millions of people from around the world learning together.
-                                Online learning is as easy and natural.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Area End -->
+
         <!--? Team -->
         <!-- Team area start -->
         <section class="team-area section-padding40 fix">
@@ -349,9 +313,8 @@
                             <div class="single-footer-caption mb-50">
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
-                                    <div class="footer-logo mb-25">
-                                        <a href="index.html"><img src="backend/assets/img1/logo/logo2_footer.png"
-                                                alt=""></a>
+                                    <div class="mb-25">
+                                        <h1 class="text-white">LOGO</h1>
                                     </div>
                                     <div class="footer-tittle">
                                         <div class="footer-pera">
@@ -371,13 +334,12 @@
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
-                                    <h4>Our solutions</h4>
+                                    <h4>Our Pages</h4>
                                     <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Courses</a></li>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -385,13 +347,11 @@
                         <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
-                                    <h4>Support</h4>
+                                    <h4>Log in</h4>
                                     <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
+                                        <li><a href="#">Admin</a></li>
+                                        <li><a href="#">Teacher</a></li>
+                                        <li><a href="#">Student</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -399,13 +359,10 @@
                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
                             <div class="single-footer-caption mb-50">
                                 <div class="footer-tittle">
-                                    <h4>Company</h4>
+                                    <h4>Registration</h4>
                                     <ul>
-                                        <li><a href="#">Design & creatives</a></li>
-                                        <li><a href="#">Telecommunication</a></li>
-                                        <li><a href="#">Restaurant</a></li>
-                                        <li><a href="#">Programing</a></li>
-                                        <li><a href="#">Architecture</a></li>
+                                        <li><a href="#">Teacher</a></li>
+                                        <li><a href="#">Student</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -424,7 +381,7 @@
                                         Copyright &copy;
                                         <script>document.write(new Date().getFullYear());</script> All rights reserved |
                                         This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
-                                            href="https://colorlib.com" target="_blank">Colorlib</a>
+                                            href="https://colorlib.com" target="_blank">Farjanur Rahman Fahim</a>
                                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     </p>
                                 </div>
