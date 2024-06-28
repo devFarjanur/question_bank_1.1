@@ -158,50 +158,34 @@ Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::middleware('auth:questioncreator')->group(function () {
     Route::prefix('teacher')->group(function () {
-
-
         Route::get('/logout', [CourseTeacherController::class, 'CourseTeacherLogout'])->name('course.teacher.logout');
         Route::get('/profile', [CourseTeacherController::class, 'CourseTeacherProfile'])->name('course.teacher.profile');
         Route::post('/profile/store', [CourseTeacherController::class, 'CourseTeacherProfileStore'])->name('course.teacher.profile.store');
         Route::get('/change/password', [CourseTeacherController::class, 'CourseTeacherChangePassword'])->name('course.teacher.change.password');
         Route::post('/update/password', [CourseTeacherController::class, 'CourseTeacherUpdatePassword'])->name('course.teacher.update.password');
 
-
         Route::get('/dashboard', [CourseTeacherController::class, 'CourseTeacherCourse'])->name('course.teacher.course');
-
 
         Route::get('/lesson', [CourseTeacherController::class, 'CourseTeacherLesson'])->name('course.teacher.lesson');
         Route::get('/lesson/create/{course}', [CourseTeacherController::class, 'createLesson'])->name('course.teacher.lesson.create');
         Route::post('/lesson/store/{course}', [CourseTeacherController::class, 'storeLesson'])->name('course.teacher.lesson.store');
         Route::get('/lesson/show/{lesson}', [CourseTeacherController::class, 'showLesson'])->name('course.teacher.lesson.show');
-
         Route::get('/lesson/edit/{lesson}', [CourseTeacherController::class, 'editLesson'])->name('course.teacher.lesson.edit');
         Route::post('/lesson/update/{lesson}', [CourseTeacherController::class, 'updateLesson'])->name('course.teacher.lesson.update');
         Route::delete('/lesson/delete/{lesson}', [CourseTeacherController::class, 'deleteLesson'])->name('course.teacher.lesson.delete');
 
-
-
-
         Route::get('/question', [CourseTeacherController::class, 'CourseTeacherQuestion'])->name('course.teacher.question');
-
         Route::get('/question-category', [CourseTeacherController::class, 'CourseTeacherQuestionCategory'])->name('course.teacher.question.category');
-
-
         Route::get('/question-chapter/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapter'])->name('course.teacher.question.chapter');
         Route::get('/question-chapter/add/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapterAdd'])->name('course.teacher.question.add.chapter');
         Route::post('/question-chapter/store/{id}', [CourseTeacherController::class, 'CourseTeacherQuestionChapterStore'])->name('course.teacher.question.chapter.store');
-
         Route::get('/question-chapter/edit/{id}', [CourseTeacherController::class, 'editQuestionChapter'])->name('course.teacher.question.chapter.edit');
         Route::post('/question-chapter/update/{id}', [CourseTeacherController::class, 'updateQuestionChapter'])->name('course.teacher.question.chapter.update');
         Route::delete('/question-chapter/delete/{id}', [CourseTeacherController::class, 'deleteQuestionChapter'])->name('course.teacher.question.chapter.delete');
 
-
-
-
         Route::get('/mcq-question/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcq'])->name('course.teacher.mcq');
         Route::get('/mcq-question/add/{id}', [CourseTeacherController::class, 'CourseTeacherMcqAdd'])->name('course.teacher.mcq.add');
         Route::post('/mcq-question/store/{id}', [CourseTeacherController::class, 'CourseTeacherMcqStore'])->name('course.teacher.mcq.store');
-
         Route::get('/mcq-question/edit/{id}', [CourseTeacherController::class, 'editMcqQuestion'])->name('course.teacher.mcq.edit');
         Route::post('/mcq-question/update/{id}', [CourseTeacherController::class, 'updateMcqQuestion'])->name('course.teacher.mcq.update');
         Route::delete('/mcq-question/delete/{id}', [CourseTeacherController::class, 'deleteMcqQuestion'])->name('course.teacher.mcq.delete');
@@ -209,45 +193,25 @@ Route::middleware('auth:questioncreator')->group(function () {
         Route::get('/blooms-question/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBlooms'])->name('course.teacher.blooms');
         Route::get('/blooms-question/add/{id}', [CourseTeacherController::class, 'CourseTeacherBloomsAdd'])->name('course.teacher.blooms.add');
         Route::post('/blooms-question/store/{id}', [CourseTeacherController::class, 'CourseTeacherBloomsStore'])->name('course.teacher.blooms.store');
-
         Route::get('/blooms-question/edit/{id}', [CourseTeacherController::class, 'editBloomsQuestion'])->name('course.teacher.blooms.edit');
         Route::post('/blooms-question/update/{id}', [CourseTeacherController::class, 'updateBloomsQuestion'])->name('course.teacher.blooms.update');
         Route::delete('/blooms-question/delete/{id}', [CourseTeacherController::class, 'deleteBloomsQuestion'])->name('course.teacher.blooms.delete');
 
-
-        // Route to show the exam creation form
-
         Route::get('/exam', [CourseTeacherController::class, 'CourseTeacherExam'])->name('course.teacher.exam');
         Route::get('/exam/create', [CourseTeacherController::class, 'CourseTeacherCreateExam'])->name('course.teacher.exam.create');
         Route::post('/exam/store', [CourseTeacherController::class, 'CourseTeacherStoreExam'])->name('course.teacher.exam.store');
-
-
         Route::get('/exam/edit/{id}', [CourseTeacherController::class, 'editExam'])->name('course.teacher.exam.edit');
         Route::post('/exam/update/{id}', [CourseTeacherController::class, 'updateExam'])->name('course.teacher.exam.update');
         Route::delete('/exam/delete/{id}', [CourseTeacherController::class, 'deleteExam'])->name('course.teacher.exam.delete');
 
-
-
         Route::get('/mcq-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherMcqExam'])->name('course.teacher.mcq.exam');
         Route::get('/blooms-exam/{chapterId}', [CourseTeacherController::class, 'CourseTeacherBloomsExam'])->name('course.teacher.blooms.exam');
-
         Route::get('/exam-category', [CourseTeacherController::class, 'CourseTeacherExamCategory'])->name('course.teacher.exam.category');
         Route::get('/student-exam/{id}', [CourseTeacherController::class, 'CourseTeacherStudentExamList'])->name('course.teacher.student.exam.list');
 
-
         Route::get('/mcq/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherMcqResponce'])->name('course.teacher.mcq.response');
         Route::get('/blooms/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherBloomsResponce'])->name('course.teacher.blooms.response');
-
         Route::put('/blooms/update-marks/{response_id}', [CourseTeacherController::class, 'CourseTeacherBloomsMarkUpdate'])->name('course.teacher.blooms.mark.update');
-
-
-
-        // Route::get('/mark', [CourseTeacherController::class, 'CourseTeacherStudentMark'])->name('course.teacher.student.mark');
-        // Route::get('/mark/blooms', [CourseTeacherController::class, 'CourseTeacherStudentMarkBlooms'])->name('course.teacher.student.mark.blooms');
-
-
-
-
     });
 });
 
@@ -265,41 +229,22 @@ Route::post('teacher/register', [RegisteredUserController::class, 'QuestionCreat
 
 Route::middleware('auth:student')->group(function () {
     Route::prefix('student')->group(function () {
-
         Route::get('/logout', [StudentController::class, 'StudentLogout'])->name('student.logout');
         Route::get('/profile', [StudentController::class, 'StudentProfile'])->name('student.profile');
         Route::post('/profile/store', [StudentController::class, 'StudentProfileStore'])->name('student.profile.store');
         Route::get('/change/password', [StudentController::class, 'StudentChangePassword'])->name('student.change.password');
         Route::post('/update/password', [StudentController::class, 'StudentUpdatePassword'])->name('student.update.password');
 
-
-        // Route::get('/course', [StudentController::class, 'StudentCourse'])->name('student.course');
-
-
         Route::get('/course', [StudentController::class, 'CourseStudentLesson'])->name('student.course');
         Route::get('/lesson/show/{lesson}', [StudentController::class, 'studentshowLesson'])->name('course.student.lesson');
         Route::post('/lesson/{lesson}/complete', [StudentController::class, 'markAsComplete'])->name('lesson.complete');
 
-
-
         Route::get('/exam', [StudentController::class, 'StudentExam'])->name('student.exam');
-
-
         Route::get('/mcq/{id}', [StudentController::class, 'StudentMcqExam'])->name('student.mcq.exam');
         Route::post('/mcq-submit/{id}', [StudentController::class, 'StudentMcqExamSubmit'])->name('student.mcq.exam.submit');
-
-
-
         Route::get('/blooms/{id}', [StudentController::class, 'StudentBloomsExam'])->name('student.blooms.exam');
         Route::post('/blooms-submit/{id}', [StudentController::class, 'StudentBloomsExamSubmit'])->name('student.blooms.exam.submit');
-
         Route::get('/result', [StudentController::class, 'StudentExamResult'])->name('student.exam.result');
-
-
-
-
-
-
     });
 });
 

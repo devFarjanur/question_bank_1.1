@@ -40,9 +40,9 @@
             </div>
 
             <div class="form-group mb-3">
-              <label for="question_chapter" class="form-label">Select Question Chapter:</label>
+              <label for="question_chapter" class="form-label">Select Question Lesson:</label>
               <select class="form-control" id="question_chapter" required>
-                  <option value="" selected disabled>-- Select Question Chapter --</option>
+                  <option value="" selected disabled>-- Select Question Lesson --</option>
               </select>
             </div>
 

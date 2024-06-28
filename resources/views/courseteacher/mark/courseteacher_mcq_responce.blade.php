@@ -17,7 +17,9 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Question</th>
                                 <th>Response Option</th>
+                                <th>Correct Option</th>
                                 <th>Marks</th>
                                 <th>Timestamp</th>
                             </tr>
@@ -26,7 +28,9 @@
                             @foreach ($responses as $response)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $response->mcq->question_text }}</td>
                                     <td>{{ $response->response_option }}</td>
+                                    <td>{{ $response->mcq->correct_option }}</td>
                                     <td>{{ $response->marks }}</td>
                                     <td>{{ $response->created_at }}</td>
                                 </tr>

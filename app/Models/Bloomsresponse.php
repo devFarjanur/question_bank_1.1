@@ -10,37 +10,36 @@ class Bloomsresponse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'response_answer',
-        'marks'
+        'student_id', 'course_id', 'questioncategory_id', 'questionchapter_id', 'b_l_o_o_m_id', 'exam_id', 'response_answer', 'marks',
     ];
 
-    /**
-     * Get the course associated with the blooms response.
-     */
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class);
     }
 
-    /**
-     * Get the exam associated with the blooms response.
-     */
-    public function exam()
+    public function questioncategory()
     {
-        return $this->belongsTo(Exam::class);
+        return $this->belongsTo(QuestionCategory::class, 'questioncategory_id');
     }
 
-    /**
-     * Get the blooms question associated with the blooms response.
-     */
+    public function questionchapter()
+    {
+        return $this->belongsTo(QuestionChapter::class, 'questionchapter_id');
+    }
+
     public function bloomsQuestion()
     {
         return $this->belongsTo(BLOOMS::class, 'b_l_o_o_m_id');
     }
 
-
-    public function student()
+    public function exam()
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Exam::class);
     }
 }

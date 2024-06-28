@@ -671,18 +671,12 @@ class CourseTeacherController extends Controller
 
 
 
-
-
     public function CourseTeacherExamCategory()
     {
-
         $exams = Exam::with('questionCategory')->get();
 
         return view('courseteacher.mark.courseteacher_student_exam_category', compact('exams'));
     }
-
-
-
 
     public function CourseTeacherStudentExamList($id)
     {
@@ -702,17 +696,15 @@ class CourseTeacherController extends Controller
         return view('courseteacher.mark.courseteacher_exam_student_list', compact('exam', 'students'));
     }
 
-
     public function CourseTeacherMcqResponce($student_id, $exam_id)
     {
         $responses = Mcqresponse::where('student_id', $student_id)
             ->where('exam_id', $exam_id)
+            ->with('mcq')
             ->get();
 
-        // Pass $responses to the MCQ response view
         return view('courseteacher.mark.courseteacher_mcq_responce', compact('responses'));
     }
-
 
     public function CourseTeacherBloomsResponce($student_id, $exam_id)
     {
@@ -722,36 +714,26 @@ class CourseTeacherController extends Controller
             ->with('bloomsQuestion')
             ->get();
 
-        // Assuming $questionchapter is retrieved based on the $exam_id
         $questionchapter = Exam::findOrFail($exam_id)->questionChapter;
 
-        // Pass $responses and $questionchapter to the view
         return view('courseteacher.mark.courseteacher_blooms_responce', compact('responses', 'questionchapter'));
     }
-
-
-
-
 
     public function CourseTeacherBloomsMarkUpdate(Request $request, $response_id)
     {
         // Validate the incoming request
         $request->validate([
-            'marks' => 'required|string', // Example validation rule for marks
+            'marks' => 'required|string',
         ]);
 
-        // Find the blooms response by ID
         $response = Bloomsresponse::findOrFail($response_id);
 
-        // Update the marks
         $response->update([
             'marks' => $request->marks,
         ]);
 
-        // Redirect back with success message
         return back()->with('success', 'Marks updated successfully');
     }
-
 
 
 

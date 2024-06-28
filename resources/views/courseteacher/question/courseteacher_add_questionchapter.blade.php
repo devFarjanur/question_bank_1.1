@@ -10,7 +10,7 @@
 <nav class="page-breadcrumb">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item"><a href="#">Question</a></li>
-		<li class="breadcrumb-item active" aria-current="page">Question Chapter Name</li>
+		<li class="breadcrumb-item active" aria-current="page">Question Lesson Name</li>
 	</ol>
 </nav>
 
@@ -20,13 +20,13 @@
         <div class="col-12 stretch-card">
             <div class="card">
                 <div class="card-body">
-                <h4 class="card-title">Add Question Chapter Name</h4>
+                <h4 class="card-title">Add Question Lesson Name</h4>
 
                 <form method="POST" action="{{ route('course.teacher.question.chapter.store', $category->id) }}" enctype="multipart/form-data">
                 @csrf 
 
                     <div class="mb-3">
-                        <label for="question" class="form-label">Chapter Name:</label>
+                        <label for="question" class="form-label">Lesson Name:</label>
                         <input id="question" class="form-control" name="questionchapter" type="text">
                     </div>
 
