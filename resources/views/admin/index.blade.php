@@ -79,18 +79,23 @@
   <div class="row row-cols-2 row-cols-md-4">
     @foreach($categories as $category)
     <div class="col mb-3">
-      <a href="#" class="card h-100 text-decoration-none">
+      <div class="card h-100">
       <div class="card-body d-flex flex-column justify-content-between">
-        <div class="text-center align-self-center mt-3"> <!-- Center the content horizontally and vertically -->
+        <div class="text-center align-self-center mt-3">
         <h5 class="card-title" style="font-size: 22px;">{{ $category->name }}</h5>
         </div>
-        <div>
-        <!-- You can optionally place content or buttons here -->
+        <div class="d-flex justify-content-center mt-3 gap-2">
+        <a href="{{ route('admin.question.category.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
+        <form action="{{ route('admin.question.category.delete', $category->id) }}" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
         </div>
       </div>
-      </a>
+      </div>
     </div>
-  @endforeach 
+  @endforeach
   </div>
 
 
@@ -111,19 +116,27 @@
                   <th class="pt-0">Phone</th>
                   <th class="pt-0">Assigned Course</th>
                   <th class="pt-0">Status</th>
+                  <th class="pt-0">Action</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($teachers as $teacher)
-                  <tr>
-                    <td>{{ $teacher->id }}</td>
-                    <td>{{ $teacher->name }}</td>
-                    <td>{{ $teacher->email }}</td>
-                    <td>{{ $teacher->phone }}</td>
-                    <td>{{ $teacher->course->name }}</td>
-                    <td>{{ $teacher->status }}</td>
-                  </tr>
-                @endforeach
+          <tr>
+            <td>{{ $teacher->id }}</td>
+            <td>{{ $teacher->name }}</td>
+            <td>{{ $teacher->email }}</td>
+            <td>{{ $teacher->phone }}</td>
+            <td>{{ $teacher->course->name }}</td>
+            <td>{{ $teacher->status }}</td>
+            <td>
+            <form action="{{ route('admin.teacher.delete', $teacher->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+            </td>
+          </tr>
+        @endforeach
               </tbody>
             </table>
           </div>
@@ -131,6 +144,7 @@
       </div>
     </div>
   </div>
+
 
   <div class="row mt-5">
     <div class="col-12 stretch-card">
@@ -149,19 +163,27 @@
                   <th class="pt-0">Phone</th>
                   <th class="pt-0">Registered Course</th>
                   <th class="pt-0">Status</th>
+                  <th class="pt-0">Action</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach($students as $student)
-                  <tr>
-                    <td>{{ $student->id }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->email }}</td>
-                    <td>{{ $student->phone }}</td>
-                    <td>{{ $student->course->name }}</td>
-                    <td>{{ $student->status }}</td>
-                  </tr>
-                @endforeach
+          <tr>
+            <td>{{ $student->id }}</td>
+            <td>{{ $student->name }}</td>
+            <td>{{ $student->email }}</td>
+            <td>{{ $student->phone }}</td>
+            <td>{{ $student->course->name }}</td>
+            <td>{{ $student->status }}</td>
+            <td>
+            <form action="{{ route('admin.student.delete', $student->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+            </td>
+          </tr>
+        @endforeach
               </tbody>
             </table>
           </div>
@@ -169,6 +191,10 @@
       </div>
     </div>
   </div>
+
+
+
+
 </div>
 
 @endsection

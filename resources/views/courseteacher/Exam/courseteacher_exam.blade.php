@@ -16,7 +16,7 @@
     <div class="row row-cols-2 row-cols-md-4">
         @foreach($exams as $exam)
             <div class="col mb-3">
-            <a href="{{ $exam->questioncategory_id === 1 ? route('course.teacher.mcq.exam', ['chapterId' => $exam->questionchapter->id]) : route('course.teacher.blooms.exam', ['chapterId' => $exam->questionchapter->id]) }}" class="card h-100 text-decoration-none">
+                <div class="card h-100 text-decoration-none">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div class="text-center align-self-center mt-3">
                             <h5 class="card-title" style="font-size: 22px;">{{ $exam->exam_name }}</h5>
@@ -32,8 +32,17 @@
                             @endif
                         </div>
                     </div>
-                </a>
+                    <div class="card-footer d-flex justify-content-center mt-3 gap-2">
+                        <a href="{{ route('course.teacher.exam.edit', $exam->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <form action="{{ route('course.teacher.exam.delete', $exam->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+
         @endforeach
     </div>
 

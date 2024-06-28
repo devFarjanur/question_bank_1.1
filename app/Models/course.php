@@ -15,11 +15,4 @@ class Course extends Model
     {
         return $this->hasMany(Lesson::class);
     }
-
-    public function questioncreators()
-    {
-        return $this->hasMany(Questioncreator::class);
-    }
-
-
 }

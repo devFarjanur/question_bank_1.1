@@ -186,6 +186,44 @@ class CourseTeacherController extends Controller
 
 
 
+    public function editLesson(Lesson $lesson)
+    {
+        return view('courseteacher.lesson.courseteacher_lessonedit', compact('lesson'));
+    }
+
+    public function updateLesson(Request $request, Lesson $lesson)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+            'video_url' => 'nullable|url'
+        ]);
+
+        $lesson->update($request->all());
+
+        $notification = array(
+            'message' => 'Lesson updated successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('course.teacher.lesson')->with($notification);
+    }
+
+    public function deleteLesson(Lesson $lesson)
+    {
+        $lesson->delete();
+
+        $notification = array(
+            'message' => 'Lesson deleted successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('course.teacher.lesson')->with($notification);
+    }
+
+
+
+
 
 
     public function CourseTeacherQuestionCategory()
@@ -201,7 +239,7 @@ class CourseTeacherController extends Controller
     {
         $category = QuestionCategory::findOrFail($categoryId);
         // Fetch only the question chapters associated with the current course teacher's course
-        $questionchapters = QuestionChapter::where('questionCategory_id', $categoryId)
+        $questionchapters = QuestionChapter::where('questioncategory_id', $categoryId)
             ->where('course_id', auth()->user()->course_id) // Filter by the current course teacher's course ID
             ->with('course')
             ->get();
@@ -235,11 +273,11 @@ class CourseTeacherController extends Controller
         // Fetch the category based on the provided ID
         $category = QuestionCategory::findOrFail($id);
 
-        // Create a new QuestionSet instance
+        // Create a new QuestionChapter instance
         $questionchapter = new QuestionChapter();
         $questionchapter->name = $validatedData['questionchapter'];
         $questionchapter->course_id = $courseId;
-        $questionchapter->questionCategory_id = $category->id;
+        $questionchapter->questioncategory_id = $category->id;
 
         // Save the question set to the database
         $questionchapter->save();
@@ -254,13 +292,52 @@ class CourseTeacherController extends Controller
         return redirect()->route('course.teacher.question.chapter', ['id' => $category->id])->with($notification);
     }
 
-    public function CourseTeacherMCQ($chapterId)
+
+    public function editQuestionChapter($id)
+    {
+        $questionchapter = QuestionChapter::findOrFail($id);
+        return view('courseteacher.question.courseteacher_edit_questionchapter', compact('questionchapter'));
+    }
+
+    public function updateQuestionChapter(Request $request, $id)
+    {
+        $request->validate([
+            'questionchapter' => 'required|string|max:255',
+        ]);
+
+        $questionchapter = QuestionChapter::findOrFail($id);
+        $questionchapter->name = $request->questionchapter;
+        $questionchapter->save();
+
+        $notification = [
+            'message' => 'Question Chapter Updated Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
+    public function deleteQuestionChapter($id)
+    {
+        $questionchapter = QuestionChapter::findOrFail($id);
+        $questionCategoryId = $questionchapter->questioncategory_id;
+        $questionchapter->delete();
+
+        $notification = [
+            'message' => 'Question Chapter Deleted Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->back()->with($notification);
+    }
+
+
+    public function CourseTeacherMcq($chapterId)
     {
         $questionchapter = QuestionChapter::findOrFail($chapterId);
         $mcqs = MCQ::where('questionchapter_id', $chapterId)->get();
         return view('courseteacher.question.courseteacher_mcq', compact('questionchapter', 'mcqs'));
     }
-
 
     public function CourseTeacherMcqAdd($id)
     {
@@ -311,13 +388,55 @@ class CourseTeacherController extends Controller
 
 
 
+    public function editMcqQuestion($id)
+    {
+        $mcq = MCQ::findOrFail($id);
+        return view('courseteacher.question.courseteacher_edit_mcq', compact('mcq'));
+    }
+
+    public function updateMcqQuestion(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'question_text' => 'required|string',
+            'option_a' => 'required|string',
+            'option_b' => 'required|string',
+            'option_c' => 'required|string',
+            'option_d' => 'required|string',
+            'correct_option' => 'required|in:a,b,c,d',
+        ]);
+
+        $mcq = MCQ::findOrFail($id);
+        $mcq->update($validatedData);
+
+        $notification = [
+            'message' => 'MCQ Question Updated Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('course.teacher.mcq', ['chapterId' => $mcq->questionchapter_id])->with($notification);
+    }
+
+    public function deleteMcqQuestion($id)
+    {
+        $mcq = MCQ::findOrFail($id);
+        $questionChapterId = $mcq->questionchapter_id;
+        $mcq->delete();
+
+        $notification = [
+            'message' => 'MCQ Question Deleted Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('course.teacher.mcq', ['chapterId' => $questionChapterId])->with($notification);
+    }
+
+
+
 
     public function CourseTeacherBlooms($chapterId)
     {
         $questionchapter = QuestionChapter::findOrFail($chapterId);
-
         $questions = BLOOMS::where('questionchapter_id', $chapterId)->get()->groupBy('bloom_taxonomy');
-
         return view('courseteacher.question.courseteacher_blooms', compact('questionchapter', 'questions'));
     }
 
@@ -364,6 +483,47 @@ class CourseTeacherController extends Controller
 
         return redirect()->route('course.teacher.blooms', ['chapterId' => $id])->with($notification);
     }
+
+    public function editBloomsQuestion($id)
+    {
+        $question = BLOOMS::findOrFail($id);
+        return view('courseteacher.question.courseteacher_edit_blooms', compact('question'));
+    }
+
+    public function updateBloomsQuestion(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'question_description' => 'required|string',
+            'question_text' => 'required|string',
+            'bloom_taxonomy' => 'required|string',
+            'question_mark' => 'required|string',
+        ]);
+
+        $question = BLOOMS::findOrFail($id);
+        $question->update($validatedData);
+
+        $notification = [
+            'message' => 'Bloom Question Updated Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('course.teacher.blooms', ['chapterId' => $question->questionchapter_id])->with($notification);
+    }
+
+    public function deleteBloomsQuestion($id)
+    {
+        $question = BLOOMS::findOrFail($id);
+        $questionChapterId = $question->questionchapter_id;
+        $question->delete();
+
+        $notification = [
+            'message' => 'Bloom Question Deleted Successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('course.teacher.blooms', ['chapterId' => $questionChapterId])->with($notification);
+    }
+
 
 
 
@@ -459,6 +619,56 @@ class CourseTeacherController extends Controller
         $questions = BLOOMS::where('questionchapter_id', $chapterId)->get()->groupBy('bloom_taxonomy');
         return view('courseteacher.exam.courseteacher_blooms_exam', compact('questionchapter', 'questions'));
     }
+
+
+
+
+    public function editExam($id)
+    {
+        $exam = Exam::findOrFail($id);
+        $questioncategories = QuestionCategory::all();
+        $mcqQuestionChapters = QuestionChapter::where('questioncategory_id', 1)
+            ->where('course_id', auth()->user()->course_id)
+            ->get();
+        $bloomsQuestionChapters = QuestionChapter::where('questioncategory_id', 2)
+            ->where('course_id', auth()->user()->course_id)
+            ->get();
+
+        return view('courseteacher.exam.courseteacher_edit_exam', compact('exam', 'questioncategories', 'mcqQuestionChapters', 'bloomsQuestionChapters'));
+    }
+
+    public function updateExam(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'exam_name' => 'required|string|max:255',
+            'questioncategory_id' => 'required|exists:question_categories,id',
+            'questionchapter_id' => 'required|exists:question_chapters,id',
+        ]);
+
+        $exam = Exam::findOrFail($id);
+        $exam->update($validatedData);
+
+        $notification = [
+            'message' => 'Exam updated successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('course.teacher.exam')->with($notification);
+    }
+
+    public function deleteExam($id)
+    {
+        $exam = Exam::findOrFail($id);
+        $exam->delete();
+
+        $notification = [
+            'message' => 'Exam deleted successfully',
+            'alert-type' => 'success'
+        ];
+
+        return redirect()->route('course.teacher.exam')->with($notification);
+    }
+
 
 
 

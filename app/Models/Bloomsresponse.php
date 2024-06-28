@@ -38,25 +38,7 @@ class Bloomsresponse extends Model
         return $this->belongsTo(BLOOMS::class, 'b_l_o_o_m_id');
     }
 
-    /**
-     * Get the question chapter associated with the blooms response.
-     */
-    public function questionChapter()
-    {
-        return $this->belongsTo(QuestionChapter::class, 'questionchapter_id');
-    }
 
-    /**
-     * Get the question category associated with the blooms response.
-     */
-    public function questionCategory()
-    {
-        return $this->belongsTo(QuestionCategory::class, 'questioncategory_id');
-    }
-
-    /**
-     * Get the student associated with the blooms response.
-     */
     public function student()
     {
         return $this->belongsTo(Student::class, 'student_id');

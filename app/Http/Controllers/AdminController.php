@@ -124,6 +124,48 @@ class AdminController extends Controller
     }
 
 
+    public function deleteTeacher($id)
+    {
+        $teacher = Questioncreator::find($id);
+
+        if ($teacher) {
+            $teacher->delete();
+            $notification = array(
+                'message' => 'Teacher deleted successfully.',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Teacher not found.',
+                'alert-type' => 'error'
+            );
+        }
+
+        return redirect()->route('admin.dashboard')->with($notification);
+    }
+
+    public function deleteStudent($id)
+    {
+        $student = Student::find($id);
+
+        if ($student) {
+            $student->delete();
+            $notification = array(
+                'message' => 'Student deleted successfully.',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Student not found.',
+                'alert-type' => 'error'
+            );
+        }
+
+        return redirect()->route('admin.dashboard')->with($notification);
+    }
+
+
+
 
     public function AdminCourse()
     {
@@ -166,6 +208,54 @@ class AdminController extends Controller
 
         return redirect()->route('admin.course')->with($notification);
     }
+
+
+
+    public function editCourse($id)
+    {
+        $course = Course::find($id);
+        return view('admin.course.edit_course', compact('course'));
+    }
+
+    public function updateCourse(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'coursename' => 'required|string|max:255',
+            'coursedescription' => 'required|string|max:255',
+        ]);
+
+        $course = Course::find($id);
+        $course->name = $request->coursename;
+        $course->description = $request->coursedescription;
+        $course->save();
+
+        $notification = array(
+            'message' => 'Course updated successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.course')->with($notification);
+    }
+
+    public function deleteCourse($id)
+    {
+        $course = Course::find($id);
+        if ($course) {
+            $course->delete();
+            $notification = array(
+                'message' => 'Course deleted successfully.',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Course not found.',
+                'alert-type' => 'error'
+            );
+        }
+
+        return redirect()->route('admin.course')->with($notification);
+    }
+
 
 
 
@@ -302,6 +392,51 @@ class AdminController extends Controller
         return redirect()->route('admin.dashboard')->with($notification);
 
     }
+
+
+    public function editQuestionCategory($id)
+    {
+        $category = QuestionCategory::find($id);
+        return view('admin.admin_questioncategory.admin_update_questioncategory', compact('category'));
+    }
+
+    public function updateQuestionCategory(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'questionCategory' => 'required|string|max:255',
+        ]);
+
+        $category = QuestionCategory::find($id);
+        $category->name = $request->questionCategory;
+        $category->save();
+
+        $notification = array(
+            'message' => 'Question category updated successfully.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('admin.dashboard')->with($notification);
+    }
+
+    public function deleteQuestionCategory($id)
+    {
+        $category = QuestionCategory::find($id);
+        if ($category) {
+            $category->delete();
+            $notification = array(
+                'message' => 'Question category deleted successfully.',
+                'alert-type' => 'success'
+            );
+        } else {
+            $notification = array(
+                'message' => 'Question category not found.',
+                'alert-type' => 'error'
+            );
+        }
+
+        return redirect()->route('admin.dashboard')->with($notification);
+    }
+
 
 
 

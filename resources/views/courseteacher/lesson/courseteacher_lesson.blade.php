@@ -23,8 +23,16 @@
                                 </div>
                             </div>
                         </a>
-                        <div class="card-footer text-center">
+                        <div class="card-footer d-flex justify-content-between align-items-center">
                             <small class="text-muted">Lesson {{ $loop->iteration }}</small>
+                            <div class="btn-group gap-2">
+                                <a href="{{ route('course.teacher.lesson.edit', $lesson) }}" class="btn btn-warning">Edit</a>
+                                <form action="{{ route('course.teacher.lesson.delete', $lesson) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

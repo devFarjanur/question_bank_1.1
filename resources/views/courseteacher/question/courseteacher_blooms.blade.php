@@ -1,5 +1,4 @@
 @extends('courseteacher.courseteacher_dashboard')
-
 @section('courseteacher')
 
 <div class="page-content">
@@ -30,10 +29,18 @@
                                 @if($loop->first || $question->question_description !== $taxonomyQuestions[$key-1]->question_description)
                                     <h4 class='mt-3'>{{ $taxonomy }}</h4>
                                 @endif
-                                <div class='mt-1'>
+                                <div class='mt-1 d-flex justify-content-between'>
                                     <p class="pt-2 px-4" style="font-size: 16px;">
                                         {{ chr(97 + $key) }}) {{ $question->question_text }} [{{ $question->question_mark }}]
                                     </p>
+                                    <div class="btn-group btn-group-sm gap-2">
+                                        <a href="{{ route('course.teacher.blooms.edit', $question->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <form action="{{ route('course.teacher.blooms.delete', $question->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
                                 </div>
                             @endforeach
                         @endforeach
@@ -43,4 +50,5 @@
         </div>
     </div>
 </div>
+
 @endsection

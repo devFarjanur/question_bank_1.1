@@ -30,12 +30,6 @@ class Exam extends Model
     }
 
 
-    public function lesson()
-    {
-        return $this->belongsTo(Lesson::class);
-    }
-
-
 
 
 
