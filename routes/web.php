@@ -31,7 +31,7 @@ use App\Http\Controllers\Auth\RegisteredUserController; // Import the Registered
 // });
 
 
-Route::get('/home', [LandingPageController::class, 'home'])->name('home');
+Route::get('/', [LandingPageController::class, 'home'])->name('home');
 
 Route::get('/course', [LandingPageController::class, 'course'])->name('course');
 
@@ -247,8 +247,8 @@ Route::middleware('auth:student')->group(function () {
 });
 
 
-Route::get('/', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
-Route::post('/', [AuthenticatedSessionController::class, 'store']);
+Route::get('/login', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 
 

@@ -233,10 +233,10 @@
                                 <div class="footer-tittle">
                                     <h4>Our Pages</h4>
                                     <ul>
-                                        <li><a href="#">Home</a></li>
-                                        <li><a href="#">Courses</a></li>
-                                        <li><a href="#">About</a></li>
-                                        <li><a href="#">Contact</a></li>
+                                        <li><a href="{{ route('home') }}">Home</a></li>
+                                        <li><a href="{{ route('course') }}">Courses</a></li>
+                                        <li><a href="{{ route('about') }}">About</a></li>
+                                        <li><a href="{{ route('contact') }}">Contact</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -246,9 +246,9 @@
                                 <div class="footer-tittle">
                                     <h4>Log in</h4>
                                     <ul>
-                                        <li><a href="#">Admin</a></li>
-                                        <li><a href="#">Teacher</a></li>
-                                        <li><a href="#">Student</a></li>
+                                        <li><a href="{{ route('admin.login') }}">Admin</a></li>
+                                        <li><a href="{{ route('questioncreator.login') }}">Teacher</a></li>
+                                        <li><a href="{{ route('student.login') }}">Student</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -258,8 +258,8 @@
                                 <div class="footer-tittle">
                                     <h4>Registration</h4>
                                     <ul>
-                                        <li><a href="#">Teacher</a></li>
-                                        <li><a href="#">Student</a></li>
+                                        <li><a href="{{ route('questioncreator.register') }}">Teacher</a></li>
+                                        <li><a href="{{ route('questioncreator.register') }}">Student</a></li>
                                     </ul>
                                 </div>
                             </div>
