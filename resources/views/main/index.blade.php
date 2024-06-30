@@ -187,7 +187,7 @@
             </div>
         </div>
         <!-- Courses area End -->
-         
+
         <!--? About Area-1 Start -->
         <section class="about-area1 fix pt-10 mb-5">
             <div class="support-wrapper align-items-center">
@@ -234,9 +234,7 @@
                         <img src="backend/assets/img1/gallery/about.png" alt="">
 
                         <div class="video-icon">
-                            <a class="popup-video btn-icon"
-                                href="https://youtu.be/0FFLFcB9xfQ"
-                                target="_blank">
+                            <a class="popup-video btn-icon" href="https://youtu.be/0FFLFcB9xfQ" target="_blank">
                                 <i class="fas fa-play"></i>
                             </a>
                         </div>
@@ -255,7 +253,7 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-7 col-lg-8">
                         <div class="section-tittle text-center mb-55">
-                            <h2>Community experts</h2>
+                            <h2>Expert instructors</h2>
                         </div>
                     </div>
                 </div>
@@ -382,7 +380,7 @@
                                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                         Copyright &copy;
                                         <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                        This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                        This Website is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
                                             href="https://colorlib.com" target="_blank">Farjanur Rahman Fahim</a>
                                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     </p>

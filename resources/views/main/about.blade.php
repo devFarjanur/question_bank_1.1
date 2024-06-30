@@ -50,7 +50,7 @@
     <!-- Header Start -->
     <header>
         <!-- Header Start -->
-        <div class="header-area header-transparent">
+        <div class="header-area header-transparent mt-5">
             <div class="main-header ">
                 <div class="header-bottom  header-sticky">
                     <div class="container-fluid">
@@ -120,221 +120,9 @@
                 </div>
             </div>
         </section>
-        <!-- ? services-area -->
-        <div class="services-area">
-            <div class="container">
-                <div class="row justify-content-sm-center">
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-services mb-30">
-                            <div class="features-icon">
-                                <img src="backend/assets/img1/icon/icon1.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <h3>10+ courses</h3>
-                                <p>The automated process all your website tasks.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-services mb-30">
-                            <div class="features-icon">
-                                <img src="backend/assets/img1/icon/icon2.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <h3>Expert instructors</h3>
-                                <p>The automated process all your website tasks.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="single-services mb-30">
-                            <div class="features-icon">
-                                <img src="backend/assets/img1/icon/icon3.svg" alt="">
-                            </div>
-                            <div class="features-caption">
-                                <h3>Life time access</h3>
-                                <p>The automated process all your website tasks.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--? About Area-1 Start -->
-        <section class="about-area1 fix pt-10">
-            <div class="support-wrapper align-items-center">
-                <div class="left-content1">
-                    <div class="about-icon">
-                        <img src="assets/img/icon/about.svg" alt="">
-                    </div>
-                    <!-- section tittle -->
-                    <div class="section-tittle section-tittle2 mb-55">
-                        <div class="front-text">
-                            <h2 class="">Learn new skills online with top educators</h2>
-                            <p>The automated process all your website tasks. Discover tools and
-                                techniques to engage effectively with vulnerable children and young
-                                people.</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="assets/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                        </div>
-                    </div>
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="assets/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Join millions of people from around the world learning together.</p>
-                        </div>
-                    </div>
 
-                    <div class="single-features">
-                        <div class="features-icon">
-                            <img src="assets/img/icon/right-icon.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <p>Join millions of people from around the world learning together. Online learning is as
-                                easy and natural.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="right-content1">
-                    <!-- img -->
-                    <div class="right-img">
-                        <img src="assets/img/gallery/about.png" alt="">
 
-                        <div class="video-icon">
-                            <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i
-                                    class="fas fa-play"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- About Area End -->
-        <!--? top subjects Area Start -->
-        <div class="topic-area section-padding40">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-xl-7 col-lg-8">
-                        <div class="section-tittle text-center mb-55">
-                            <h2>Explore top subjects</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic1.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic2.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic3.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic4.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic5.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic6.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic7.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-topic text-center mb-30">
-                            <div class="topic-img">
-                                <img src="assets/img/gallery/topic8.png" alt="">
-                                <div class="topic-content-box">
-                                    <div class="topic-content">
-                                        <h3><a href="#">Programing</a></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="section-tittle text-center mt-20">
-                            <a href="courses.html" class="border-btn">View More Subjects</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- top subjects End -->
+
         <!--? About Area-1 Start -->
         <section class="about-area1 fix pt-10 mb-5">
             <div class="support-wrapper align-items-center">
@@ -381,9 +169,7 @@
                         <img src="backend/assets/img1/gallery/about.png" alt="">
 
                         <div class="video-icon">
-                            <a class="popup-video btn-icon"
-                                href="https://youtu.be/0FFLFcB9xfQ"
-                                target="_blank">
+                            <a class="popup-video btn-icon" href="https://youtu.be/0FFLFcB9xfQ" target="_blank">
                                 <i class="fas fa-play"></i>
                             </a>
                         </div>
@@ -394,7 +180,7 @@
         </section>
         <!-- About Area End -->
 
-        
+
         <!--? Team -->
         <!-- Team area start -->
         <section class="team-area section-padding40 fix">
@@ -503,7 +289,7 @@
                                     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                         Copyright &copy;
                                         <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                        This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
+                                        This Website is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a
                                             href="https://colorlib.com" target="_blank">Farjanur Rahman Fahim</a>
                                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     </p>
