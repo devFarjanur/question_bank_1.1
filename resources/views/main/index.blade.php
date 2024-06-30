@@ -156,6 +156,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Courses area start -->
         <div class="courses-area section-padding40 fix">
             <div class="container">
@@ -186,6 +187,7 @@
             </div>
         </div>
         <!-- Courses area End -->
+         
         <!--? About Area-1 Start -->
         <section class="about-area1 fix pt-10 mb-5">
             <div class="support-wrapper align-items-center">

@@ -17,14 +17,17 @@ class LandingPageController extends Controller
 
     public function course()
     {
-
-        return view('main.course');
+        $courses = Course::all();
+        $courses = Course::with('questioncreators')->get();
+        return view('main.courses', compact('courses'));
     }
 
 
     public function about()
     {
-        return view('main.about');
+        $courses = Course::all();
+        $courses = Course::with('questioncreators')->get();
+        return view('main.about', compact('courses'));
     }
 
 

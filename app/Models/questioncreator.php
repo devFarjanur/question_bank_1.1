@@ -16,7 +16,7 @@ class Questioncreator extends Authenticatable
         'email',
         'password',
         'role',
-        'course_id', // Add 'course_id' to fillable attributes
+        'course_id',
         // Add other fields if needed
     ];
 

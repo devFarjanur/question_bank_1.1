@@ -33,17 +33,15 @@ use App\Http\Controllers\Auth\RegisteredUserController; // Import the Registered
 
 Route::get('/home', [LandingPageController::class, 'home'])->name('home');
 
-Route::get('/course', function () {
-    return view('main.course');
-})->name('course');
+Route::get('/course', [LandingPageController::class, 'course'])->name('course');
 
-Route::get('/about', function () {
-    return view('main.about');
-})->name('about');
+Route::get('/about', [LandingPageController::class, 'about'])->name('about');
 
-Route::get('/contact', function () {
-    return view('main.contact');
-})->name('contact');
+Route::get('/contact', [LandingPageController::class, 'contact'])->name('contact');
+
+
+
+
 
 
 
