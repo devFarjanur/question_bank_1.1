@@ -34,7 +34,7 @@
                                         {{ chr(97 + $key) }}) {{ $question->question_text }} [{{ $question->question_mark }}]
                                     </p>
                                     <div class="btn-group btn-group-sm gap-2">
-                                        <a href="{{ route('course.teacher.blooms.edit', $question->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                        <a href="{{ route('course.teacher.blooms.edit', $question->id) }}" class="btn btn-warning btn-lg">Edit</a>
                                         <form action="{{ route('course.teacher.blooms.delete', $question->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')

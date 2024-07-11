@@ -25,7 +25,7 @@
                     </div>
                 </a>
                 <div class="card-footer d-flex justify-content-center mt-3 gap-2">
-                    <a href="{{ route('course.teacher.question.chapter.edit', $questionchapter->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="{{ route('course.teacher.question.chapter.edit', $questionchapter->id) }}" class="btn btn-warning btn-lg">Edit</a>
                     <form action="{{ route('course.teacher.question.chapter.delete', $questionchapter->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
