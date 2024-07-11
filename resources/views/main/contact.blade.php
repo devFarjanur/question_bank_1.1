@@ -74,9 +74,9 @@
                                                 <li><a href="{{ route('about') }}">About</a></li>
                                                 <li><a href="{{ route('contact') }}">Contact</a></li>
                                                 <!-- Button -->
-                                                <li class="button-header margin-left "><a href="{{ route('login') }}"
+                                                <li class="button-header margin-left "><a href="{{ route('student.login') }}"
                                                         class="btn">Log in</a></li>
-                                                <li class="button-header"><a href="/register"
+                                                <li class="button-header"><a href="{{ route('student.register') }}"
                                                         class="btn btn3">Register</a></li>
                                             </ul>
                                         </nav>

@@ -247,10 +247,10 @@ Route::middleware('auth:student')->group(function () {
 });
 
 
-Route::get('/login', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::get('/student/login', [AuthenticatedSessionController::class, 'StudentLogin'])->name('student.login');
+Route::post('/student/login', [AuthenticatedSessionController::class, 'store']);
 
 
 
-Route::get('/register', [RegisteredUserController::class, 'StudentRegister'])->name('student.register');
-Route::post('/register', [RegisteredUserController::class, 'StudentRegisterStore']);
+Route::get('/student/register', [RegisteredUserController::class, 'StudentRegister'])->name('student.register');
+Route::post('/student/register', [RegisteredUserController::class, 'StudentRegisterStore']);

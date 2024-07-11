@@ -58,8 +58,8 @@
                                 <input type="radio" class="form-check-input" name="correct_option" value="d" {{ $mcq->correct_option == 'd' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="correctOptionD">Option D</label>
                             </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Question</button>
+                        </div> 
+                        <button type="submit" class="btn btn-primary btn-lg">Update Question</button>
                     </form>
                 </div>
             </div>

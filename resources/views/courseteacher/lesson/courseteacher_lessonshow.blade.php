@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="mt-3 mb-3">{{ $lesson->title }}</h2>
-                        <a href="{{ route('course.teacher.lesson') }}" class="btn btn-primary">Back to Lessons</a>
+                        <a href="{{ route('course.teacher.lesson') }}" class="btn btn-primary btn-lg">Back to Lessons</a>
                     </div>
                     @if($lesson->video_url)
                         <div class="embed-responsive" style="height: 500px;">

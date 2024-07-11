@@ -29,7 +29,7 @@
                     <form action="{{ route('course.teacher.question.chapter.delete', $questionchapter->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                     </form>
                 </div>
             </div>

@@ -29,7 +29,7 @@
                             <label for="video_url" class="form-label">Video URL:</label>
                             <input id="video_url" class="form-control" name="video_url" type="url">
                         </div>
-                        <button type="submit" class="btn btn-primary">Add Lesson</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Add Lesson</button>
                     </form>
                 </div>
             </div>

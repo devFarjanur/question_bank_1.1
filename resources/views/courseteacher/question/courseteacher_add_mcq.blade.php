@@ -71,10 +71,10 @@
 
                         <!-- Add more button -->
                         <div class="col-md-3 mt-2 mb-5">
-                            <button class="btn btn-primary mb-3 add_item_btn">Add More</button>
+                            <button class="btn btn-primary mb-3 add_item_btn btn-lg">Add More</button>
                         </div>
 
-                        <input class="btn btn-primary" type="submit" value="Submit">
+                        <input class="btn btn-primary btn-lg" type="submit" value="Submit">
                     </form>
 
                 </div>
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                     <div class="col-md-3 mt-2">
-                        <button class="btn btn-danger mb-3 remove_item_btn">Remove</button>
+                        <button class="btn btn-danger mb-3 btn-lg remove_item_btn">Remove</button>
                     </div>
                 </div>
             `);

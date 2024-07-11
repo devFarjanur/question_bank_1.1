@@ -44,7 +44,7 @@
                             <input id="question_mark" class="form-control" name="question_mark" type="text"
                                 value="{{ $question->question_mark }}" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Question</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Update Question</button>
                     </form>
                 </div>
             </div>

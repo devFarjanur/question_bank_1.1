@@ -30,7 +30,7 @@
                             <input id="video_url" class="form-control" name="video_url" type="url"
                                 value="{{ $lesson->video_url }}">
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Lesson</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Update Lesson</button>
                     </form>
                 </div>
             </div>

@@ -33,11 +33,11 @@
                                     {{ $mcq->correct_option }}</p>
                                 <div class="d-flex justify-content-between mt-2">
                                     <a href="{{ route('course.teacher.mcq.edit', $mcq->id) }}"
-                                        class="btn btn-warning btn-sm">Edit</a>
+                                        class="btn btn-warning btn-lg">Edit</a>
                                     <form action="{{ route('course.teacher.mcq.delete', $mcq->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                                     </form>
                                 </div>
                             </div>

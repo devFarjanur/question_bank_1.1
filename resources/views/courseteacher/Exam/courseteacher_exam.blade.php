@@ -33,11 +33,11 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-center mt-3 gap-2">
-                        <a href="{{ route('course.teacher.exam.edit', $exam->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('course.teacher.exam.edit', $exam->id) }}" class="btn btn-warning btn-lg">Edit</a>
                         <form action="{{ route('course.teacher.exam.delete', $exam->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                         </form>
                     </div>
                 </div>

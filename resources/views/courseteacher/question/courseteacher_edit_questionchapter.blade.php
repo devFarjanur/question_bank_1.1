@@ -19,7 +19,7 @@
                             <label for="questionchapter" class="form-label">Chapter Name:</label>
                             <input id="questionchapter" class="form-control" name="questionchapter" type="text" value="{{ $questionchapter->name }}" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Update Chapter</button>
+                        <button type="submit" class="btn btn-primary btn-lg">Update Chapter</button>
                     </form>
                 </div>
             </div>

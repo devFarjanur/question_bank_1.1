@@ -46,7 +46,7 @@
               </select>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Create Exam</button>
+            <button type="submit" class="btn btn-primary btn-lg mt-3">Create Exam</button>
           </form>
         </div>
       </div>

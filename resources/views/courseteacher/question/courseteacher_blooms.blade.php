@@ -10,7 +10,7 @@
     </nav>
 
     <div class=" mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="{{ route('course.teacher.blooms.add', ['id' => $questionchapter->id]) }}" class="btn btn-primary">Add BLOOMS Question</a>
+        <a href="{{ route('course.teacher.blooms.add', ['id' => $questionchapter->id]) }}" class="btn btn-primary btn-lg">Add BLOOMS Question</a>
     </div>
 
     <div class="mt-3">
@@ -38,7 +38,7 @@
                                         <form action="{{ route('course.teacher.blooms.delete', $question->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                                         </form>
                                     </div>
                                 </div>

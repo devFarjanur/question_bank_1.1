@@ -35,7 +35,7 @@
                                         <input class="form-control" name="marks" type="text" value="{{ $response->marks }}">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-2">Update Mark</button>
+                                <button type="submit" class="btn btn-primary btn-lg mt-2">Update Mark</button>
                             </form>
                         </div>
                     @endforeach

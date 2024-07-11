@@ -38,12 +38,12 @@
                         <a href="{{ route('course.student.lesson', $lesson) }}" class="text-decoration-none">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div class="mt-3">
-                                    <h4 class="card-title text-center">{{ $lesson->title }}</h4>
+                                    <h4 class="card-title text-center" style="font-size: 18px; font-weight:500;">{{ $lesson->title }}</h4>
                                 </div>
                             </div>
                         </a>
                         <div class="card-footer text-center">
-                            <small class="text-muted">Lesson {{ $loop->iteration }}</small>
+                            <small class="text-muted" style="font-size: 16px;">Lesson {{ $loop->iteration }}</small>
                         </div>
                     </div>
                 </div>

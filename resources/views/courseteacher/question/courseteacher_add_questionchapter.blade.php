@@ -30,7 +30,7 @@
                         <input id="question" class="form-control" name="questionchapter" type="text">
                     </div>
 
-                    <input class="btn btn-primary" type="submit" value="Submit">
+                    <input class="btn btn-primary btn-lg" type="submit" value="Submit">
                 </form>
 
 

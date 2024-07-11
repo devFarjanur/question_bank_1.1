@@ -51,14 +51,14 @@
                                     </div>
                                     <div class="col-md-2 mt-6 text-center">
                                         <!-- Add more button -->
-                                        <button class="btn btn-primary mb-3 add_item_btn">Add More</button>
+                                        <button class="btn btn-primary mb-3 add_item_btn btn-lg">Add More</button>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Add other form fields for options and correct answer if needed -->
 
-                            <input class="btn btn-primary mt-3" type="submit" value="Submit">
+                            <input class="btn btn-primary btn-lg mt-3" type="submit" value="Submit">
                         </form>
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                             <input class="form-control" name="question_mark[]" type="text">
                         </div>
                         <div class="col-md-2 mt-6 text-center">
-                            <button class="btn btn-danger mb-3 remove_item_btn">Remove</button>
+                            <button class="btn btn-danger mb-3 btn-lg remove_item_btn">Remove</button>
                         </div>
                     </div>`
                 );
