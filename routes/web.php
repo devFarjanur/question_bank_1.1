@@ -154,7 +154,7 @@ Route::post('admin/login', [AuthenticatedSessionController::class, 'store']);
 
 
 
-Route::middleware('auth:questioncreator')->group(function () {
+Route::middleware('auth:teacher')->group(function () {
     Route::prefix('teacher')->group(function () {
         Route::get('/logout', [CourseTeacherController::class, 'CourseTeacherLogout'])->name('course.teacher.logout');
         Route::get('/profile', [CourseTeacherController::class, 'CourseTeacherProfile'])->name('course.teacher.profile');

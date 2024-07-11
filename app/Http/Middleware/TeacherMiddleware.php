@@ -6,14 +6,19 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class QuestionCreatorMiddleware
+class TeacherMiddleware
 {
     public function handle($request, Closure $next)
     {
-        if (!Auth::guard('questioncreator')->check()) {
-            return redirect('/question-creator/login');
+        if (!Auth::guard('teacher')->check()) {
+            return redirect('/teacher/login');
         }
 
         return $next($request);
     }
 }
+
+
+
+
+

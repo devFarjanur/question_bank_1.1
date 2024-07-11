@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // Schema for the 'questioncreators' table
-        Schema::create('questioncreators', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             // Table columns
             $table->id();
             $table->string('name');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['questioncreator']);
+            $table->enum('role', ['teacher']);
             $table->foreignId('course_id')->nullable()->constrained('courses')->onDelete('cascade');
             $table->string('photo')->nullable();
             $table->string('phone')->nullable();

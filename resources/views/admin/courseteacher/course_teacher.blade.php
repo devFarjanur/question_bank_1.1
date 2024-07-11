@@ -45,7 +45,7 @@
                                                     action="{{ route('admin.approve.course.teacher', $request->id) }}">
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit" class="btn btn-primary me-md-2">Approve</button>
+                                                    <button type="submit" class="btn btn-primary btn-lg me-md-2">Approve</button>
                                                 </form>
 
 
@@ -53,7 +53,7 @@
                                                     action="{{ route('admin.reject.course.teacher', $request->id) }}">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Reject</button>
+                                                    <button type="submit" class="btn btn-danger btn-lg">Reject</button>
                                                 </form>
                                             </div>
 

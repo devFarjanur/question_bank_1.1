@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Questioncreator extends Authenticatable
+class Teacher extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -29,11 +29,11 @@ class Questioncreator extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $guard = 'questioncreator';
+    protected $guard = 'teacher';
 
-    public function isQuestioncreator(): bool
+    public function isTeacher(): bool
     {
-        return $this->role === 'questioncreator';
+        return $this->role === 'teacher';
     }
 
     public function course()

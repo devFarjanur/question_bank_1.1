@@ -72,7 +72,7 @@
       <h4 class="mb-3 mb-md-0">Question Category</h4>
     </div>
     <div class=" mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
-      <a href="{{ route('admin.question.category.create') }}" class="btn btn-primary">Create Question Category</a>
+      <a href="{{ route('admin.question.category.create') }}" class="btn btn-primary btn-lg">Create Question Category</a>
     </div>
   </div>
 
@@ -85,11 +85,11 @@
         <h5 class="card-title" style="font-size: 22px;">{{ $category->name }}</h5>
         </div>
         <div class="d-flex justify-content-center mt-3 gap-2">
-        <a href="{{ route('admin.question.category.edit', $category->id) }}" class="btn btn-warning btn-sm">Edit</a>
+        <a href="{{ route('admin.question.category.edit', $category->id) }}" class="btn btn-warning btn-lg">Edit</a>
         <form action="{{ route('admin.question.category.delete', $category->id) }}" method="POST">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          <button type="submit" class="btn btn-danger btn-lg">Delete</button>
         </form>
         </div>
       </div>
@@ -132,7 +132,7 @@
             <form action="{{ route('admin.teacher.delete', $teacher->id) }}" method="POST">
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              <button type="submit" class="btn btn-danger btn-lg">Delete</button>
             </form>
             </td>
           </tr>
@@ -179,7 +179,7 @@
             <form action="{{ route('admin.student.delete', $student->id) }}" method="POST">
               @csrf
               @method('DELETE')
-              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+              <button type="submit" class="btn btn-danger btn-lg">Delete</button>
             </form>
             </td>
           </tr>

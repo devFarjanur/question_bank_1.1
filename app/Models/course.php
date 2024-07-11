@@ -16,9 +16,9 @@ class Course extends Model
         return $this->hasMany(Lesson::class);
     }
 
-    public function questioncreators()
+    public function teachers()
     {
-        return $this->hasMany(Questioncreator::class);
+        return $this->hasMany(Teacher::class);
     }
 
 }

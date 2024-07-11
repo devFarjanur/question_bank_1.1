@@ -13,7 +13,7 @@ use App\Models\MCQ;
 use App\Models\Mcqresponse;
 use App\Models\QuestionCategory;
 use App\Models\QuestionChapter;
-use App\Models\Questioncreator;
+use App\Models\Teacher;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -25,12 +25,12 @@ class CourseTeacherController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:questioncreator');
+        $this->middleware('auth:teacher');
     }
 
     public function CourseTeacherLogout(Request $request): RedirectResponse
     {
-        Auth::guard('questioncreator')->logout();
+        Auth::guard('teacher')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/teacher/login');
@@ -41,7 +41,7 @@ class CourseTeacherController extends Controller
     {
         if (Auth::check()) {
             $id = Auth::user()->id;
-            $profileData = Questioncreator::find($id);
+            $profileData = Teacher::find($id);
             return view('courseteacher.courseteacher_profile_view', compact('profileData'));
         } else {
             return redirect('/teacher/login');
@@ -51,7 +51,7 @@ class CourseTeacherController extends Controller
     public function CourseTeacherProfileStore(Request $request)
     {
         $id = Auth::user()->id;
-        $data = Questioncreator::find($id);
+        $data = Teacher::find($id);
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
@@ -78,7 +78,7 @@ class CourseTeacherController extends Controller
     {
         if (Auth::check()) {
             $id = Auth::user()->id;
-            $profileData = Questioncreator::find($id);
+            $profileData = Teacher::find($id);
             return view('courseteacher.courseteacher_change_password', compact('profileData'));
         } else {
             return redirect('/teacher/login');
@@ -101,7 +101,7 @@ class CourseTeacherController extends Controller
             return back()->with($notification);
         }
 
-        Questioncreator::whereId(auth()->user()->id)->update([
+        Teacher::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password),
         ]);
 
@@ -265,7 +265,7 @@ class CourseTeacherController extends Controller
 
         // Retrieve the authenticated user
         $userId = Auth::id();
-        $user = Questioncreator::findOrFail($userId);
+        $user = Teacher::findOrFail($userId);
 
         // Retrieve the course ID associated with the user
         $courseId = $user->course_id;

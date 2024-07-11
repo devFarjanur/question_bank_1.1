@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Course;
 use App\Models\QuestionCategory;
-use App\Models\Questioncreator;
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -109,10 +109,10 @@ class AdminController extends Controller
     {
 
         $totalCourse = Course::count();
-        $totalTeacher = Questioncreator::where('role', 'questioncreator')->where('approved', true)->count();
+        $totalTeacher = Teacher::where('role', 'teacher')->where('approved', true)->count();
         $totalStudent = Student::where('role', 'student')->where('approved', true)->count();
 
-        $teachers = Questioncreator::where('role', 'questioncreator')->where('approved', true)->get();
+        $teachers = Teacher::where('role', 'teacher')->where('approved', true)->get();
         $students = Student::where('role', 'student')->where('approved', true)->get();
 
 
@@ -126,7 +126,7 @@ class AdminController extends Controller
 
     public function deleteTeacher($id)
     {
-        $teacher = Questioncreator::find($id);
+        $teacher = Teacher::find($id);
 
         if ($teacher) {
             $teacher->delete();
@@ -262,7 +262,7 @@ class AdminController extends Controller
     public function AdminCourseTeacher()
     {
         // Fetch pending course teacher requests where approved is false
-        $pendingRequests = QuestionCreator::where('role', 'questioncreator')->where('approved', false)->get();
+        $pendingRequests = Teacher::where('role', 'teacher')->where('approved', false)->get();
 
         return view('admin.courseteacher.course_teacher', compact('pendingRequests'));
     }
@@ -271,7 +271,7 @@ class AdminController extends Controller
 
     public function AdminApproveCourseTeacher($id)
     {
-        $courseteacher = Questioncreator::find($id);
+        $courseteacher = Teacher::find($id);
         if ($courseteacher) {
             $courseteacher->approved = true;
             $courseteacher->save();
@@ -294,7 +294,7 @@ class AdminController extends Controller
 
     public function rejectCourseTeacher($id)
     {
-        $request = Questioncreator::find($id);
+        $request = Teacher::find($id);
         $request->status = 'rejected';
         $request->delete();
 

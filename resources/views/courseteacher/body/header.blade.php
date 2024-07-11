@@ -37,7 +37,7 @@
     $profileData = null;
     if (Auth::check()) {
       $id = Auth::user()->id;
-      $profileData = App\Models\Questioncreator::find($id);
+      $profileData = App\Models\Teacher::find($id);
     }
     @endphp
 

@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
             }
         } else if ($request->is('teacher/login')) {
 
-            if (Auth::guard('questioncreator')->attempt($credentials)) {
+            if (Auth::guard('teacher')->attempt($credentials)) {
 
                 return redirect()->intended('/teacher/dashboard');
             } else {

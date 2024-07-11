@@ -10,7 +10,7 @@
     </nav>
 
     <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="{{ route('admin.course.create') }}" class="btn btn-primary">Create Course</a>
+        <a href="{{ route('admin.course.create') }}" class="btn btn-primary btn-lg">Create Course</a>
     </div>
 
     <div class="row row-cols-2 row-cols-md-4">
@@ -22,11 +22,11 @@
                             <h5 class="card-title" style="font-size: 22px;">{{ $course->name }}</h5>
                         </div>
                         <div class="d-flex justify-content-center mt-3 gap-2">
-                            <a href="{{ route('admin.course.edit', $course->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{{ route('admin.course.edit', $course->id) }}" class="btn btn-warning btn-lg">Edit</a>
                             <form action="{{ route('admin.course.delete', $course->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                <button type="submit" class="btn btn-danger btn-lg">Delete</button>
                             </form>
                         </div>
                     </div>

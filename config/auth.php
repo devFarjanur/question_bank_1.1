@@ -44,9 +44,9 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        'questioncreator' => [
+        'teacher' => [
             'driver' => 'session',
-            'provider' => 'questioncreators',
+            'provider' => 'teachers',
         ],
         'student' => [
             'driver' => 'session',
@@ -80,9 +80,9 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-        'questioncreators' => [
+        'teachers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Questioncreator::class,
+            'model' => App\Models\Teacher::class,
         ],
         'students' => [
             'driver' => 'eloquent',
@@ -127,8 +127,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'questioncreators' => [
-            'provider' => 'questioncreators',
+        'teachers' => [
+            'provider' => 'teachers',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
