@@ -10,7 +10,7 @@ class LandingPageController extends Controller
     public function home()
     {
         $courses = Course::all();
-        $courses = Course::with('questioncreators')->get();
+        $courses = Course::with('teachers')->get();
         return view('main.index', compact('courses'));
     }
 
@@ -18,7 +18,7 @@ class LandingPageController extends Controller
     public function course()
     {
         $courses = Course::all();
-        $courses = Course::with('questioncreators')->get();
+        $courses = Course::with('teachers')->get();
         return view('main.courses', compact('courses'));
     }
 
@@ -26,7 +26,7 @@ class LandingPageController extends Controller
     public function about()
     {
         $courses = Course::all();
-        $courses = Course::with('questioncreators')->get();
+        $courses = Course::with('teachers')->get();
         return view('main.about', compact('courses'));
     }
 

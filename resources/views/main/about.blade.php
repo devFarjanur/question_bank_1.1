@@ -194,14 +194,14 @@
                 </div>
                 <div class="team-active">
                     @foreach($courses as $course)
-                        @foreach($course->questioncreators as $questioncreator)
+                        @foreach($course->teachers as $teacher)
                             <div class="single-cat text-center">
                                 <div class="cat-icon">
                                     <img src="{{ asset('backend/assets/img1/gallery/team.jpg') }}" alt="Teacher Image">
                                 </div>
                                 <div class="cat-cap">
-                                    <h5><a href="services.html">{{ $questioncreator->name }}</a></h5>
-                                    <p>{{ $questioncreator->email }}</p>
+                                    <h5><a href="services.html">{{ $teacher->name }}</a></h5>
+                                    <p>{{ $teacher->email }}</p>
                                     <!-- Add any additional information here -->
                                 </div>
                             </div>

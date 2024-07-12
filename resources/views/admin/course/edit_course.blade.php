@@ -23,8 +23,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="coursedescription" class="form-label">Course Description:</label>
-                            <input id="coursedescription" class="form-control" name="coursedescription" type="text"
-                                value="{{ $course->description }}" required>
+                            <textarea id="coursedescription" class="form-control" name="coursedescription" style="height: 200px;" required>{{ $course->description }}</textarea>
                         </div>
                         <input class="btn btn-primary" type="submit" value="Update">
                     </form>

@@ -171,19 +171,21 @@
                     @foreach($courses as $course)
                         <!-- Single Course -->
                         <div class="properties pb-20">
-                            <div class="properties__card">
-                                <div class="properties__caption">
+                            <div class="properties__card" style="height: 380px; position: relative; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div class="properties__caption" style="flex: 1;">
                                     <h3><a href="#">{{ $course->name }}</a></h3>
                                     <p>{{ $course->description }}</p>
                                     <div class="properties__footer d-flex justify-content-between align-items-center">
                                         <!-- Add any additional information here -->
                                     </div>
-                                    <a href="/register" class="border-btn border-btn2">Register</a>
+                                    <a href="/register" class="border-btn border-btn2" style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 40px); text-align: center;">Register</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
+
+
             </div>
         </div>
         <!-- Courses area End -->
@@ -259,14 +261,14 @@
                 </div>
                 <div class="team-active">
                     @foreach($courses as $course)
-                        @foreach($course->questioncreators as $questioncreator)
+                        @foreach($course->teachers as $teacher)
                             <div class="single-cat text-center">
                                 <div class="cat-icon">
                                     <img src="{{ asset('backend/assets/img1/gallery/team.jpg') }}" alt="Teacher Image">
                                 </div>
                                 <div class="cat-cap">
-                                    <h5><a href="services.html">{{ $questioncreator->name }}</a></h5>
-                                    <p>{{ $questioncreator->email }}</p>
+                                    <h5><a href="services.html">{{ $teacher->name }}</a></h5>
+                                    <p>{{ $teacher->email }}</p>
                                     <!-- Add any additional information here -->
                                 </div>
                             </div>
