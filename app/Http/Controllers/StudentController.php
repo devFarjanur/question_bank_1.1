@@ -185,15 +185,17 @@ class StudentController extends Controller
     public function StudentExam()
     {
         $courseId = auth()->user()->course_id;
-
+    
         // Retrieve exams with their associated question chapters and question categories
         $exams = Exam::with('questionChapter', 'questionCategory')
             ->where('course_id', $courseId)
             ->get();
-
+    
         // Pass the exams data to the view
         return view('student.exam.student_exam', compact('exams'));
     }
+    
+
 
     public function StudentMcqExam($id)
     {
@@ -211,16 +213,13 @@ class StudentController extends Controller
 
         $courseId = $student->course_id;
         $exam = Exam::findOrFail($id);
-        $questionchapter = QuestionChapter::findOrFail($id);
-        $mcqs = MCQ::where('questionchapter_id', $id)
-            ->whereHas('questionChapter', function ($query) use ($questionchapter) {
-                $query->where('questioncategory_id', $questionchapter->questioncategory_id);
-            })
-            ->get();
+        $questionchapter = $exam->questionChapter;
+        $mcqs = MCQ::where('questionchapter_id', $questionchapter->id)->get();
         $questionCategoryId = $questionchapter->questioncategory_id;
 
         return view('student.exam.student_mcq_exam', compact('exam', 'courseId', 'questionchapter', 'mcqs', 'questionCategoryId'));
     }
+
 
     // app/Http/Controllers/StudentController.php
 
@@ -280,8 +279,6 @@ class StudentController extends Controller
 
     public function StudentBloomsExam($id)
     {
-        $courseId = auth()->user()->course_id;
-
         $student = auth()->user();
 
         // Check if the student has already submitted the exam
@@ -294,18 +291,15 @@ class StudentController extends Controller
             return redirect()->route('student.exam')->with($notification);
         }
 
+        $courseId = $student->course_id;
         $exam = Exam::findOrFail($id);
-        $questionchapter = QuestionChapter::findOrFail($id);
-        $questions = BLOOMS::where('questionchapter_id', $id)
-            ->whereHas('questionChapter', function ($query) use ($questionchapter) {
-                $query->where('questioncategory_id', $questionchapter->questioncategory_id);
-            })
-            ->get()->groupBy('bloom_taxonomy');
-
+        $questionchapter = $exam->questionChapter;
+        $questions = BLOOMS::where('questionchapter_id', $questionchapter->id)->get()->groupBy('bloom_taxonomy');
         $questionCategoryId = $questionchapter->questioncategory_id;
 
-        return view('student.exam.student_blooms_exam', compact('courseId', 'exam', 'questionCategoryId', 'questionchapter', 'questions'));
+        return view('student.exam.student_blooms_exam', compact('exam', 'courseId', 'questionchapter', 'questions', 'questionCategoryId'));
     }
+
 
     public function StudentBloomsExamSubmit(Request $request, $id)
     {
@@ -355,36 +349,36 @@ class StudentController extends Controller
     public function StudentExamResult()
     {
         $studentId = auth()->user()->id;
-    
+
         // Get the current student's MCQ responses
         $mcqResponses = Mcqresponse::where('student_id', $studentId)
             ->with('exam', 'mcq', 'questionchapter', 'questioncategory')
             ->get();
-    
+
         // Get the current student's Blooms responses
         $bloomsResponses = Bloomsresponse::where('student_id', $studentId)
             ->with('exam', 'bloomsQuestion', 'questionchapter', 'questioncategory')
             ->get();
-    
+
         // Initialize array to store MCQ exam scores
         $mcqScores = [];
-    
+
         // Calculate total MCQ scores for each exam
         foreach ($mcqResponses as $response) {
             $examName = $response->exam->exam_name;
             $questionChapterName = $response->questionchapter->name;
             $questionCategoryName = $response->questioncategory->name;
-    
+
             if (!isset($mcqScores[$examName][$questionChapterName][$questionCategoryName])) {
                 $mcqScores[$examName][$questionChapterName][$questionCategoryName] = 0;
             }
-    
+
             $mcqScores[$examName][$questionChapterName][$questionCategoryName] += $response->marks;
         }
-    
+
         // Initialize array to store Blooms exam scores grouped by taxonomy levels
         $bloomsScores = [];
-    
+
         // Loop through Blooms responses to calculate scores for each taxonomy level
         foreach ($bloomsResponses as $response) {
             $examName = $response->exam->exam_name;
@@ -392,20 +386,20 @@ class StudentController extends Controller
             $questionCategoryName = $response->questioncategory->name;
             $taxonomyLevel = $response->bloomsQuestion->bloom_taxonomy;
             $marks = $response->marks;
-    
+
             // Initialize the taxonomy level if not already set
             if (!isset($bloomsScores[$examName][$questionChapterName][$questionCategoryName][$taxonomyLevel])) {
                 $bloomsScores[$examName][$questionChapterName][$questionCategoryName][$taxonomyLevel] = 0;
             }
-    
+
             // Add marks to the corresponding taxonomy level
             $bloomsScores[$examName][$questionChapterName][$questionCategoryName][$taxonomyLevel] += $marks;
         }
-    
+
         // Pass the MCQ and Blooms exam scores to the student exam result view
         return view('student.result.student_exam_result', compact('mcqScores', 'bloomsScores'));
     }
-    
+
 
 
 }

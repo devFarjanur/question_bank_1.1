@@ -104,7 +104,7 @@
                         <div class="row">
                             <div class="col-xl-6 col-lg-7 col-md-12">
                                 <div class="hero__caption">
-                                    <h1 data-animation="fadeInLeft" data-delay="0.2s">Online learning<br> platform</h1>
+                                    <h1 style="font-size: 32px" data-animation="fadeInLeft" data-delay="0.2s">Empower Your Future: Smart Learning, Question Bank and Exam Model</h1>
                                     <p data-animation="fadeInLeft" data-delay="0.4s">Build skills with courses and exams
                                     </p>
                                     <a href="#" class="btn hero-btn" data-animation="fadeInLeft" data-delay="0.7s">Join
