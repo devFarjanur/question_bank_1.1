@@ -740,5 +740,76 @@ class CourseTeacherController extends Controller
 
 
 
+    public function CourseTeacherExamResult()
+    {
+        $teacher = auth()->user();
+
+        // Retrieve the course associated with the teacher
+        $course = Course::with('students')->find($teacher->course_id);
+
+        // Check if the course exists
+        if (!$course) {
+            return redirect()->back()->with('error', 'No course assigned to this teacher.');
+        }
+
+        // Initialize arrays to store MCQ and Blooms scores
+        $mcqScores = [];
+        $bloomsScores = [];
+
+        foreach ($course->students as $student) {
+            $studentId = $student->id;
+
+            // Get the current student's MCQ responses
+            $mcqResponses = Mcqresponse::where('student_id', $studentId)
+                ->with('exam', 'mcq', 'questionchapter', 'questioncategory')
+                ->get();
+
+            // Get the current student's Blooms responses
+            $bloomsResponses = Bloomsresponse::where('student_id', $studentId)
+                ->with('exam', 'bloomsQuestion', 'questionchapter', 'questioncategory')
+                ->get();
+
+            // Calculate total MCQ scores for each exam
+            foreach ($mcqResponses as $response) {
+                $examName = $response->exam->exam_name;
+                $questionChapterName = $response->questionchapter->name;
+                $questionCategoryName = $response->questioncategory->name;
+                $studentName = $student->name;
+
+                if (!isset($mcqScores[$examName][$studentName][$questionChapterName][$questionCategoryName])) {
+                    $mcqScores[$examName][$studentName][$questionChapterName][$questionCategoryName] = 0;
+                }
+
+                $mcqScores[$examName][$studentName][$questionChapterName][$questionCategoryName] += $response->marks;
+            }
+
+            // Calculate Blooms exam scores grouped by taxonomy levels
+            foreach ($bloomsResponses as $response) {
+                $examName = $response->exam->exam_name;
+                $questionChapterName = $response->questionchapter->name;
+                $questionCategoryName = $response->questioncategory->name;
+                $taxonomyLevel = $response->bloomsQuestion->bloom_taxonomy;
+                $marks = $response->marks;
+                $studentName = $student->name;
+
+                // Initialize the taxonomy level if not already set
+                if (!isset($bloomsScores[$examName][$studentName][$questionChapterName][$questionCategoryName][$taxonomyLevel])) {
+                    $bloomsScores[$examName][$studentName][$questionChapterName][$questionCategoryName][$taxonomyLevel] = 0;
+                }
+
+                // Add marks to the corresponding taxonomy level
+                $bloomsScores[$examName][$studentName][$questionChapterName][$questionCategoryName][$taxonomyLevel] += $marks;
+            }
+        }
+
+        // Debugging line to inspect the structure of mcqScores and bloomsScores
+
+
+        // Pass the MCQ and Blooms exam scores to the teacher exam result view
+        return view('courseteacher.result.courseteacher_result', compact('mcqScores', 'bloomsScores'));
+    }
+
+
+
 
 }

@@ -45,7 +45,15 @@
       <li class="nav-item">
         <a href="{{ route('course.teacher.exam.category') }}" class="nav-link">
           <i class="link-icon" data-feather="bookmark"></i>
-          <span class="link-title">Student Mark</span>
+          <span class="link-title">Student Exam</span>
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a href="{{ route('course.teacher.exam.results') }}" class="nav-link">
+          <i class="link-icon" data-feather="bookmark"></i>
+          <span class="link-title">Student Result</span>
         </a>
       </li>
 

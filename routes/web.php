@@ -210,6 +210,15 @@ Route::middleware('auth:teacher')->group(function () {
         Route::get('/mcq/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherMcqResponce'])->name('course.teacher.mcq.response');
         Route::get('/blooms/response/{student_id}/{exam_id}', [CourseTeacherController::class, 'CourseTeacherBloomsResponce'])->name('course.teacher.blooms.response');
         Route::put('/blooms/update-marks/{response_id}', [CourseTeacherController::class, 'CourseTeacherBloomsMarkUpdate'])->name('course.teacher.blooms.mark.update');
+
+        
+
+
+        Route::get('/exam-results', [CourseTeacherController::class, 'CourseTeacherExamResult'])->name('course.teacher.exam.results');
+
+
+
+
     });
 });
 
