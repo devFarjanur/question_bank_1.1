@@ -35,20 +35,17 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $request->name }}</td>
                                         <td>{{ $request->email }}</td>
-                                        <td>{{ $request->course->name }}</td>
-                                        <!-- Assuming this is how you access the course name -->
-                                        <td>{{ $request->role }}</td> <!-- Assuming this is how you access the role -->
+                                        <td>{{ $request->course ? $request->course->name : 'N/A' }}</td>
+                                        <td>{{ $request->role }}</td>
                                         <td>
-
                                             <div class="d-grid gap-2 d-md-flex justify-content-center">
                                                 <form method="POST"
                                                     action="{{ route('admin.approve.course.teacher', $request->id) }}">
                                                     @csrf
                                                     @method('PUT')
-                                                    <button type="submit" class="btn btn-primary btn-lg me-md-2">Approve</button>
+                                                    <button type="submit"
+                                                        class="btn btn-primary btn-lg me-md-2">Approve</button>
                                                 </form>
-
-
                                                 <form method="POST"
                                                     action="{{ route('admin.reject.course.teacher', $request->id) }}">
                                                     @csrf
@@ -56,10 +53,10 @@
                                                     <button type="submit" class="btn btn-danger btn-lg">Reject</button>
                                                 </form>
                                             </div>
-
                                         </td>
                                     </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     @endif

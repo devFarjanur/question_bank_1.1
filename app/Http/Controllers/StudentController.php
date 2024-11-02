@@ -244,7 +244,7 @@ class StudentController extends Controller
 
         // Validate the form data
         $validatedData = $request->validate([
-            'option.*' => 'required|string', // Validation for options selected
+            'option.*' => 'nullable|string', // Validation for options selected
         ]);
 
         $exam = Exam::findOrFail($id);
@@ -312,7 +312,7 @@ class StudentController extends Controller
         // Validate the form data
         $validatedData = $request->validate([
             'bloom_ids.*' => 'required|exists:b_l_o_o_m_s,id',
-            'response_answers.*' => 'required|string',
+            'response_answers.*' => 'nullable|string',
             'marks' => 'nullable|array', // marks is an array
             'marks.*' => 'nullable|string', // each mark is a string
         ]);

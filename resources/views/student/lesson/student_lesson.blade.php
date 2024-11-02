@@ -2,6 +2,16 @@
 @section('student')
 
 <div class="page-content">
+
+    <div class="d-flex align-items-right justify-content-end flex-wrap text-nowrap">
+        <div class="input-group flatpickr wd-200 me-2 mb-2 mb-md-0" id="dashboardDate">
+            <span class="input-group-text input-group-addon bg-transparent border-primary" data-toggle>
+                <i data-feather="calendar" class="text-primary"></i>
+            </span>
+            <input type="text" class="form-control bg-transparent border-primary" placeholder="Select date" data-input>
+        </div>
+    </div>
+
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="#">Course</a></li>
@@ -38,7 +48,8 @@
                         <a href="{{ route('course.student.lesson', $lesson) }}" class="text-decoration-none">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div class="mt-3">
-                                    <h4 class="card-title text-center" style="font-size: 18px; font-weight:500;">{{ $lesson->title }}</h4>
+                                    <h4 class="card-title text-center" style="font-size: 18px; font-weight:500;">
+                                        {{ $lesson->title }}</h4>
                                 </div>
                             </div>
                         </a>

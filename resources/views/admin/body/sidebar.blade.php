@@ -36,23 +36,6 @@
           <span class="link-title">Student Request</span>
         </a>
       </li>
-
-
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="link-icon" data-feather="message-square"></i>
-          <span class="link-title">Chat</span>
-        </a>
-      </li>
-
-
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="link-icon" data-feather="calendar"></i>
-          <span class="link-title">Calendar</span>
-        </a>
-      </li>
-
     </ul>
   </div>
 </nav>

@@ -15,21 +15,8 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
-          <i class="flag-icon flag-icon-bd mt-1" title="bd"></i> <span
+          <i class="flag-icon flag-icon-bd mt-1" title="BD"></i> <span
             class="ms-1 me-1 d-none d-md-inline-block">English</span>
-        </a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="appsDropdown" role="button" data-bs-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i data-feather="grid"></i>
-        </a>
-
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-bs-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          <i data-feather="mail"></i>
         </a>
       </li>
 
@@ -39,7 +26,8 @@
       $id = Auth::user()->id;
       $profileData = App\Models\Teacher::find($id);
     }
-    @endphp
+  @endphp
+
 
       @if ($profileData)
       <!-- Your navigation code accessing $profileData -->
