@@ -1,7 +1,7 @@
 # Smart Learning with Question Bank & Exam Model
 
-**Live site**: [Link to Live Site](#)  
-**Code**: [Link to GitHub Repository](https://github.com/devFarjanur/question_bank_1.1)
+**Live site**: [Live Site](http://promiseeshop.com/smartquestionbank)  
+**Code**: [GitHub Repository](https://github.com/devFarjanur/question_bank_1.1)
 
 Developed an online platform featuring a **Smart Question Bank**, **Exam Model**, and **Learning Management System (LMS)** designed to enhance professional assessments and bridge the gap between education and career readiness. This platform provides an efficient learning and evaluation system for both students and teachers.
 
