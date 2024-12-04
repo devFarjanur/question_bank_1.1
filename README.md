@@ -1,33 +1,27 @@
 # Smart Learning with Question Bank & Exam Model
 
-This project focuses on improving future professional assessments by developing an online **Smart Question Bank**, **Exam Model**, and **Learning Management System (LMS)**. The goal is to bridge the gap between education and professional life, creating a more knowledgeable and adaptable workforce.
+**Live site**: [Link to Live Site](#)  
+**Code**: [Link to GitHub Repository](#)
 
-## Live Site
-[Visit the Live Site](#)
+Developed an online platform featuring a **Smart Question Bank**, **Exam Model**, and **Learning Management System (LMS)** designed to enhance professional assessments and bridge the gap between education and career readiness. This platform provides an efficient learning and evaluation system for both students and teachers.
 
-## Code
-[View the Source Code](#)
+## Admin Dashboard Features:
+- **Admin Authentication & Profile Management**: Secure admin login with profile management and password update functionality.
+- **User Registration Management**: Approve or reject teacher and student registrations. View and manage teacher/student lists.
+- **Course Management**: Admin can create and manage courses and assign teachers to specific courses.
+- **Progress Tracking**: Monitor student progress, performance, and exam results.
 
-## Features
+## Teacher Dashboard Features:
+- **Course Registration & Management**: Teachers can register for specific courses (admin approval required). Teachers can create, edit, and update lessons.
+- **Exam Creation & Management**: Design Bloom’s taxonomy-based exams and MCQ exams, grade students, and manage exam scores.
+- **Profile Management**: Teachers can update their profiles, manage course content, and track student performance.
 
-### Admin Dashboard
-- **Authentication**: Admin login, profile management, and password updates.
-- **Registration Management**: Approve or reject teacher and student registrations, view teacher and student lists.
-- **Course Management**: Create and manage courses, assign teachers to courses.
+## Student Dashboard Features:
+- **Course Registration**: Students can register for courses (admin approval required) and access learning materials.
+- **Exam Management**: Students can take Bloom’s taxonomy-based and MCQ exams. **One attempt** per exam. Results displayed immediately after completion.
+- **Progress Monitoring**: Track student learning progress and view exam results.
 
-### Teacher Dashboard
-- **Course Registration**: Teachers register for specific courses (admin approval required). Without approval, teachers cannot log in.
-- **Content Management**: Create, edit, update, and delete course lesson content.
-- **Exam Management**: Design and manage Bloom's taxonomy-based and MCQ exams, grade students, and assign marks.
-- **Profile Management**: Teachers can update their profiles, manage personal details, and review order history.
-
-### Student Dashboard
-- **Course Registration**: Students register for courses (admin approval required). Without approval, students cannot log in.
-- **Learning Access**: Access and view enrolled courses, study materials, and take exams.
-- **Exam Attempts**: Students can attempt each exam only once, with results shown immediately after completion.
-
-## Technology Stack
+## Technologies Used:
 - **Frontend**: HTML, CSS, Bootstrap, JavaScript, jQuery, AJAX
 - **Backend**: PHP, Laravel
 - **Database**: MySQL
-
